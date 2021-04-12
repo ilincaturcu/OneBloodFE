@@ -1,0 +1,11 @@
+<div class="results">
+  <h2>Your results:</h2>
+  <div class="question" *ngFor="let a of questions; let i = index">
+    {{i+1}}. {{a.question}}
+  <div class="answer" [ngClass]="{correct: answers.values[index].correct}">
+     {{answers.values[i].value }}
+     <div [hidden] >{{  answers.values[i].correct }}</div>
+  </div>
+</div>
+  <br />
+</div>

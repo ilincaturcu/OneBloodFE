@@ -1,0 +1,45 @@
+$primary-color: #5C6BC0;
+$secondary-color: #1ea896;
+$tertiary-color: white;
+$primary-font:'Ubuntu', sans-serif;
+$secondary-font: 'Source Sans Pro', sans-serif;
+
+
+.results {
+  max-width: 80%;
+  padding: 5%;
+  padding-top: 2%;
+  background-color: $tertiary-color;
+  margin: auto;
+  margin-top: 5%;
+}
+
+
+
+@mixin checked($correct) {
+  content: "\2717";
+  display: inline-block;
+  color: gray;
+  padding: 0 6px 0 0;
+
+  @if $correct == false {
+    content: "\2717";
+    color:red;
+  }
+  @else if $correct == true{
+    content: '\2713';
+    color: green;
+  }
+  @else if $correct{
+    content: '\2713';
+    color: gray;
+  }
+}
+
+
+.answer.correct:before  {
+  @include checked($correct : true);
+}
+.answer:not(.correct):before  {
+  @include checked($correct : false);
+}

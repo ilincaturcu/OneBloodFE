@@ -1,0 +1,16 @@
+<div *ngIf="!questions" class="spinner-grow text-primary"></div>
+
+<div class="quiz2" *ngIf="questions">
+
+  <div class="questions" *ngIf="!showResults">
+    <app-quiz [question]="questions[currentQuestionIndex]" (onChoiceMade)="updateChoice($event)">
+    </app-quiz>
+    <button mat-stroked-button class="btn btn-success" (click)="back()"
+    >{{'Inapoi'}}</button>
+    <button mat-stroked-button class="btn btn-success" (click)="nextOrViewResults()"
+      [disabled]="!answers.values[currentQuestionIndex]">{{currentQuestionIndex === questions.length - 1 ? 'Finalizati' : 'Inainte'}}</button>
+
+  </div>
+
+  <app-results *ngIf="showResults" [answers]="answers"></app-results>
+</div>

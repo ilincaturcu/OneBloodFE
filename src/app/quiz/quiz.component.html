@@ -1,1 +1,12 @@
-<p>quiz works!</p>
+<div>Chestionar de autoexcludere</div>
+<div class="quiz" *ngIf="question">
+    <div class="label">{{question.question}}</div>
+    <form [formGroup]="form">
+      <mat-radio-group aria-label="form-group" formControlName="choice">
+        <label *ngFor="let choice of question.choices">
+          <mat-radio-button [value]="choice">
+            {{choice.value}}</mat-radio-button>
+        </label>
+      </mat-radio-group>
+    </form>
+  </div>
