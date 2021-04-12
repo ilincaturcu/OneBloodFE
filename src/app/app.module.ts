@@ -25,7 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DemoMaterialModule } from './material.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { DemoComponent } from './calendar-doctor/calendar-doctor.component';
+import { CalendarDoctorComponent } from './calendar-doctor/calendar-doctor.component';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { DemoComponent } from './calendar-doctor/calendar-doctor.component';
     InformationalModalComponent,
     QuestionsComponent,
     ResultsComponent,
-    DemoComponent
+    CalendarDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,12 @@ import { DemoComponent } from './calendar-doctor/calendar-doctor.component';
     MatFormFieldModule,
     MatInputModule,
     DemoMaterialModule,
-    CalendarModule
+    CalendarModule,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

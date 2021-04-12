@@ -45,7 +45,7 @@ const colors: any = {
   templateUrl: './calendar-doctor.component.html',
   styleUrls: ['./calendar-doctor.component.scss']
 })
-export class DemoComponent {
+export class CalendarDoctorComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
