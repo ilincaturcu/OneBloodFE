@@ -38,6 +38,28 @@ const colors: any = {
     secondary: '#FDF1BA',
   },
 };
+const dates = [
+  new Date(2021, 3, 12, 11, 55, 0),
+  new Date(2021, 3, 11, 11, 55, 0),
+  new Date(2021, 3, 13, 11, 55, 0)
+]
+
+const apiData: any = [{
+  start: addHours(startOfDay(new Date(2021, 3, 13)), 10),
+  end: addHours(startOfDay(new Date(2021, 3, 13)), 11),
+  title: "Ioan Ionescu"
+},
+{
+  start: addHours(startOfDay(new Date(2021, 3, 13)), 10),
+  end: addHours(startOfDay(new Date(2021, 3, 13)), 11),
+  title: "Ioan Ionescu"
+},
+{
+  start: addHours(startOfDay(new Date(2021, 3, 13)), 12),
+  end: addHours(startOfDay(new Date(2021, 3, 13)), 13),
+  title: "Ioan Ionescu"
+}
+]
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,7 +70,7 @@ const colors: any = {
 export class CalendarDoctorComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
-  view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Week;
 
   CalendarView = CalendarView;
 
@@ -78,51 +100,56 @@ export class CalendarDoctorComponent {
   ];
 
   refresh: Subject<any> = new Subject();
+//// The start of a day for 2 September 2014 11:55:00:
+ //var result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
 
-  events: CalendarEvent[] = [
+
+ /* events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
+      start: addHours(startOfDay(dates[1]), 10),
+      end: addHours(dates[1], 0),
+      title: 'Marin Gabriel',
       color: colors.yellow,
       actions: this.actions,
       resizable: {
         beforeStart: true,
         afterEnd: true,
       },
-      draggable: true,
+      draggable: false,
     },
+    {
+      start: addHours(startOfDay(dates[2]), 10),
+      end: addHours(dates[2], 1),
+      title: 'Popa Popescu',
+      color: colors.yellow,
+      actions: this.actions,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      draggable: false,
+    }
   ];
+*/
+events: CalendarEvent[] ;
+ /*events: CalendarEvent[] = [{
+  start: addHours(startOfDay(dates[1]), 10),
+  end: addHours(dates[1], 0),
+  title: 'Marin Gabriel',
+  color: colors.yellow,
+  actions: this.actions,
+  resizable: {
+    beforeStart: true,
+    afterEnd: true,
+  },
+  draggable: false,
+}]*/
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) { }
+  constructor(private modal: NgbModal) { 
+  this.events = this.presentCalendarData(apiData);
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -189,5 +216,24 @@ export class CalendarDoctorComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+  
+  
+     presentCalendarData(payload : CalendarEvent[]){
+      return payload.map(
+          appointment => ({ 
+          start:appointment.start,
+          end: appointment.end,
+          title: appointment.title,
+          color: colors.yellow,
+          actions: this.actions,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+          draggable: false,
+        })
+        );
+      }
+    
 }
 

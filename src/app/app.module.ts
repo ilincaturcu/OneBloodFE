@@ -27,6 +27,8 @@ import { DemoMaterialModule } from './material.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { CalendarDoctorComponent } from './calendar-doctor/calendar-doctor.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CommonModule } from '@angular/common';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     DemoMaterialModule,
     CalendarModule,
     BrowserAnimationsModule,
+    CommonModule,
+    NgbModalModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
