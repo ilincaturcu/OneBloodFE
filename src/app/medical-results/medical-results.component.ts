@@ -14,31 +14,31 @@ export class MedicalResultsComponent implements OnInit {
   public errorMsg: string;
   public successMsg: string;
   public appointments: Appointment[];
-  public columns = ['appointmentDate', 'hour', 'name', 'cancel'];
-  public button = {"progress" : "","pending":"Cancel", "completed":"Results"};
-  public status= ["progress","pending", "completed"]
+  public columns = ['appointmentDate', 'hour', 'status', 'cancel'];
+  public button = { "progress": "", "pending": "Cancel", "completed": "Results" };
+  public status = ["progress", "pending", "completed"]
 
   getAppointmentsData: Appointment[] = [
     {
-      status: "progress", 
+      status: "progress",
       appointmentDate: new Date().toDateString(),
-      hour : "10",
-      _id : "5",
-  
+      hour: "10",
+      _id: "5",
+
     },
     {
-      status: "pending", 
+      status: "pending",
       appointmentDate: new Date().toDateString(),
-      hour : "10",
-      _id : "6",
-  
+      hour: "10",
+      _id: "6",
+
     },
     {
-      status: "completed", 
+      status: "completed",
       appointmentDate: new Date().toDateString(),
-      hour : "10",
-      _id : "7",
-  
+      hour: "10",
+      _id: "7",
+
     }
   ]
   constructor(private appointmentService: AppointmentService) { }
@@ -52,12 +52,12 @@ export class MedicalResultsComponent implements OnInit {
         console.log(this.getAppointmentsData);
         this.loading = false;
       },
-      (error: ErrorEvent) => {
-        this.errorMsg = error.error.message;
-        this.loading = false;
-      });
-      this.appointments = this.getAppointmentsData;
-      console.log(this.getAppointmentsData);
+        (error: ErrorEvent) => {
+          this.errorMsg = error.error.message;
+          this.loading = false;
+        });
+    this.appointments = this.getAppointmentsData;
+    console.log(this.getAppointmentsData);
   }
 
   cancelAppointment(id: string) {
@@ -69,8 +69,33 @@ export class MedicalResultsComponent implements OnInit {
         this.appointments = appointments;
         this.successMsg = 'Successfully cancelled appointment';
       },
-      (error: ErrorEvent) => {
-        this.errorMsg = error.error.message;
-      });
+        (error: ErrorEvent) => {
+          this.errorMsg = error.error.message;
+        });
+  }
+
+
+  actionButton(status: string, id: string) {
+
+    switch (status) {
+      case "progress": {
+        //statements;  
+        break;
+      }
+      case "pending": {
+        //statements; 
+        //afiseaza cancel
+        this.cancelAppointment(id);
+        break;
+      }
+      case "completed": {
+        //statements; 
+        break;
+      }
+      default: {
+        //statements; 
+        break;
+      }
+    }
   }
 }

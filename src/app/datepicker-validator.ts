@@ -1,13 +1,13 @@
 import { ValidatorFn, AbstractControl } from '@angular/forms';
-import { Moment } from 'moment';
 
 export function datePickerValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     let forbidden = true;
+    const currentYear = new Date().getFullYear();
     if (control.value) {
-      const moment: Moment = control.value;
-      if (moment.year() > 2000 ) {
-        forbidden = false;
+      const date: Date = control.value;
+      if (date.getFullYear() > currentYear-18) {
+        forbidden = true;
       }
     }
     return forbidden ? { 'invalidDOBYear': true } : null;

@@ -1,1 +1,137 @@
-<p>register works!</p>
+<div>
+    <div class="add-title">
+        <h1 class="primary">Fisa Donare</h1>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="form">
+            <form [formGroup]="loginForm" fxLayout="column wrap"
+            fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-card-content >
+                <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput  maxlength="20" type="text" placeholder="" formControlName="email"
+                            id="email" autocomplete="new-password">
+                        <mat-error *ngIf=" loginHasError('email', 'required' )">Emailul este obligatoriu</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Parola</mat-label>
+                        <input matInput  type="password" placeholder="**********" formControlName="password"
+                            id="password" autocomplete="new-password">
+                        <mat-error *ngIf=" loginHasError('password', 'required' )">Parola este obligatorie</mat-error>
+                    </mat-form-field>
+                </p>
+        </mat-card-content>
+    </form>
+
+        <form [formGroup]="fisaDonareControl" autocomplete="off" novalidate fxLayout="column wrap"
+            fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-card-content>
+                <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Nume</mat-label>
+                        <input matInput #input maxlength="30" type="text" placeholder="" formControlName="firstName"
+                            id="firstName">
+                        <mat-error *ngIf=" hasError('firstName', 'required' )">Numele este obligatoriu</mat-error>
+                        <mat-hint>{{ input.value?.length || 0}}/30</mat-hint>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="box"  appearance="fill">
+                        <mat-label>Prenume</mat-label>
+                        <input matInput #input1 maxlength="30" type="text" placeholder="" formControlName="lastName"
+                            id="lname">
+                        <mat-error *ngIf=" hasError('lastName', 'required' )">Prenumele este obligatoriu</mat-error>
+                        <mat-hint>{{ input1.value?.length || 0}}/30</mat-hint>
+                    </mat-form-field>
+                </p>
+                <!--               <mat-form-field class="box" appearance="fill">
+                    <mat-label>Data nasterii</mat-label>
+                    <input matInput [matDatepicker]="seStDt" [min]="minDate" [max]="maxDate" formControlName="sessionStDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            -->
+                <p>
+                    <mat-form-field class="dateOfBirth">
+                        <mat-label>Date of Birth</mat-label>
+                        <input name="dateOfBirth" matInput [matDatepicker]="dob"
+                            formControlName="dateOfBirth">
+                        <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                        <mat-datepicker #dob></mat-datepicker>
+                        <mat-error *ngIf="hasError('dateOfBirth', 'required')">
+                            Introduceti o data valida
+                        </mat-error>
+                        <mat-error *ngIf="hasError('dateOfBirth', 'invalidDOBYear')">
+                            Conform datei alese nu sunteti major/a
+                        </mat-error> 
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Serie Buletin</mat-label>
+                        <input matInput #inputSerie maxlength="2" type="text" placeholder=""
+                            formControlName="serieBuletin" id="serieBuletin">
+                        <mat-error *ngIf=" hasError('serieBuletin', 'required' )">Seria este obligatorie</mat-error>
+                        <mat-hint align="end">{{ inputSerie.value?.length || 0}}/2</mat-hint>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Numar buletin</mat-label>
+                        <input matInput #input2 maxlength="6" type="number" placeholder="" formControlName="nrBuletin"
+                            id="number">
+                        <mat-error *ngIf="hasError('nrBuletin', 'required')">Numarul buletinului este
+                            obligatoriu
+                        </mat-error>
+                        <mat-hint align="end">{{ input2.value?.length || 0}}/6</mat-hint>
+                    </mat-form-field>
+                </p>
+                <!-- <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Sex</mat-label>
+                        <mat-select [formControl]="sexControl" required>
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let sex of sexes" [value]="sex" id="facultate">{{sex}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="sexControl.hasError('required')">Alegeti un sex</mat-error>
+                        <mat-hint>{{sexControl.value?.sound}}</mat-hint>
+                    </mat-form-field>
+                </p> -->
+                <p>
+                    <mat-form-field class="box" appearance="fill">
+                        <mat-label>Varsta</mat-label>
+                        <input matInput #inputAge maxlength="3" type="number" placeholder="" formControlName="age"
+                            id="number">
+                        <mat-error *ngIf="hasError('age', 'required')">Varsta este
+                            obligatorie
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="box" hintLabel="Judet, Oras, Strada, Bloc, Apartament.." appearance="fill">
+                        <mat-label>Domiciliu</mat-label>
+                        <input matInput #adress type="text" placeholder="" formControlName="adress" id="adress">
+                        <mat-error *ngIf=" hasError('adress', 'required' )">Adresa este obligatorie</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="box" hintLabel="Ocupatia pe care o aveti acum"appearance="fill">
+                        <mat-label>Loc de munca</mat-label>
+                        <input matInput #job type="text" placeholder="" formControlName="job" id="job">
+                        <mat-error *ngIf=" hasError('job', 'required' )">Locul de munca este obligatoriu</mat-error>
+                    </mat-form-field>
+                </p>
+                <br>
+            </mat-card-content>
+            <mat-card-actions class="buttons">
+
+                <button mat-raised-button color="primary" type="submit" (click)="saveUserDetails()" id="fisaDonareControl">Salveaza</button>
+            </mat-card-actions>
+        </form>
+    </div>
+</div>

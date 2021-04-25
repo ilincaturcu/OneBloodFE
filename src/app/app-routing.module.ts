@@ -8,6 +8,7 @@ import { HomePacientComponent } from './home-pacient/home-pacient.component';
 import { MedicalResultsComponent } from './medical-results/medical-results.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { RegisterComponent } from './register/register.component';
 import { TestsResultsComponent } from './tests-results/tests-results.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path : 'calendar-doctor', component : CalendarDoctorComponent},
   { path : 'fisa-donare', component : TestsResultsComponent},
   { path : 'examen-medical', component : ExamenMedicalComponent},
+  { path : 'register', component : RegisterComponent},
   
 ];
 
