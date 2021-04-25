@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Question } from '../quiz.model';
 
 @Component({
@@ -12,10 +12,11 @@ export class QuizComponent implements OnInit {
   @Output() onChoiceMade = new EventEmitter<string>();
 
   private form: FormGroup;
+  constructor(private fb: FormBuilder){};
 
   ngOnInit() {
-    this.form = new FormGroup({
-      choice: new FormControl()
+    this.form = this.fb.group({
+      choice:''
     });
     this.form.valueChanges.subscribe(this.onChange);
   }

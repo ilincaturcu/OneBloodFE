@@ -1,1 +1,34 @@
-<p>medical-results works!</p>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+
+<!--<div *ngIf="!loading && !error">-->
+    <div *ngIf="!loading">
+  <table mat-table [dataSource]="appointments" class="mat-elevation-z8">
+    <ng-container matColumnDef="appointmentDate">
+      <th mat-header-cell *matHeaderCellDef> Data Programare </th>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointmentDate | date:'dd/MM/yyyy' }} </td>
+    </ng-container>
+    <ng-container matColumnDef="hour">
+        <th mat-header-cell *matHeaderCellDef> Ora Programare </th>
+        <td mat-cell *matCellDef="let appointment"> {{ appointment.hour }} </td>
+      </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.status }} </td>
+    </ng-container>
+    <ng-container matColumnDef="cancel" *ngFor="let status of statuses">
+      <th mat-header-cell *matHeaderCellDef> {{button.status}} </th>
+      <td mat-cell *matCellDef="let appointment"><button (click)="cancelAppointment(appointment._id)" mat-raised-button color="warn">Cancel</button></td>
+    </ng-container>
+    <!-- <ng-container *ngFor="let item of list">
+      <div #ListItem>
+        <button (click)="onClick(ListItem)">
+      </div>
+    </ng-container> -->
+    
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let appointments; columns: columns"></tr>
+  </table>
+</div>

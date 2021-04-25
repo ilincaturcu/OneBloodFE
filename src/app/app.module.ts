@@ -29,6 +29,8 @@ import { CalendarDoctorComponent } from './calendar-doctor/calendar-doctor.compo
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { ExamenMedicalComponent } from './examen-medical/examen-medical.component';
+import { AnalizeDonatorComponent } from './analize-donator/analize-donator.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     InformationalModalComponent,
     QuestionsComponent,
     ResultsComponent,
-    CalendarDoctorComponent
+    CalendarDoctorComponent,
+    ExamenMedicalComponent,
+    AnalizeDonatorComponent
   ],
   imports: [
     BrowserModule,

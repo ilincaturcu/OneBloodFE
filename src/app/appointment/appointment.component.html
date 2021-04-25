@@ -1,28 +1,25 @@
-<div class="calendar">
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker">
-      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-    </mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-</div>
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+<div class="form-container">
 
-<div  class="timePicker">
-    <h3 class="timePickerLabel">{{date}}</h3>
-    <h4 class="timePickerLabel">Available hours:</h4>
-
-    <mat-form-field>
-        <mat-label id="hourLabel">Choose An Hour</mat-label>
-        <mat-select (selectionChange)="pickHour(hour)" [(ngModel)]="hour">
-            <mat-option *ngFor="let hour of avHours" [value]="hour">{{hour}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
-
-<div class="wrapper">
-    <div class="jumbotron">
-        <h1 *ngIf="!requestSent" id="confirmRequest">Do you want to send a request?</h1>
-    </div>
+    <form (submit)="createAppointment()">
+        <mat-form-field>
+            <input [(ngModel)]="appointmentDate" name="appointmentDate" matInput [matDatepicker]="picker"
+                placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Ora</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                    {{hour.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input [(ngModel)]="name" name="name" matInput placeholder="Name">
+        </mat-form-field>
+        <button mat-raised-button color="primary">Make Appointment</button>
+    </form>
 </div>
