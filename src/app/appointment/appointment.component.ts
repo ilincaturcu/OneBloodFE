@@ -31,7 +31,7 @@ export class AppointmentComponent implements OnInit {
   ngOnInit() {
     this.appointmentForm = this.fb.group({
       
-      name: ['',Validators.required, Validators.maxLength(35)],
+      name: ['',[Validators.required, Validators.maxLength(35)]],
       email:['',Validators.required, Validators.email],
       hours:''
     })

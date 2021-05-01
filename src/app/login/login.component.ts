@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtClientService } from '../jwt-client.service';
 
 
 @Component({
@@ -9,51 +10,82 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    ngOnInit(): void {
-        throw new Error('Method not implemented.');
+
+  authRequest: any =
+    {
+      "userName": "ilincafturcu@gmail.com",
+      "password": "Ilinca-113473"
     }
 
-//   loginForm: FormGroup;
-//   loading = false;
-//   submitted = false;
-//   invalidLogin = false;
+  response: any;
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  invalidLogin = false;
+  isLoggedIn = false;
+  errorMessage = '';
+  constructor(private service: JwtClientService, private fb: FormBuilder,  private router: Router) { }
 
-//   constructor(
-//     private router: Router,
-//     private formBuilder: FormBuilder,
-//     //private loginservice: ApiService
-//   ) { }
 
-//   ngOnInit(): void {
-//     this.loginForm = this.formBuilder.group({
-//       email: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9._%+-]+@+[A-Za-z0-9._%+-]+.tuiasi.ro$')]],
-//       password: ['', [Validators.required, Validators.minLength(6)]]
-//     });
-//   }
+  ngOnInit() {
+    //this.getAccessToken(this.authRequest);
+    //this.accessApi(this.service.getToken());
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required]
+    })
+  }
 
-//   async onSubmit() {
-//     this.submitted = true;
-//     if (this.loginForm.invalid) {
-//       return;
-//     }
-//     //  console.log(this.loginservice.authenticate(this.f.email.value, this.f.password.value));
-//   // await this.loginservice.authenticate(this.f.email.value, this.f.password.value);
+  public getAccessToken(req) {
+    let response = this.service.generateToken(req);
+    response.subscribe(tokenJWT => this.service.saveToken(tokenJWT),
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.invalidLogin = true;
+      });
+    
 
-//     setTimeout(() => {
-//       if (sessionStorage.getItem("role").valueOf() == 'wrongCredentials') {
-//         this.router.navigate(['/voluntari']);
-//         this.invalidLogin = true;
-//       }
-//       else {
-//         console.log("da")
-//         this.router.navigate(['/voluntari/home']);
-//         this.invalidLogin = false;
-//       }
-//     },
-//       1000);
- 
+  }
 
-//   }
+  public accessApi(token) {
+    let res = this.service.welcome(token);
+    res.subscribe(data => this.response = data)
+  }
 
-//   get f() { return this.loginForm.controls; }
+  async onSubmit() {
+    this.submitted = true;
+     if (this.loginForm.invalid) {
+       return;
+     }
+    console.log(this.loginForm.controls['email'].value);
+    this.authRequest.email = this.loginForm.controls['email'].value;
+    this.authRequest.password = this.loginForm.controls['password'].value;
+    this.getAccessToken(this.authRequest);
+    this.accessApi(this.service.getToken());
+    this.router.navigate(['/']);
+  
+  
+    //  console.log(this.loginservice.authenticate(this.f.email.value, this.f.password.value));
+    // // await this.loginservice.authenticate(this.f.email.value, this.f.password.value);
+
+    // setTimeout(() => {
+    //   if (sessionStorage.getItem("role").valueOf() == 'wrongCredentials') {
+    //     this.router.navigate(['/voluntari']);
+    //     this.invalidLogin = true;
+    //   }
+    //   else {
+    //     console.log("da")
+    //     this.router.navigate(['/voluntari/home']);
+    //     this.invalidLogin = false;
+    //   }
+    // },
+    //   1000);
+
+
+  }
+
+  public loginHasError = (controlName: string, errorName: string) => {
+    return this.loginForm.controls[controlName].hasError(errorName);
+  }
 }

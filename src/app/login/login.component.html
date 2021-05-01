@@ -1,38 +1,33 @@
-<!-- <div class="page">
+<h1>{{response}}</h1>
+<div class="page">
     <div class="container">
     </div>
     <div class="right">
         <div class="form">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="email">Email*</label>
-                    <input id="email" placeholder="nume@student.tuiasi.ro" type="text" formControlName="email"
-                        class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                        <div class="error-message" id="error-email-required" *ngIf="f.email.errors.required">Email is
-                            required</div>
-                        <div class="error-message" id="error-wrong-format" *ngIf="f.email.errors.pattern">Wrong format
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password*</label>
-                    <input id="password" placeholder="********" type="password" formControlName="password"
-                        class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div class="error-message" id="error-password-required" *ngIf="f.password.errors.required">
-                            Password is required</div>
-                        <div class="error-message" id="error-password-minLength" *ngIf="f.password.errors.minLength">
-                            Password is too short</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button [disabled]="loading" class="btn btn-primary" type="submit" id="submit">
-                        Login
-                    </button>
-                </div>
+            <form [formGroup]="loginForm" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-card-content>
+                    <p>
+                        <mat-form-field class="box" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput maxlength="50" type="text" placeholder="" formControlName="email" id="email"
+                                autocomplete="new-password">
+                            <mat-error *ngIf=" loginHasError('email', 'required' )">Emailul este obligatoriu</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field class="box" appearance="fill">
+                            <mat-label>Parola</mat-label>
+                            <input matInput type="password" placeholder="**********" formControlName="password"
+                                id="password" autocomplete="new-password">
+                            <mat-error *ngIf=" loginHasError('password', 'required' )">Parola este obligatorie
+                            </mat-error>
+                        </mat-form-field>
+                    </p>
+                </mat-card-content>
+                <mat-card-actions class="buttons">
+                    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Login</button>
+                </mat-card-actions>
             </form>
         </div>
     </div>
 </div>
-</div> -->
