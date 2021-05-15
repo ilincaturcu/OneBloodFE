@@ -1,6 +1,6 @@
-<div class="export-container">
-	<button mat-raised-button color="primary" (click)="exportTable()">Export</button>
-</div>
+<!-- <div class="export-container">
+    <button mat-raised-button color="primary" (click)="exportTable()">Export</button>
+</div> -->
 
 <form [formGroup]="userTable">
     <table id="ExampleTable" class="table table-border" [ngClass]="{'table-dark': mode}">
@@ -12,23 +12,18 @@
         </thead>
         <tbody>
             <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
-                <tr *ngFor="let row of rows" >
-                    <td>
-                        {{row['Parametru']}}
-                    </td>
-                    <td>
-                        <mat-form-field>
-                            <input name="{{row['Parametru']}}" matInput type="text" tableRows="Valoare"/>
-                        </mat-form-field>
-                    </td>
-                    <td >
-                        {{row['UM']}}
-                    </td>
-                </tr>
-                <tr *ngIf="!group.get('isEditable').value">
-                    <td>
-                        {{group.get('valoare').value}}
-                    </td>
+                <tr [formGroupName]="i">
+                        <td >
+                            {{group.get('Parametru').value}}
+                        </td>
+                        <td>
+                            <mat-form-field > 
+                                <input name="{{i}}" formControlName = 'Valoare'  matInput type="text" value= "{{group.get('Valoare').value}}"/>
+                            </mat-form-field>
+                        </td>
+                        <td >
+                            {{group.get('UM').value}}
+                        </td>
                 </tr>
             </ng-container>
         </tbody>
@@ -37,8 +32,6 @@
         <button mat-raised-button type="submit" (click)="submitForm()">Submit</button>
     </div>
 </form>
-<!--<div class="output">
+<!-- <div class="output">
     <p>Form Data: {{userTable.value | json}}</p>
-    <p>Is Valid: {{userTable.valid}}</p>
-</div>
--->
+</div> -->

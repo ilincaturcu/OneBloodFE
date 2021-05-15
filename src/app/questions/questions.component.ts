@@ -2,7 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { QuestionsService } from '../questions.service';
-import { Quiz, Answers, Choice, Question } from '../quiz.model';
+import { Quiz, Answers, Choice, Question, Response } from '../quiz.model';
 
 
 @Component({
@@ -14,6 +14,7 @@ export class QuestionsComponent implements OnInit {
 
   quiz: Quiz;
   answers: Answers;
+  choices: Choice[];
   questions: Question[];
   currentQuestionIndex: number;
 
@@ -24,18 +25,29 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit() {
 
-    // read from the dynamic route and load the proper quiz data
-    this.questionsService.getQuestions()
-      .subscribe(questions => {
+    this.questionsService.getQuestionsFemei()
+      .subscribe((questions:Question[]) => {
         // initialize everything
         this.questions = questions;
-        this.answers = new Answers();
-        this.currentQuestionIndex = 0;
+       // console.log(this.questions.map( r=> new Question(r.question, r.choices)))
+       var date = new Date().toLocaleString("se").split(" ")[0] ;
+       date += "T22:00:00.000+00:00";
+         this.answers = new Answers(date, "IS00050653");
+         this.currentQuestionIndex = 0;
       });
   }
 
-  updateChoice(choice: Choice) {
-    this.answers.values[this.currentQuestionIndex] = choice;
+  updateChoice(choice: any) {
+    if(this.questions[this.currentQuestionIndex].question_type === "YESNO")
+    this.answers.responses[this.currentQuestionIndex] = new Response(this.currentQuestionIndex, choice.correct);
+    else if(this.questions[this.currentQuestionIndex].question_type === "TEXTBOX")
+   { this.answers.responses[this.currentQuestionIndex] = new Response(this.currentQuestionIndex, choice);
+    console.log(choice)
+  }
+  else if(this.questions[this.currentQuestionIndex].question_type === "DATE")
+   { this.answers.responses[this.currentQuestionIndex] = new Response(this.currentQuestionIndex, choice);
+    console.log("DATE" + choice)
+  }
   }
 
   nextOrViewResults() {

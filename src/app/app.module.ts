@@ -31,6 +31,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExamenMedicalComponent } from './examen-medical/examen-medical.component';
 import { AnalizeDonatorComponent } from './analize-donator/analize-donator.component';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { AnalizeDonatorComponent } from './analize-donator/analize-donator.compo
     BrowserAnimationsModule,
     CommonModule,
     NgbModalModule,
+    FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

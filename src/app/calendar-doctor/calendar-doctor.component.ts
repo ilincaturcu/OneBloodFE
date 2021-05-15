@@ -1,4 +1,5 @@
 
+//VERSIUNEA VECHE
 import {
   Component,
   ChangeDetectionStrategy,
@@ -23,6 +24,8 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import { DAYS_OF_WEEK } from 'angular-calendar';
+
 
 const colors: any = {
   red: {
@@ -39,25 +42,32 @@ const colors: any = {
   },
 };
 const dates = [
-  new Date(2021, 4, 24, 11, 55, 0),
-  new Date(2021, 3, 11, 11, 55, 0),
-  new Date(2021, 3, 13, 11, 55, 0)
+  new Date(2021, 4, 13, 9, 0, 0),
+  new Date(2021, 4, 13, 9, 0, 0),
+  new Date(2021, 4, 13, 9, 0, 0),
+  new Date(2021, 4, 13, 9, 0, 0),
 ]
 
+//luna a 4-a este MAI!!!!!!
 const apiData: any = [{
-  start: addHours(startOfDay(new Date(2021, 3, 13)), 10),
-  end: addHours(startOfDay(new Date(2021, 3, 13)), 11),
-  title: "Ioan Ionescu"
+  start: addHours(startOfDay(dates[0]), 10),
+    end: addHours(dates[0], 2),
+  title: "Ioan Ionescu1"
 },
 {
-  start: addHours(startOfDay(new Date(2021, 3, 13)), 10),
-  end: addHours(startOfDay(new Date(2021, 3, 13)), 11),
-  title: "Ioan Ionescu"
+  start: addHours(startOfDay(dates[1]), 10),
+    end: addHours(dates[1], 2),
+  title: "Ioan Ionescu2"
 },
 {
-  start: addHours(startOfDay(new Date(2021, 3, 13)), 12),
-  end: addHours(startOfDay(new Date(2021, 3, 13)), 13),
-  title: "Ioan Ionescu"
+  start: addHours(startOfDay(dates[2]), 10),
+    end: addHours(dates[2], 2),
+  title: "Ioan Ionescu3"
+},
+{
+  start: addHours(startOfDay(dates[3]), 10),
+    end: addHours(dates[3], 2),
+  title: "Ioan Ionescu4"
 }
 ]
 
@@ -70,6 +80,8 @@ const apiData: any = [{
 export class CalendarDoctorComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
+  weekStartsOn = DAYS_OF_WEEK.MONDAY;
+  excludeDays = DAYS_OF_WEEK.SUNDAY;
   view: CalendarView = CalendarView.Week;
 
   CalendarView = CalendarView;
@@ -104,7 +116,7 @@ export class CalendarDoctorComponent {
  //var result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
 
 
- /* events: CalendarEvent[] = [
+  events: CalendarEvent[] = [
     {
       start: addHours(startOfDay(dates[1]), 10),
       end: addHours(dates[1], 0),
@@ -130,20 +142,20 @@ export class CalendarDoctorComponent {
       draggable: false,
     }
   ];
-*/
-events: CalendarEvent[] ;
- /*events: CalendarEvent[] = [{
-  start: addHours(startOfDay(dates[1]), 10),
-  end: addHours(dates[1], 0),
-  title: 'Marin Gabriel',
-  color: colors.yellow,
-  actions: this.actions,
-  resizable: {
-    beforeStart: true,
-    afterEnd: true,
-  },
-  draggable: false,
-}]*/
+
+//events: CalendarEvent[] ;
+//  events: CalendarEvent[] = [{
+//   start: addHours(startOfDay(dates[1]), 10),
+//   end: addHours(dates[1], 0),
+//   title: 'Marin Gabriel',
+//   color: colors.yellow,
+//   actions: this.actions,
+//   resizable: {
+//     beforeStart: true,
+//     afterEnd: true,
+//   },
+//   draggable: false,
+// }]
 
   activeDayIsOpen: boolean = true;
 
@@ -216,8 +228,8 @@ events: CalendarEvent[] ;
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
-  
-  
+
+
      presentCalendarData(payload : CalendarEvent[]){
       return payload.map(
           appointment => ({ 
@@ -234,6 +246,6 @@ events: CalendarEvent[] ;
         })
         );
       }
-    
+
 }
 

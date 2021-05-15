@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { TableUtil } from '../tableUtil';
+import { autoTable, RowInput } from 'jspdf-autotable';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-examen-medical',
@@ -19,67 +21,67 @@ export class ExamenMedicalComponent implements OnInit {
   rows = [
     {
       "Parametru" : "Hb",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "g/dl"
     },
     {
       "Parametru" : "Glicemie",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "mg/dl"
     },
     {
       "Parametru" : "Ht",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "%"
     },
     {
       "Parametru" : "Ga",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "/mmc"
     },
     {
       "Parametru" : "Gr",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "/mmc"
     },
     {
       "Parametru" : "Pl",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "/mmc"
     },
     {
       "Parametru" : "Ly",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "%"
     },
     {
       "Parametru" : "Mo",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "%"
     },
     {
       "Parametru" : "Gr",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "%"
     },
     {
       "Parametru" : "TA",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "mm/hg"
     },
     {
       "Parametru" : "P",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "b/min"
     },
     {
       "Parametru" : "G",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "kg"
     },
     {
       "Parametru" : "H",
-      "Valoare" : "",
+      "Valoare" : "0",
       "UM" : "cm"
     }
   ]
@@ -97,16 +99,19 @@ export class ExamenMedicalComponent implements OnInit {
     this.control = this.userTable.get('tableRows') as FormArray;
   }
 
-  initiateForm(): FormGroup {
+  initiateForm(data:any): FormGroup {
     return this.fb.group({
-      Valoare: ['', [ Validators.required]],
+      Valoare: [[data.Valoare],  Validators.required],
+      Parametru:[data.Parametru],
+      UM:[data.UM],
       isEditable: [true]
     });
   }
 
   addRow() {
     const control =  this.userTable.get('tableRows') as FormArray;
-    control.push(this.initiateForm());
+      this.rows.map(x=> control.push(this.initiateForm(x)))
+      console.log(control)
   }
 
 
@@ -126,9 +131,10 @@ export class ExamenMedicalComponent implements OnInit {
 
   submitForm() {
     const control = this.userTable.get('tableRows') as FormArray;
-    console.log(control)
-    this.touchedRows = control.controls.map(row => row.value);
+
+    this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
     console.log(this.touchedRows);
+
   }
 
   toggleTheme() {
@@ -136,7 +142,17 @@ export class ExamenMedicalComponent implements OnInit {
   }
 
 
-  exportTable(){
-    TableUtil.exportToPdf("ExampleTable");
-  }
+  // exportTable(){
+  //   // TableUtil.exportToPdf("ExampleTable");
+
+  //   const doc = new jsPDF();
+  //   (doc as jsPDF & { autoTable: autoTable }).autoTable({
+  //     head: [this.headers],
+  //     body: this.userTable.value as RowInput[],
+  //     theme: 'plain',
+  //     didDrawCell: data => {
+  //       console.log(data.column.index)
+  //     }
+  //   })
+  // }
 }

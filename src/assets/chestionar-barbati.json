@@ -1,0 +1,527 @@
+[
+    {
+        "no": 1,
+        "question_type": "YESNO",
+        "question": "Consideraţi că aveţi o stare bună de sănătate?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": true
+            },
+            {
+                "value": "Nu",
+                "correct": "ish"
+            }
+        ]
+    },
+    {
+        "no": 2,
+        "question_type": "YESNO",
+        "question": "În ultima vreme aţi avut o pierdere în greutate neaşteptată",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": "ish"
+            }
+        ]
+    },
+    {
+        "no": 3,
+        "question_type": "YESNO",
+        "question": "În ultima vreme aţi avut febră neexplicabilă",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 4,
+        "question_type": "YESNO",
+        "question": "În ultima vreme aţi avut tratament stomatologic, vaccinări",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 5,
+        "question_type": "YESNO",
+        "question": "Urmaţi vreun tratament medicamentos?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 6,
+        "question_type": "YESNO",
+        "question": "În ultimele 12 luni aţi avut contact sexual cu un partener cu hepatită sau HIV pozitiv",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 7,
+        "question_type": "YESNO",
+        "question": "În ultimele 12 luni aţi avut contact sexual cu un partener ce se droghează prin injecţii",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 8,
+        "question_type": "YESNO",
+        "question": "În ultimele 12 luni aţi avut contact sexual cu un partener care este plătit pentru sex",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 9,
+        "question_type": "YESNO",
+        "question": "În ultimele 12 luni aţi avut contact sexual cu un partener cu hemofilie",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 10,
+        "question_type": "YESNO",
+        "question": "În ultimele 12 luni aţi avut contact sexual cu parteneri multipli",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 11,
+        "question_type": "YESNO",
+        "question": "V-aţi injectat vreodată droguri?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 12,
+        "question_type": "YESNO",
+        "question": "Aţi acceptat bani sau droguri pentru a întreţine relaţii sexuale?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 13,
+        "question_type": "YESNO",
+        "question": "Aţi avut relaţii sexuale cu un alt bărbat?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": "ish"
+            }
+        ]
+    },
+    {
+        "no": 15,
+        "question_type": "YESNO",
+        "question": "aţi schimbat partenerul (partenera) în ultimele 6 luni?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": "ish"
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 16,
+        "question_type": "TEXTBOX",
+        "question": "Cati / cate parteneri ( partenere ) ati avut  în ultimele 6 luni?",
+        "choices": [
+            {
+                "value": "0-2",
+                "correct": true
+            },
+            {
+                "value": ">2",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "no": 17,
+        "question_type": "YESNO",
+        "question": "De la ultima donare, sau în ultimele 12 luni aţi suferit o intervenţie chirurgicală sau investigaţii medicale?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 18,
+        "question_type": "YESNO",
+        "question": "De la ultima donare, sau în ultimele 12 luni aţi suferit tatuaje, acupunctura, gauri pentru cercei ?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 19,
+        "question_type": "YESNO",
+        "question": "De la ultima donare, sau în ultimele 12 luni aţi fost transfuzat (a) ?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 23,
+        "question_type": "YESNO",
+        "question": "V-aţi născut, aţi trăit sau călătorit în străinătate?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": true
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 24,
+        "question_type": "TEXTBOX",
+        "question": "Unde? ",
+        "choices": ""
+    },
+    {
+        "no": 25,
+        "question_type": "TEXTBOX",
+        "question": "Cand?",
+        "choices": ""
+    },
+    {
+        "no": 26,
+        "question_type": "YESNO",
+        "question": "Aţi fost în detenţie în ultimul an?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 27,
+        "question_type": "YESNO",
+        "question": "Aţi fost expuşi la hepatită(bolnavi în familie sau risc profesional)?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 28,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: icter, tuberculoză, febră reumatică, malarie?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 29,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: boli de inimă, tensiune arterială mare sau mică?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 30,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: accidente vasculare cardiace sau cerebrale?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 31,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: astm?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 32,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: convulsii, boli nervoase?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 33,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: boli cronice (diabet, ulcer, cancer, astm) ?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 34,
+        "question_type": "YESNO",
+        "question": "Aţi suferit vreodată de: boli transmise sexual",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 35,
+        "question_type": "YESNO",
+        "question": "Sunteţi fumător?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 36,
+        "question_type": "DATE",
+        "question": "Cand ati consumat ultima data alcool?",
+        "choices": ""
+    },
+    {
+        "no": 37,
+        "question_type": "TEXTBOX",
+        "question": "Ce băuturi aţi consumat?",
+        "choices": ""
+    },
+    {
+        "no": 38,
+        "question_type": "TEXTBOX",
+        "question": "În ce cantitate?",
+        "choices": ""
+    },
+    {
+        "no": 39,
+        "question_type": "YESNO",
+        "question": "Aţi fost refuzat sau amânat la o donare anterioară?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 40,
+        "question_type": "YESNO",
+        "question": "Aveţi pasiuni sau ocupaţii ce necesită atenţie specială 24 ore postdonare (de ex: sofer, alpinist, scafandru, etc) ?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 41,
+        "question_type": "YESNO",
+        "question": "Ati calatorit in ultimele 30 de zile in tari cu circulatie cunoscuta cu infectii datorate virusului ZIKA?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "no": 42,
+        "question_type": "YESNO",
+        "question": "Ati calatorit in ultimele 30 de zile in tari cu circulatie cunoscuta cu infectii datorate virusului WEST NILE?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
+    }
+]

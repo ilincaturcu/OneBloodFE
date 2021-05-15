@@ -44,8 +44,17 @@ export class LoginComponent implements OnInit {
         this.errorMessage = error.error.message;
         this.invalidLogin = true;
       });
-    
+  }
 
+
+  public getRoleValue(req) {
+    let response = this.service.getRoleReq(req);
+    response.subscribe(role => this.service.saveRole(role),
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.invalidLogin = true;
+      });
   }
 
   public accessApi(token) {
@@ -59,28 +68,32 @@ export class LoginComponent implements OnInit {
        return;
      }
     console.log(this.loginForm.controls['email'].value);
-    this.authRequest.email = this.loginForm.controls['email'].value;
+    console.log(this.loginForm.controls['password'].value);
+    this.authRequest.userName = this.loginForm.controls['email'].value;
     this.authRequest.password = this.loginForm.controls['password'].value;
+    console.log(this.authRequest)
     this.getAccessToken(this.authRequest);
-    this.accessApi(this.service.getToken());
-    this.router.navigate(['/']);
+    this.getRoleValue(this.authRequest);
+  
+    //this.router.navigate(['/']);
   
   
     //  console.log(this.loginservice.authenticate(this.f.email.value, this.f.password.value));
     // // await this.loginservice.authenticate(this.f.email.value, this.f.password.value);
 
-    // setTimeout(() => {
-    //   if (sessionStorage.getItem("role").valueOf() == 'wrongCredentials') {
-    //     this.router.navigate(['/voluntari']);
-    //     this.invalidLogin = true;
-    //   }
-    //   else {
-    //     console.log("da")
-    //     this.router.navigate(['/voluntari/home']);
-    //     this.invalidLogin = false;
-    //   }
-    // },
-    //   1000);
+    setTimeout(() => {
+      if (sessionStorage.getItem("Role").valueOf() == 'Pacient') {
+        console.log("pacient")
+        this.router.navigate(['/']);
+        this.invalidLogin = false;
+      }
+      else if(sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
+        console.log("doctor")
+        this.router.navigate(['/']);
+        this.invalidLogin = false;
+      }
+    },
+      1000);
 
 
   }

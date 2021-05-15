@@ -8,7 +8,7 @@
     <button mat-stroked-button class="btn btn-success" (click)="back()"
     >{{'Inapoi'}}</button>
     <button mat-stroked-button class="btn btn-success" (click)="nextOrViewResults()"
-      [disabled]="!answers.values[currentQuestionIndex]">{{currentQuestionIndex === questions.length - 1 ? 'Finalizati' : 'Inainte'}}</button>
+      [disabled]="!answers.responses[currentQuestionIndex]">{{currentQuestionIndex === questions.length - 1 ? 'Finalizati' : 'Inainte'}}</button>
 
   </div>
 
