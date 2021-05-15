@@ -6,11 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'responseType': 'text'
-  })
-};
+
 
 
 
@@ -19,12 +15,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class QuestionsService {
-
-  constructor(private http: HttpClient, private JwtService : JwtClientService) {}
-
-  httpOptions2 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
-
+  token="";
   data;
+
+  constructor(private http: HttpClient, private JwtService : JwtClientService) {
+  this.token = JwtService.getToken();
+  }
+
+  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`})};
+  httpOptions2 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'responseType': 'text'}), responseType: 'text' as 'json' };
+
+ 
   public getQuestionsFemei() {
     return this.http.get(`./assets/chestionar-femei.json`).pipe(
       map((result: any[]) => {
@@ -55,6 +56,14 @@ export class QuestionsService {
 
   public addResponses(answers : Answers): Observable<any> {
     return this.http.post<Answers>(`http://localhost:7070/api/response`, answers, this.httpOptions2);
+  }
+
+  public addStatus(status, donor_code): Observable<any> {
+    console.log(status)
+    console.log(donor_code)
+    console.log(this.token);
+    var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`})};
+    return this.http.put<any>(`http://localhost:9090/api/pacient/${status}/${donor_code}`,"", httpOptions3);
   }
 
   // public getQuestionsMongoData() {

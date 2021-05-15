@@ -12,8 +12,8 @@ import { Answers, Question } from '../quiz.model';
 export class ResultsComponent implements OnInit {
   @Input() answers: Answers;
   @Input() questions: Question[];
-  status : string
-
+  status: string
+  donor_code = "IS00050654";
   constructor(public questionsService: QuestionsService) { }
   ngOnInit() {
     // this.questionsService.getQuestions()
@@ -22,7 +22,13 @@ export class ResultsComponent implements OnInit {
 
     //   });
     console.log(this.answers)
-   this.questionsService.addResponses(this.answers).subscribe(r=> this.status = r);
+    this.questionsService.addResponses(this.answers).subscribe((status) => {
+      this.status = status;
+      console.log("status " + this.status)
+      this.questionsService.addStatus(this.status, this.donor_code).subscribe();;
+     }
+    );
+
   }
 
   // getIshResults(){
