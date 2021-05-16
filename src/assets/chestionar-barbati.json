@@ -285,18 +285,6 @@
         ]
     },
     {
-        "no": 24,
-        "question_type": "TEXTBOX",
-        "question": "Unde? ",
-        "choices": ""
-    },
-    {
-        "no": 25,
-        "question_type": "TEXTBOX",
-        "question": "Cand?",
-        "choices": ""
-    },
-    {
         "no": 26,
         "question_type": "YESNO",
         "question": "Aţi fost în detenţie în ultimul an?",
@@ -446,23 +434,20 @@
             }
         ]
     },
-    {
+	{
         "no": 36,
-        "question_type": "DATE",
-        "question": "Cand ati consumat ultima data alcool?",
-        "choices": ""
-    },
-    {
-        "no": 37,
-        "question_type": "TEXTBOX",
-        "question": "Ce băuturi aţi consumat?",
-        "choices": ""
-    },
-    {
-        "no": 38,
-        "question_type": "TEXTBOX",
-        "question": "În ce cantitate?",
-        "choices": ""
+        "question_type": "YESNO",
+        "question": "Ati consumat alcool in ultimele 48h?",
+        "choices": [
+            {
+                "value": "Da",
+                "correct": false
+            },
+            {
+                "value": "Nu",
+                "correct": true
+            }
+        ]
     },
     {
         "no": 39,

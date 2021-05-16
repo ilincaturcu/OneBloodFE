@@ -5,12 +5,6 @@ import { JwtClientService } from './jwt-client.service';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
-
-
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })

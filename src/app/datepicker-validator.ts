@@ -6,8 +6,10 @@ export function datePickerValidator(): ValidatorFn {
     const currentYear = new Date().getFullYear();
     if (control.value) {
       const date: Date = control.value;
-      if (date.getFullYear() > currentYear-18) {
-        forbidden = true;
+      if (date.getFullYear() < currentYear-17) {
+        console.log(date.getFullYear())
+        console.log(currentYear-17)
+        forbidden = false;
       }
     }
     return forbidden ? { 'invalidDOBYear': true } : null;
