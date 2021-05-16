@@ -13,7 +13,7 @@ export class ApiServiceService {
     let loggedIn = true;
     let user;
     //de decomentat daca vrei sa testezi get all...da nu merge
-    if(email=="ilinca@gmail.com" && password == "123456")
+    if(email=="ilinca@gmail.com" && password == "123456"){}
 
   // await this.loginRequest(jsonReq).subscribe(
   //  (val) => {
@@ -42,10 +42,10 @@ export class ApiServiceService {
   //    user = sessionStorage.getItem('role')
   //  });
   
+  }
 }
-
 // private loginRequest(data: any): Observable<any> {
 //   return this.http.post(`${baseUrl}/login`, data, { responseType: 'text' });
 // }
-}
+
   

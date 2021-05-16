@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { datePickerValidator } from '../datepicker-validator';
-import { PacientService } from '../pacient.service';
-import { Credentials, Pacient, PacientCredentials, personalInformation } from '../pacient.model';
+import { PacientService } from '../services/pacient.service';
+import { Credentials, Pacient, PacientCredentials, personalInformation } from '../models/pacient.model';
 
 @Component({
   selector: 'app-register',

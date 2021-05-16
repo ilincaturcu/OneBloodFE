@@ -13,7 +13,7 @@ export class JwtClientService {
   constructor(private http: HttpClient) { }
 
   public saveToken(token) {
-    window.sessionStorage.removeItem(TOKEN_KEY);
+   // window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
   public saveRole(role) {

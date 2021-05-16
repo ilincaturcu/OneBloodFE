@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuestionsService } from '../questions.service';
-import { Answers, Question } from '../quiz.model';
+import { QuestionsService } from '../services/questions.service';
+import { Answers, Question } from '../models/quiz.model';
 
 @Component({
   selector: 'app-results',

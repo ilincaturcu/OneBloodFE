@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Quiz, Question, Answers } from './quiz.model';
+import { Quiz, Question, Answers } from '../models/quiz.model';
 import { JwtClientService } from './jwt-client.service';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';

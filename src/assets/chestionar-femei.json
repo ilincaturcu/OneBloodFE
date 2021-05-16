@@ -469,7 +469,8 @@
                 "correct": true
             }
         ]
-    } {
+    },
+     {
         "no": 36,
         "question_type": "YESNO",
         "question": "Ati consumat alcool in ultimele 48h?",

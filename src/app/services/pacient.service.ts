@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JwtClientService } from './jwt-client.service';
-import { Credentials, PacientCredentials } from './pacient.model';
+import { Credentials, PacientCredentials } from '../models/pacient.model';
 
 @Injectable({
   providedIn: 'root'

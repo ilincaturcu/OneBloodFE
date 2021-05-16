@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Appointment } from '../Appointment';
-import { AppointmentService } from '../appointment.service';
+import { Appointment } from '../models/Appointment';
+import { AppointmentService } from '../services/appointment.service';
 import { mergeMap } from 'rxjs/operators';
 
 @Component({

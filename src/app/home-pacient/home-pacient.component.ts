@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { QuestionsService } from '../questions.service';
-import { Question, Quiz } from '../quiz.model';
+import { QuestionsService } from '../services/questions.service';
+import { Question, Quiz } from '../models/quiz.model';
 @Component({
   selector: 'app-home-pacient',
   templateUrl: './home-pacient.component.html',
