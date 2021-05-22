@@ -16,48 +16,21 @@ export class MedicalResultsComponent implements OnInit {
   public appointments: Appointment[];
   public columns = ['appointmentDate', 'hour', 'status', 'cancel'];
   public button = { "progress": "", "pending": "Cancel", "completed": "Results" };
-  public status = ["progress", "pending", "completed"]
+  public appointment_status = ["progress", "pending", "completed"]
 
-  getAppointmentsData: Appointment[] = [
-    {
-      status: "progress",
-      appointmentDate: new Date().toDateString(),
-      hour: "10",
-      _id: "5",
-
-    },
-    {
-      status: "pending",
-      appointmentDate: new Date().toDateString(),
-      hour: "10",
-      _id: "6",
-
-    },
-    {
-      status: "completed",
-      appointmentDate: new Date().toDateString(),
-      hour: "10",
-      _id: "7",
-
-    }
-  ]
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit() {
     this.appointmentService.getAppointments()
       .subscribe((appointments: Appointment[]) => {
-        //de schimbat aici ca sa ia datele bune
-        //this.appointments = this.appointments;
-        this.appointments = this.getAppointmentsData;
-        console.log(this.getAppointmentsData);
+        this.appointments = appointments;
+        console.log(this.appointments);
         this.loading = false;
       },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;
           this.loading = false;
         });
-    this.appointments = this.getAppointmentsData;
-    console.log(this.getAppointmentsData);
   }
 
   cancelAppointment(id: string) {
@@ -67,11 +40,15 @@ export class MedicalResultsComponent implements OnInit {
       )
       .subscribe((appointments: Appointment[]) => {
         this.appointments = appointments;
-        this.successMsg = 'Successfully cancelled appointment';
+        this.successMsg = 'Ati anulat programarea cu succes';
       },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;
         });
+  }
+
+  viewResults(id: string){
+    //redirect to results
   }
 
 
@@ -79,21 +56,14 @@ export class MedicalResultsComponent implements OnInit {
 
     switch (status) {
       case "progress": {
-        //statements;  
         break;
       }
       case "pending": {
-        //statements; 
-        //afiseaza cancel
         this.cancelAppointment(id);
         break;
       }
       case "completed": {
-        //statements; 
-        break;
-      }
-      default: {
-        //statements; 
+        //view test results; 
         break;
       }
     }
