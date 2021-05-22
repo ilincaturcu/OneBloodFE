@@ -6,13 +6,9 @@ import { Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/cor
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
-
-
-
 
 interface Hour {
   value: string;
@@ -34,15 +30,13 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   dayForm: FormGroup;
   hoursForm:FormGroup;
   doctor;
-  doctors;
+  doctors = [];
   day;
-  days = ['2021-05-16','2021-05-16','2021-05-16'];
-  hours = [ '11:00', '12:00','13:00'];
+  days = [];
+  hours = [];
   doctorSubmitted = false;
   daySubmitted = false;
   stepCounter = 1;
-  calendarClicked = false;
-  currentUserSubscription: Subscription;
   selectedDoctor;
   selectedDay;
   selectedHour;
@@ -54,8 +48,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   requestSent = false;
   visitsCount;
   hoursList;
-  avHours = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'];
-  request = {doctorId: 1, date: 'a', hour: 'b', status: 'c'};
+
 
 
   @ViewChild('datePicker', {static: true}) datePicker: MatDatepicker<Date>;
@@ -69,20 +62,16 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private appointmentService : AppointmentService
   ) {
-    this.renderer.removeClass(document.body, 'landing2');
     this.renderer.addClass(document.body, 'landing1');
-    // this.currentUserSubscription = this.userService.currentUser.subscribe(user => {
-    //   this.currentUser = user;
-    //   if (this.currentUser && this.currentUser.userType === 'Doctor') {
-    //     this.router.navigate([`${AppRouterLinks.HOME}`]);
-    //   }
-    // });
+  }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
   }
 
   ngOnInit() {
-    this.fetchhours();
+    this.days = []
+   
     this.fetchDoctors();
-    this.uniqueCities();
     this.visitsCounter();
     this.doctorForm = this.formBuilder.group({
       doctor: ['', Validators.required]
@@ -95,35 +84,18 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.currentUserSubscription.unsubscribe();
-  }
-
-  addEvent(event: MatDatepickerInputEvent<Date>) {
-    this.date = moment((event.value.toLocaleDateString()), 'DD.MM.YYYY').format('DD.MM.YYYY');
-    // console.log(this.date);
-    this.datePicked = true;
-    this.calendarClicked = false;
-  }
-
-  // shows specialties based on original cities
-  uniqueCities() {
-    // if (this.hoursList && this.hoursList.length > 0) {
-    //   const unique = this.hoursList.map(s => s.doctor).filter((e, i, a) => a.indexOf(e) === i);
-    //   return unique;
-    // } else {
-    //   return ['Not Found!'];
-    // }
-  }
+  // ngOnDestroy() {
+  //   // unsubscribe to ensure no memory leaks
+  //   this.currentUserSubscription.unsubscribe();
+  // }
 
   pickdoctor(doctor) {
     this.doctor = doctor;
-    this.selectedDoctor = doctor;
+    this.selectedDoctor = this.doctors.find(d=>d.name === doctor).doctor_code;
    console.log(doctor);
+ 
   }
 
-  
   pickday(day) {
     this.day = day;
     this.selectedDay = day;
@@ -131,6 +103,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   submitdoctor() {
     this.doctorSubmitted = true;
+    this.getNextBusinessDays();
     if (this.doctorForm.invalid) {
       return;
     } else {
@@ -142,8 +115,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   pickHour(hour) {
     this.hour = hour;
     this.selectedHour = hour;
-    this.request.date = this.date;
-    this.request.hour = this.hour;
+    // this.request.date = this.date;
+    // this.request.hour = this.hour;
    // this.request.status = 'pending';
     this.hourPicked = true;
     this.requestSent = false;
@@ -152,6 +125,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   submitday() {
     this.daySubmitted = true;
     console.log(this.day);
+    console.log(new Date(this.day).getTime())
+    this.fetchHours();
     if (this.dayForm.invalid) {
       return;
     } else {
@@ -168,15 +143,6 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       this.stepCounter = 4;
     }
   }
-
-
-  imgPath() {
-    // for (let i = 0; i < this.hours.length; i++) {
-    //   return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-    //     + this.hours[i].profilePic);
-    // }
-  }
-
 
   get f() {
     return this.doctorForm.controls;
@@ -196,23 +162,38 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   //   );
   }
 
-
-
-  fetchhours() {
-    // this.userService.getAll().subscribe(hours => {
-    //   this.hoursList = hours.filter(e => e.userType === 'Doctor');
-    //   // console.log(this.hoursList);
-    // });
+  //generare zile lucratoare
+  getNextBusinessDays() {
+    const firstDate = Date.now();
+    const noOfDays = 12;
+    var i=0;
+    for (var currentDate = new Date(firstDate); i <= noOfDays; currentDate.setDate(currentDate.getDate() + 1)) {
+      if (currentDate.getDay() != 0 && currentDate.getDay() != 6) {
+        var newDate = new Date(currentDate).toLocaleString("se").split(" ")[0];
+        this.days.push(newDate);
+        i+=1;
+      }
+    }
   }
+
 
   fetchDoctors(){
     this.appointmentService.getDoctors().subscribe((doctors)=>{ 
       this.doctors = doctors
+      console.log(this.doctors)
     }
     )
   }
 
+  fetchHours(){
+    this.appointmentService.getFreeHoursForAppointment(this.selectedDoctor, this.selectedDay).subscribe(hours=>
+      this.hours = hours)
+  }
+
   sendRequest() {
+
+    this.appointmentService.postAppointment('IS00050653', this.selectedDoctor, this.selectedDay, this.selectedHour).subscribe();
+    console.log('IS00050653' + this.selectedDoctor + " " + this.selectedDay + " " + this.selectedHour)
     // if (this.currentUser) {
     //   this.visitsCount++;
     //   // console.log(this.visitsCount);
@@ -252,66 +233,5 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     // }
   }
 
-  // getRating(doctor) {
-  //   if (doctor.rating === undefined) {
-  //     return 0;
-  //   } else {
-  //   return doctor.rating * 20;
-  //   }
-  // }
-
-  // clearAlert() {
-  //   this.alertService.clearAlert();
-  // }
 }
 
-
-// export class AppointmentComponent implements OnInit {
-
-//   appointmentForm: FormGroup;
-//   public successMsg: string;
-//   public errorMsg: string;
-//   appointmentDate: string;
-//   name: string;
-//   email: string;
-
-//   hours: Hour[] = [
-//     {value: '10', viewValue: '10:00'},
-//     {value: '11', viewValue: '11:00'},
-//     {value: '12', viewValue: '12:00'}
-//   ];
-
-//   days: Day[] = [
-//     {value: '2021-05-16', viewValue: '2021-05-16'},
-//     {value: '2021-05-16', viewValue: '2021-05-16'},
-//     {value: '2021-05-16', viewValue: '2021-05-16'}
-//   ];
-//   constructor(private appointmentService: AppointmentService, private fb: FormBuilder) { }
-
-//   ngOnInit() {
-//     this.appointmentForm = this.fb.group({
-      
-//       name: ['',[Validators.required, Validators.maxLength(35)]],
-//       email:['',Validators.required, Validators.email],
-//       hours:'',
-//       days:''
-//     })
-//   }
-
-//   createAppointment() {
-//     this.successMsg = '';
-//     this.errorMsg = '';
-//     this.appointmentService.createAppointment(this.appointmentDate, this.name, this.email)
-//       .subscribe((createdAppointment: Appointment) => {
-//         this.appointmentDate = '';
-//         this.name = '';
-//         this.email = '';
-//         const appointmentDate = new Date(createdAppointment.appointmentDate).toDateString();
-//         this.successMsg = `Appointment Booked Successfully for ${appointmentDate}`;
-//       },
-//       (error: ErrorEvent) => {
-//         this.errorMsg = error.error.message;
-//       });
-//   }
-
-// }

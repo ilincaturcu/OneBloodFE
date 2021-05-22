@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
     this.authRequest.userName = this.loginForm.controls['email'].value;
     this.authRequest.password = this.loginForm.controls['password'].value;
     console.log(this.authRequest)
-    this.getAccessToken(this.authRequest);
+    await this.getAccessToken(this.authRequest);
     this.getRoleValue(this.authRequest);
   
     //this.router.navigate(['/']);

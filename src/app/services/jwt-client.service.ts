@@ -1,5 +1,6 @@
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { windowWhen } from 'rxjs/operators';
 import { baseUrlSql } from 'src/environments/environment';
 
 const TOKEN_KEY = 'AuthToken';
@@ -13,7 +14,8 @@ export class JwtClientService {
   constructor(private http: HttpClient) { }
 
   public saveToken(token) {
-   // window.sessionStorage.removeItem(TOKEN_KEY);
+   if(window.sessionStorage.getItem(TOKEN_KEY) !=null)
+      window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
   public saveRole(role) {
