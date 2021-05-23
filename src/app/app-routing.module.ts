@@ -18,7 +18,7 @@ const routes: Routes = [
   { path : 'programare', component : AppointmentComponent},
   { path : 'medical-results', component : MedicalResultsComponent},
   { path : 'calendar-doctor', component : CalendarDoctorComponent},
-  { path : 'fisa-donare', component : TestsResultsComponent},
+  { path : 'tests-results/:id', component : TestsResultsComponent},
   { path : 'examen-medical', component : ExamenMedicalComponent},
   { path : 'register', component : RegisterComponent},
   { path : 'login', component : LoginComponent}
