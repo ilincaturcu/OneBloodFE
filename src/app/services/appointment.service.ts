@@ -39,8 +39,8 @@ donor_code = 'IS00050653';
     return this.http.get(`http://localhost:9090/api/appointment/doctor/${doctor_code}/day/${date}/hours`, this.httpOptions);
   }
 
-  getAllTests(donor_code : string, date : string ): Observable<any> {
-    return this.http.get(`http://localhost:9090/api/agreggator/donor/${donor_code}/date/${date}`, this.httpOptions);
+  getAllTests(donationFormId : string ): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/donationForm/tests/${donationFormId}`, this.httpOptions);
   }
 
 
@@ -53,7 +53,13 @@ donor_code = 'IS00050653';
     return this.http.post<Appointment>(``, { appointmentDate, status, hour });
   }
 
-  cancelAppointment(id: string): Observable<any> {
-    return this.http.delete(`http://localhost:9090/api/appointment/` + id, this.httpOptions);
-  }
+  // cancelAppointment(id: string): Observable<any> {
+  //   //this.http.options(`http://localhost:9090/api/appointment/` + id, this.httpOptions);
+  //   return this.http.delete(`http://localhost:9090/api/appointment/` + id, this.httpOptions);
+  // }
+
+  
+   cancelAppointment(id: string): Observable<any> {
+     return this.http.put<any>(`http://localhost:9090/api/appointment/deleted/` + id,'', this.httpOptions);
+   }
 }

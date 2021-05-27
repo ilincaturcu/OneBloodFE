@@ -32,6 +32,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExamenMedicalComponent } from './examen-medical/examen-medical.component';
 import { AnalizeDonatorComponent } from './analize-donator/analize-donator.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     ResultsComponent,
     CalendarDoctorComponent,
     ExamenMedicalComponent,
-    AnalizeDonatorComponent
+    AnalizeDonatorComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

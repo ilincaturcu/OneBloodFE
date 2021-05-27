@@ -85,14 +85,25 @@ export class TestsResultsComponent implements OnInit {
       "Parametru": "H",
       "Valoare": "0",
       "UM": "cm"
+    },
+    {
+      "Parametru": "HIV",
+      "Valoare": "",
+      "UM": ""
+    },
+    {
+      "Parametru": "Syphilis",
+      "Valoare": "",
+      "UM": ""
     }
   ]
+  donationFormId;
 
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService) {
     this.route.params
       .subscribe(
-        params => console.log(params)
+        params => this.donationFormId = params.id
       )
     
   }
@@ -115,7 +126,7 @@ export class TestsResultsComponent implements OnInit {
 
 
   async fetchTestsTesults() {
-    await this.appointmentService.getAllTests('IS00050654', '2021-02-14').subscribe((r) => this.getPredonare(r.pre));
+    await this.appointmentService.getAllTests(this.donationFormId).subscribe((r) => this.getPredonare(r.body));
   }
 
  async getPredonare(data: any) {
