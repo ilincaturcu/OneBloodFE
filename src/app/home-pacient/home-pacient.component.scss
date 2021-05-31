@@ -42,16 +42,12 @@ mat-card-title {
   background-color: $tertiary-color;
   margin: auto;
   margin-top: 5%;
-  text-align: center;
   font-size: 1.2em;
 }
 
 @media all and (max-width: 750px) {
   h1{
     font-size: 3em
-  }
-  .quizzes {
-    flex-direction: column;
   }
 
   mat-card {

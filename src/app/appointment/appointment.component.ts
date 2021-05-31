@@ -8,7 +8,18 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
+const options = {
+  title: 'Finalizare programare',
+  message: 'Veti primi un email cu toate informatiile',
+  cancelText: '',
+  confirmText: 'ok'
+};
+
 
 interface Hour {
   value: string;
@@ -25,7 +36,7 @@ interface Day {
   styleUrls: ['./appointment.component.scss']
 })
 
-export class AppointmentComponent implements OnInit, OnDestroy {
+export class AppointmentComponent implements OnInit {
   doctorForm: FormGroup;
   dayForm: FormGroup;
   hoursForm:FormGroup;
@@ -48,7 +59,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   requestSent = false;
   visitsCount;
   hoursList;
-
+  dialogRef: MatDialogRef<DialogComponent>;
 
 
   @ViewChild('datePicker', {static: true}) datePicker: MatDatepicker<Date>;
@@ -64,15 +75,11 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   ) {
     this.renderer.addClass(document.body, 'landing1');
   }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit() {
     this.days = []
    
     this.fetchDoctors();
-    this.visitsCounter();
     this.doctorForm = this.formBuilder.group({
       doctor: ['', Validators.required]
     });
@@ -115,9 +122,6 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   pickHour(hour) {
     this.hour = hour;
     this.selectedHour = hour;
-    // this.request.date = this.date;
-    // this.request.hour = this.hour;
-   // this.request.status = 'pending';
     this.hourPicked = true;
     this.requestSent = false;
   }
@@ -152,16 +156,6 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     return this.dayForm.controls;
   }
 
-  visitsCounter() {
-  // this.userService.getAll().pipe(first()).subscribe(users => {
-  //   if (users.map(e => e.visits).length > 0) {
-  //     this.visitsCount = users.map(e => e.visits).reduce((a, b) => [...a, ...b]).length;
-  //   } else {
-  //     this.visitsCount = 1; }
-  //     }
-  //   );
-  }
-
   //generare zile lucratoare
   getNextBusinessDays() {
     const firstDate = Date.now();
@@ -190,10 +184,40 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       this.hours = hours)
   }
 
+
+  public openDialog(options){
+    this.dialogRef = this.dialog.open(DialogComponent, {    
+      data: {
+        title: options.title,
+        message: options.message,
+        cancelText: options.cancelText,
+        confirmText: options.confirmText
+      }
+ });
+  }
+
+  public confirmed(): Observable<any> {
+    console.log('daaa')
+    return this.dialogRef.afterClosed().pipe(take(1), map(res => {
+        return res;
+      }
+    ));
+  }
   sendRequest() {
 
     this.appointmentService.postAppointment('IS00050653', this.selectedDoctor, this.selectedDay, this.selectedHour).subscribe();
-    console.log('IS00050653' + this.selectedDoctor + " " + this.selectedDay + " " + this.selectedHour)
+    console.log('IS00050653' + this.selectedDoctor + " " + this.selectedDay + " " + this.selectedHour);
+    this.openDialog(options);
+    this.confirmed().subscribe(confirmed => {
+      if (confirmed) {
+        //do something if confirmed is true
+        console.log('confirmed')
+        this.router.navigate(['/home']);
+      }
+   });
+    this.router.navigate(['/home']);
+
+
     // if (this.currentUser) {
     //   this.visitsCount++;
     //   // console.log(this.visitsCount);

@@ -21,7 +21,8 @@ const routes: Routes = [
   { path : 'tests-results/:id', component : TestsResultsComponent},
   { path : 'examen-medical', component : ExamenMedicalComponent},
   { path : 'register', component : RegisterComponent},
-  { path : 'login', component : LoginComponent}
+  { path : 'login', component : LoginComponent},
+  { path : 'home', component : HomePacientComponent}
 ];
 
 @NgModule({

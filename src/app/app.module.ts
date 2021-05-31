@@ -33,6 +33,7 @@ import { ExamenMedicalComponent } from './examen-medical/examen-medical.componen
 import { AnalizeDonatorComponent } from './analize-donator/analize-donator.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     CalendarDoctorComponent,
     ExamenMedicalComponent,
     AnalizeDonatorComponent,
-    NavbarComponent
+    NavbarComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

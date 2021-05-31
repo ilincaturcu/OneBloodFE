@@ -55,15 +55,14 @@ export class RegisterComponent implements OnInit {
       cnp:['', [Validators.required,Validators.min(0), Validators.minLength(13), Validators.maxLength(13)]],
       self_exclusion_form_id: [0],
       donor_code:['IS00050654'],
-      status:[''],
+      status:['pending'],
       created_at: [new Date().toLocaleString("se").split(" ")[0] ]
     })
+
     this.sexes = [
       'Feminin',
       'Masculin'
     ];
-
-    console.log("edit ng on init ")
 
 
     const currentYear = new Date().getFullYear();
@@ -82,20 +81,13 @@ export class RegisterComponent implements OnInit {
   public pacientHasError = (controlName: string, errorName: string) => {
     return this.pacientControl.controls[controlName].hasError(errorName);
   }
+
   saveUserDetails() {
-    console.log(this.loginForm.value);
-    console.log(this.fisaDonareControl.value);
     this.credentials =this.loginForm.value;
     this.pacient = this.pacientControl.value;
     this.personalInfo = this.fisaDonareControl.value;
-    console.log("save");
-    console.log(this.credentials)
-    console.log(this.pacient);
-    console.log( this.personalInfo);
     this.pacientCredentials = new PacientCredentials(this.pacient, this.credentials, this.personalInfo);
-    //this.pacientService.addCredentials(this.credentials).subscribe();
     this.pacientService.addPacientWithCredentials(this.pacientCredentials).subscribe();
   }
 
-  
 }

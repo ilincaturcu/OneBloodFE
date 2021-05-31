@@ -67,19 +67,11 @@ export class LoginComponent implements OnInit {
      if (this.loginForm.invalid) {
        return;
      }
-    console.log(this.loginForm.controls['email'].value);
-    console.log(this.loginForm.controls['password'].value);
     this.authRequest.userName = this.loginForm.controls['email'].value;
     this.authRequest.password = this.loginForm.controls['password'].value;
     console.log(this.authRequest)
     await this.getAccessToken(this.authRequest);
     this.getRoleValue(this.authRequest);
-  
-    //this.router.navigate(['/']);
-  
-  
-    //  console.log(this.loginservice.authenticate(this.f.email.value, this.f.password.value));
-    // // await this.loginservice.authenticate(this.f.email.value, this.f.password.value);
 
     setTimeout(() => {
       if (sessionStorage.getItem("Role").valueOf() == 'Pacient') {
@@ -94,11 +86,14 @@ export class LoginComponent implements OnInit {
       }
     },
       1000);
-
-
   }
 
   public loginHasError = (controlName: string, errorName: string) => {
     return this.loginForm.controls[controlName].hasError(errorName);
+  }
+
+
+  onRegister(){
+    this.router.navigate(['/register']);
   }
 }

@@ -1,6 +1,6 @@
 <div>
     <div class="add-title">
-        <h1 class="primary">Fisa Donare</h1>
+        <h1 class="primary">Înregistrare</h1>
     </div>
     <hr>
     <div class="container">
@@ -10,14 +10,14 @@
                     <p>
                         <mat-form-field class="box" appearance="fill">
                             <mat-label>Email</mat-label>
-                            <input matInput maxlength="20" type="text" placeholder="" formControlName="email" id="email"
+                            <input matInput maxlength="30" type="text" placeholder="" formControlName="email" id="email"
                                 autocomplete="new-password">
-                            <mat-error *ngIf=" loginHasError('email', 'required' )">Emailul este obligatoriu</mat-error>
+                            <mat-error *ngIf=" loginHasError('email', 'required' )">Email-ul este obligatoriu</mat-error>
                         </mat-form-field>
                     </p>
                     <p>
                         <mat-form-field class="box" appearance="fill">
-                            <mat-label>Parola</mat-label>
+                            <mat-label>Parolă</mat-label>
                             <input matInput type="password" placeholder="**********" formControlName="password"
                                 id="password" autocomplete="new-password">
                             <mat-error *ngIf=" loginHasError('password', 'required' )">Parola este obligatorie
@@ -62,24 +62,17 @@
                                 <mat-hint>{{ surname.value?.length || 0}}/30</mat-hint>
                             </mat-form-field>
                         </p>
-                        <!--               <mat-form-field class="box" appearance="fill">
-                    <mat-label>Data nasterii</mat-label>
-                    <input matInput [matDatepicker]="seStDt" [min]="minDate" [max]="maxDate" formControlName="sessionStDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            -->
                         <p>
                             <mat-form-field class="dateOfBirth">
-                                <mat-label>Data nasterii</mat-label>
+                                <mat-label>Data nașterii</mat-label>
                                 <input name="birthdate" matInput [matDatepicker]="dob" formControlName="birthdate">
                                 <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
                                 <mat-datepicker #dob></mat-datepicker>
                                 <mat-error *ngIf="hasError('birthdate', 'required')">
-                                    Introduceti o data valida
+                                    Introduceți o dată validă
                                 </mat-error>
                                 <mat-error *ngIf="hasError('birthdate', 'invalidDOBYear')">
-                                    Conform datei alese nu sunteti major/a
+                                    Conform datei alese nu sunteți major/ă
                                 </mat-error>
                             </mat-form-field>
                         </p>
@@ -98,7 +91,7 @@
                                 <mat-label>Numar buletin</mat-label>
                                 <input matInput #identity_card_number maxlength="6" type="number" placeholder=""
                                     formControlName="identity_card_number" id="identity_card_number">
-                                <mat-error *ngIf="hasError('identity_card_number', 'required')">Numarul buletinului este
+                                <mat-error *ngIf="hasError('identity_card_number', 'required')">Numărul buletinului este
                                     obligatoriu
                                 </mat-error>
                                 <mat-hint align="end">{{ identity_card_number.value?.length || 0}}/6</mat-hint>
@@ -118,20 +111,20 @@
                         </p>
                         <p>
                             <mat-form-field class="box" appearance="fill">
-                                <mat-label>Numar de telefon</mat-label>
+                                <mat-label>Număr de telefon</mat-label>
                                 <input matInput #phone_number maxlength="10" type="text" placeholder=""
                                     formControlName="phone_number" id="phone_number">
-                                <mat-error *ngIf=" hasError('phone_number', 'required' )">Numarul de telefon este
+                                <mat-error *ngIf=" hasError('phone_number', 'required' )">Numărul de telefon este
                                     obligatoriu</mat-error>
                                 <mat-hint align="end">{{ phone_number.value?.length || 0}}/10</mat-hint>
                             </mat-form-field>
                         </p>
                         <p>
                             <mat-form-field class="box" appearance="fill">
-                                <mat-label>Varsta</mat-label>
+                                <mat-label>Vârstă</mat-label>
                                 <input matInput #inputAge maxlength="3" type="number" placeholder=""
                                     formControlName="age" id="number">
-                                <mat-error *ngIf="hasError('age', 'required')">Varsta este
+                                <mat-error *ngIf="hasError('age', 'required')">Vârsta este
                                     obligatorie
                                 </mat-error>
                             </mat-form-field>
@@ -146,9 +139,9 @@
                         </p>
                         <p>
                             <mat-form-field class="box" hintLabel="Ocupatia pe care o aveti acum" appearance="fill">
-                                <mat-label>Loc de munca</mat-label>
+                                <mat-label>Loc de muncă</mat-label>
                                 <input matInput #job type="text" placeholder="" formControlName="job" id="job">
-                                <mat-error *ngIf=" hasError('job', 'required' )">Locul de munca este obligatoriu
+                                <mat-error *ngIf=" hasError('job', 'required' )">Locul de muncă este obligatoriu
                                 </mat-error>
                             </mat-form-field>
                         </p>
@@ -170,7 +163,7 @@
                     </mat-card-content>
                     <mat-card-actions class="buttons">
                         <button mat-raised-button color="primary" type="submit" (click)="saveUserDetails()"
-                            id="fisaDonareControl">Salveaza</button>
+                            id="fisaDonareControl">Salvează</button>
                     </mat-card-actions>
                 </form>
         </div>
