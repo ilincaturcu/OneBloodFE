@@ -34,6 +34,9 @@ import { AnalizeDonatorComponent } from './analize-donator/analize-donator.compo
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { RoleGuardsService } from './services/role-guards.service';
+import { AuthGuardService } from './services/auth-guards.service';
+import { AppointmentGuardsService } from './services/appointment-guards.service';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,7 @@ import { DialogComponent } from './dialog/dialog.component';
       useFactory: adapterFactory,
     }),
   ],
-  providers: [],
+  providers: [RoleGuardsService, AuthGuardService, AppointmentGuardsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

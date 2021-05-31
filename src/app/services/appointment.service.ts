@@ -16,7 +16,7 @@ httpOptions;
 donor_code = 'IS00050653';
   constructor(private http: HttpClient, private JwtService : JwtClientService) {
   this.token = JwtService.getToken();
-   this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`})};
+   this.httpOptions = { headers: new HttpHeaders({ 'responseType': 'text','Authorization': `Bearer ${this.token}`})};
   }
   
   getAppointments(): Observable<any> {

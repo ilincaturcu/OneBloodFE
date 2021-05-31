@@ -11,11 +11,19 @@ export class PacientService {
 
   token="";
   httpOptions;
+  httpOptionsWithtoken;
   data;
 
   constructor(private http: HttpClient, private JwtService : JwtClientService) {
     this.token = JwtService.getToken();
-   // this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`})};
+
+    this.httpOptionsWithtoken = { 
+      headers: new HttpHeaders({ 
+        'Content-Type': 'text/plain',
+        'Authorization': `Bearer ${this.token}`}),
+        'responseType': 'text'
+      };
+
    this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
   }
   
@@ -44,5 +52,9 @@ export class PacientService {
   //   return this.http.post<Credentials>(`http://localhost:9090/api/credentials`, credentials, this.httpOptions);
   // }
   
+  public getPacientStatus(donor_code : string):Observable<any> {
+    
+    return  this.http.get<string>(`http://localhost:9090/api/pacient/status/` + donor_code, this.httpOptionsWithtoken);
+  }
   
   }

@@ -48,4 +48,12 @@ export class JwtClientService {
     const headers = new HttpHeaders().set("Authorization", tokenStr)
     return this.http.get(`http://localhost:9090/`, {headers, responseType: 'text' as 'json'});
   }
+
+  public isAuthenticated(): boolean {
+    // const role = sessionStorage.getItem('role');
+    // console.log("role:")
+    // console.log(role)
+    // return role == "admin" || role == "voluntar";
+    return true;
+  }
 }
