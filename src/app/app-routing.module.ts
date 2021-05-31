@@ -13,12 +13,13 @@ import { RegisterComponent } from './register/register.component';
 import { RoleGuardsService as RoleGuard} from './services/role-guards.service';
 import { TestsResultsComponent } from './tests-results/tests-results.component';
 import {AppointmentGuardsService as AppGuard} from './services/appointment-guards.service';
+import { QuizGuardsService as QuizGuard} from './services/quiz-guards.service';
 //import { AuthGuardService as AuthGuard, } from '../voluntari/services/auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: HomePacientComponent },
-  { path: 'chestionarAutoexcludere', component: QuestionsComponent },
+  { path: 'chestionarAutoexcludere', component: QuestionsComponent, canActivate: [QuizGuard], data: {expectedResponse : 'true'} },
   { path : 'programare', component : AppointmentComponent, canActivate: [AppGuard], data: { expectedPacientStatus: 'valid'} },
   { path : 'medical-results', component : MedicalResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
   { path : 'calendar-doctor', component : CalendarDoctorComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor'} },

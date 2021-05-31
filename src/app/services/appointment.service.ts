@@ -13,7 +13,7 @@ export class AppointmentService {
   //private BASE_URL = environment.API_URL;
 token;
 httpOptions;
-donor_code = 'IS00050653';
+donor_code =  this.JwtService.getDonorCode();
   constructor(private http: HttpClient, private JwtService : JwtClientService) {
   this.token = JwtService.getToken();
    this.httpOptions = { headers: new HttpHeaders({ 'responseType': 'text','Authorization': `Bearer ${this.token}`})};

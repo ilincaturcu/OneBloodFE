@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { JwtClientService } from '../services/jwt-client.service';
 
 const options = {
   title: 'Finalizare programare',
@@ -71,7 +72,8 @@ export class AppointmentComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private renderer: Renderer2,
     private dialog: MatDialog,
-    private appointmentService : AppointmentService
+    private appointmentService : AppointmentService,
+    private jwtService : JwtClientService
   ) {
     this.renderer.addClass(document.body, 'landing1');
   }
@@ -205,13 +207,14 @@ export class AppointmentComponent implements OnInit {
   }
   sendRequest() {
 
-    this.appointmentService.postAppointment('IS00050653', this.selectedDoctor, this.selectedDay, this.selectedHour).subscribe();
-    console.log('IS00050653' + this.selectedDoctor + " " + this.selectedDay + " " + this.selectedHour);
+    var donorCode = this.jwtService.getDonorCode();
+    this.appointmentService.postAppointment(donorCode, this.selectedDoctor, this.selectedDay, this.selectedHour).subscribe();
+  //  console.log('IS00050653' + this.selectedDoctor + " " + this.selectedDay + " " + this.selectedHour);
     this.openDialog(options);
     this.confirmed().subscribe(confirmed => {
       if (confirmed) {
         //do something if confirmed is true
-        console.log('confirmed')
+       // console.log('confirmed')
         this.router.navigate(['/home']);
       }
    });

@@ -16,7 +16,11 @@ export class LoginComponent implements OnInit {
       "userName": "ilincafturcu@gmail.com",
       "password": "Ilinca-113473"
     }
-
+donorReq:any =
+    {
+      "email": "ilincafturcu@gmail.com",
+      "password": "Ilinca-113473"
+    }
   response: any;
   loginForm: FormGroup;
   loading = false;
@@ -47,6 +51,16 @@ export class LoginComponent implements OnInit {
   }
 
 
+  public getDonorCode(req) {
+    let response = this.service.getDonorCodeReq(req);
+    response.subscribe(donorCode => this.service.saveDonorCode(donorCode),
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.invalidLogin = true;
+      });
+  }
+
   public getRoleValue(req) {
     let response = this.service.getRoleReq(req);
     response.subscribe(role => this.service.saveRole(role),
@@ -72,14 +86,20 @@ export class LoginComponent implements OnInit {
     console.log(this.authRequest)
     await this.getAccessToken(this.authRequest);
     this.getRoleValue(this.authRequest);
+    
+    
 
     setTimeout(() => {
       if (sessionStorage.getItem("Role").valueOf() == 'Pacient') {
         console.log("pacient")
+        this.donorReq.email = this.loginForm.controls['email'].value;
+        this.donorReq.password = this.loginForm.controls['password'].value;
+        //var token = this.getAccessToken(this.authRequest);
+        this.getDonorCode(this.donorReq);
         this.router.navigate(['/']);
         this.invalidLogin = false;
       }
-      else if(sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
+      else if(sessionStorage.getItem("Role").valueOf() == 'Doctor') {
         console.log("doctor")
         this.router.navigate(['/']);
         this.invalidLogin = false;

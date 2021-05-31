@@ -3,6 +3,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionsService } from '../services/questions.service';
 import { Quiz, Answers, Choice, Question, Response } from '../models/quiz.model';
+import { JwtClientService } from '../services/jwt-client.service';
 
 
 @Component({
@@ -21,10 +22,11 @@ export class QuestionsComponent implements OnInit {
   showResults = false;
 
   // inject both the active route and the questions service
-  constructor(private route: ActivatedRoute, public questionsService: QuestionsService) {}
+  constructor(private route: ActivatedRoute, public questionsService: QuestionsService, private jwtService : JwtClientService) {}
 
   ngOnInit() {
 
+    var donorCode = this.jwtService.getDonorCode();
     this.questionsService.getQuestionsFemei()
       .subscribe((questions:Question[]) => {
         // initialize everything
@@ -32,7 +34,7 @@ export class QuestionsComponent implements OnInit {
        // console.log(this.questions.map( r=> new Question(r.question, r.choices)))
        var date = new Date().toLocaleString("se").split(" ")[0] ;
        date += "T22:00:00.000+00:00";
-         this.answers = new Answers(date, "IS00050653");
+         this.answers = new Answers(date, donorCode);
          this.currentQuestionIndex = 0;
       });
   }

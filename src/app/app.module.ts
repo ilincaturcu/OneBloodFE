@@ -37,6 +37,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { RoleGuardsService } from './services/role-guards.service';
 import { AuthGuardService } from './services/auth-guards.service';
 import { AppointmentGuardsService } from './services/appointment-guards.service';
+import { QuizGuardsService } from './services/quiz-guards.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { AppointmentGuardsService } from './services/appointment-guards.service'
       useFactory: adapterFactory,
     }),
   ],
-  providers: [RoleGuardsService, AuthGuardService, AppointmentGuardsService],
+  providers: [RoleGuardsService, AuthGuardService, AppointmentGuardsService, QuizGuardsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
