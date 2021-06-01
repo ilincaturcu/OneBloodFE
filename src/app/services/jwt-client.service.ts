@@ -5,14 +5,17 @@ import { baseUrlSql } from 'src/environments/environment';
 
 const TOKEN_KEY = 'AuthToken';
 const ROLE_KEY = 'Role';
-const DONOR_CODE = 'DonorCode'
+const DONOR_CODE = 'DonorCode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtClientService {
-
-  constructor(private http: HttpClient) { }
+donor_code;
+cnp;
+  constructor(private http: HttpClient) { 
+    this.donor_code = this.getDonorCode();
+  }
 
   public saveToken(token) {
    if(window.sessionStorage.getItem(TOKEN_KEY) !=null)
@@ -28,6 +31,7 @@ export class JwtClientService {
     window.sessionStorage.removeItem(DONOR_CODE);
     window.sessionStorage.setItem(DONOR_CODE, donorCode);
   }
+
   public getToken(){
     return sessionStorage.getItem(TOKEN_KEY);
   }
@@ -59,8 +63,28 @@ export class JwtClientService {
     return this.http.post(`${baseUrlSql}api/aggregator/pacient/donor_code`, request,  {headers, responseType: 'text' as 'json'})
   }
 
+
+  async getDonorGender(){
+    let token = 'Bearer ' + sessionStorage.getItem(TOKEN_KEY);
+    const headers = new HttpHeaders().set("Authorization", token);
+   
+    this.cnp = await this.getCNP( headers);
+    let url = `${baseUrlSql}api/personalInformation/gender/` + this.cnp;
+    return this.http.get(url,  {headers, responseType: 'text' as 'json'})
+  }
+
+
+ async getCNP(headers): Promise<string> {
+    let url = `${baseUrlSql}api/pacient/cnp/` + this.donor_code;
+    return new Promise<string>((resolve) => {
+      setTimeout(() => {
+        this.http.get(url,  {headers, responseType: 'text'}).subscribe(status =>resolve(status))
+      }, 100)
+    });
+  }
+
   public canDonorCompleteTheQuiz(){
-    var donorCode = this.getDonorCode();
+    const donorCode = this.donor_code;
     return this.http.get(`http://localhost:7070/api/responses/dates/` + donorCode, {responseType: 'text' as 'json'})
   }
 

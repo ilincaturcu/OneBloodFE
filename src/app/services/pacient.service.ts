@@ -40,21 +40,19 @@ export class PacientService {
 
 
   public addPacientWithCredentials(pacient : PacientCredentials): Observable<any> {
-    console.log("in post")
-    console.log(pacient)
     return this.http.post<PacientCredentials>(`http://localhost:9090/agreggator/cont/pacient`, pacient, this.httpOptions);
   }
 
   
-  // public addCredentials(credentials : any): Observable<any> {
-  //   console.log("in post")
-  //   console.log(credentials)
-  //   return this.http.post<Credentials>(`http://localhost:9090/api/credentials`, credentials, this.httpOptions);
-  // }
-  
   public getPacientStatus(donor_code : string):Observable<any> {
     
     return  this.http.get<string>(`http://localhost:9090/api/pacient/status/` + donor_code, this.httpOptionsWithtoken);
+  }
+  
+
+  public doesTheDonorHaveAnApp(donor_code : string):Observable<any> {
+    
+    return  this.http.get<string>(`http://localhost:9090/api/appointment/current/` + donor_code, this.httpOptionsWithtoken);
   }
   
   }

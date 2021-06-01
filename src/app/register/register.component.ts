@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
     this.pacientControl = this.fb.group({
       cnp:['', [Validators.required,Validators.min(0), Validators.minLength(13), Validators.maxLength(13)]],
       self_exclusion_form_id: [0],
-      donor_code:['IS00050654'],
+      donor_code:['IS00050662'],
       status:['pending'],
       created_at: [new Date().toLocaleString("se").split(" ")[0] ]
     })

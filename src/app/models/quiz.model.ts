@@ -3,7 +3,7 @@ export class Choice {
   }
   
   export class Question {
-    constructor(public question: string, public choices: Choice[], public question_type:string) {}
+    constructor(public question: string, public choices: Choice[], public question_type:string, public question_number: number) {}
   }
   
   export class Quiz {

@@ -23,7 +23,7 @@ export class QuestionsService {
   public getQuestionsFemei() {
     return this.http.get(`./assets/chestionar-femei.json`).pipe(
       map((result: any[]) => {
-        return result.map(r => new Question(r.question, r.choices, r.question_type));
+        return result.map(r => new Question(r.question, r.choices, r.question_type, r.question_number));
       })
     );
   }
@@ -31,7 +31,7 @@ export class QuestionsService {
   public getQuestionsBarbati() {
     return this.http.get(`./assets/chestionar-barbati.json`).pipe(
       map((result: any[]) => {
-        return result.map(r => new Question(r.question, r.choices, r.question_type));
+        return result.map(r => new Question(r.question, r.choices, r.question_type, r.question_number));
       })
     );
   }
@@ -40,7 +40,7 @@ export class QuestionsService {
 
     var response = this.http.get(`http://localhost:7070/api/questions`, { responseType: 'json' }).pipe(
       map((result: Question[]) => {
-        result.map(r => new Question(r.question, r.choices, r.question_type));
+        result.map(r => new Question(r.question, r.choices, r.question_type, r.question_number));
       })
     );;
 
@@ -53,12 +53,6 @@ export class QuestionsService {
     return this.http.post<Answers>(`http://localhost:7070/api/response`, answers, this.httpOptions2);
   }
 
-  public getMostRecentResponseID1(donor_code) {
-    var id;
-   this.http.get(`http://localhost:7070/api/responses/responseId/` + donor_code, this.httpOptions2).subscribe(r=> id = r);
-   console.log('id= ' + id);
-  return id;
-  }
 
 
   
@@ -79,9 +73,6 @@ export class QuestionsService {
   }
 
   public addStatus(status, donor_code): Observable<any> {
-    console.log(status)
-    console.log(donor_code)
-    console.log(this.token);
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
     return this.http.put<any>(`http://localhost:9090/api/pacient/${status}/${donor_code}`, "", httpOptions3);
   }

@@ -10,7 +10,8 @@ export class AppointmentGuardsService implements CanActivate {
   async canActivate(route: ActivatedRouteSnapshot,  state: RouterStateSnapshot): Promise<boolean> {
     const expectedPacientStatus = route.data.expectedPacientStatus;
       const status = await this.checkStatusAsPromise();
-      if (!this.auth.isAuthenticated() || status !== expectedPacientStatus) {
+      const current = await this.checkDonorDoesNotHaveAnAppPromise();
+      if (!this.auth.isAuthenticated() || status !== expectedPacientStatus || current==true) {
         //TODO
       //DIALOG CU NE PARE RAU DAR NU PUTETI FACE O PROGRMAARE :(
         return false;
@@ -20,9 +21,19 @@ export class AppointmentGuardsService implements CanActivate {
 
 
   public checkStatusAsPromise(): Promise<string> {
+    var donor_code = this.auth.getDonorCode();
     return new Promise<string>((resolve) => {
       setTimeout(() => {
-        this.pacientService.getPacientStatus('IS00050654').subscribe(status =>resolve(status))
+        this.pacientService.getPacientStatus(donor_code).subscribe(status =>resolve(status))
+      }, 300)
+    });
+  }
+
+  public checkDonorDoesNotHaveAnAppPromise(): Promise<boolean> {
+    var donor_code = this.auth.getDonorCode();
+    return new Promise<boolean>((resolve) => {
+      setTimeout(() => {
+        this.pacientService.doesTheDonorHaveAnApp(donor_code).subscribe(status =>resolve(status))
       }, 300)
     });
   }

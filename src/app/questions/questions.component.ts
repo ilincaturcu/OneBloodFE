@@ -5,7 +5,6 @@ import { QuestionsService } from '../services/questions.service';
 import { Quiz, Answers, Choice, Question, Response } from '../models/quiz.model';
 import { JwtClientService } from '../services/jwt-client.service';
 
-
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -22,34 +21,64 @@ export class QuestionsComponent implements OnInit {
   showResults = false;
 
   // inject both the active route and the questions service
-  constructor(private route: ActivatedRoute, public questionsService: QuestionsService, private jwtService : JwtClientService) {}
+  constructor(private route: ActivatedRoute, public questionsService: QuestionsService, private jwtService: JwtClientService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     var donorCode = this.jwtService.getDonorCode();
-    this.questionsService.getQuestionsFemei()
-      .subscribe((questions:Question[]) => {
-        // initialize everything
-        this.questions = questions;
-       // console.log(this.questions.map( r=> new Question(r.question, r.choices)))
-       var date = new Date().toLocaleString("se").split(" ")[0] ;
-       date += "T22:00:00.000+00:00";
-         this.answers = new Answers(date, donorCode);
-         this.currentQuestionIndex = 0;
-      });
+
+
+
+    //if F else M
+    const gender = await this.checkGender();
+    console.log(gender)
+    if (gender == "Feminin") {
+      this.questionsService.getQuestionsFemei()
+        .subscribe((questions: Question[]) => {
+          this.questions = questions;
+          var date = new Date().toLocaleString("se").split(" ")[0];
+          date += "T22:00:00.000+00:00";
+          this.answers = new Answers(date, donorCode);
+          this.currentQuestionIndex = 0;
+        });
+    }
+    else {
+      this.questionsService.getQuestionsBarbati()
+        .subscribe((questions: Question[]) => {
+          this.questions = questions;
+        // var date = new Date().toLocaleString("se").split(" ")[0];
+        var date = new Date().toISOString().split('T')[0]
+          console.log(date);
+          date += "T22:00:00.000+00:00";
+          this.answers = new Answers(date, donorCode);
+          this.currentQuestionIndex = 0;
+        });
+    }
+
   }
 
+
+  public checkGender(): Promise<any> {
+    return new Promise<any>((resolve) => {
+      setTimeout(async () => {
+        (await this.jwtService.getDonorGender()).subscribe(gender => resolve(gender))
+      }, 300)
+    });
+  }
+
+
+
   updateChoice(choice: any) {
-    if(this.questions[this.currentQuestionIndex].question_type === "YESNO")
-    this.answers.responses[this.currentQuestionIndex] = new Response(this.currentQuestionIndex, choice.correct);
-    else if(this.questions[this.currentQuestionIndex].question_type === "TEXTBOX")
-   { this.answers.responses[this.currentQuestionIndex] = new Response(this.currentQuestionIndex, choice);
-    console.log(choice)
-  }
-  else if(this.questions[this.currentQuestionIndex].question_type === "DATE")
-   { this.answers.responses[this.currentQuestionIndex] = new Response(this.currentQuestionIndex, choice);
-    console.log("DATE" + choice)
-  }
+    if (this.questions[this.currentQuestionIndex].question_type === "YESNO")
+      this.answers.responses[this.currentQuestionIndex] = new Response(this.questions[this.currentQuestionIndex].question_number, choice.correct);
+    else if (this.questions[this.currentQuestionIndex].question_type === "TEXTBOX") {
+      this.answers.responses[this.currentQuestionIndex] = new Response(this.questions[this.currentQuestionIndex].question_number, choice);
+      console.log(choice)
+    }
+    else if (this.questions[this.currentQuestionIndex].question_type === "DATE") {
+      this.answers.responses[this.currentQuestionIndex] = new Response(this.questions[this.currentQuestionIndex].question_number, choice);
+      console.log("DATE" + choice)
+    }
   }
 
   nextOrViewResults() {
