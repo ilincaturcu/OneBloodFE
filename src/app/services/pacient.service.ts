@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JwtClientService } from './jwt-client.service';
-import { Credentials, PacientCredentials } from '../models/pacient.model';
+import { Credentials, Pacient, PacientCredentials, personalInformation } from '../models/pacient.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -79,4 +80,17 @@ export class PacientService {
     console.log("register email " + email);
     return this.http.get<string>(`http://localhost:9090/api/mail/existingAccount/` + email, this.httpOptions);
    }
+
+   getPacientByDonorCode1(donor_code : string): any{
+    return this.http.get<string>(`http://localhost:9090/api/pacient/` + donor_code, this.httpOptionsWithtoken);
+   }
+
+   getPacientPErsonalInfoByCnp(cnp : bigint): any{
+    return this.http.get<string>(`http://localhost:9090/api/personalInformation/` + cnp, this.httpOptionsWithtoken);
+   }
+
+
+   getPacientByDonorCode(donor_code : string): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/pacient/` + donor_code, this.httpOptionsWithtoken);
+  }
 }

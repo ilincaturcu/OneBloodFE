@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@ang
 import { ActivatedRoute } from '@angular/router';
 
 import { AppointmentService } from '../services/appointment.service';
+import { JwtClientService } from '../services/jwt-client.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class TestsResultsComponent implements OnInit {
   mode: boolean;
   touchedRows: any;
 
-  
+
   headers = ["Parametru", "Valoare", "UM"];
   rows = [
     {
@@ -98,17 +99,28 @@ export class TestsResultsComponent implements OnInit {
     }
   ]
   donationFormId;
+  editable=true;
 
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService) {
     this.route.params
       .subscribe(
         params => this.donationFormId = params.id
       )
-    
+
   }
 
   async ngOnInit() {
+    var role = this.auth.getRole();
+    console.log(role);
+    if (role == "Pacient")
+     this.editable=false;
+    else if (role = "Doctor_Specialist")
+    this.editable=true;
+
+    console.log(this.editable)
+
+
     this.fetchTestsTesults();
     this.touchedRows = [];
     this.userTable = this.fb.group({
@@ -116,7 +128,7 @@ export class TestsResultsComponent implements OnInit {
     });
     await this.fetchTestsTesults();
     var self = this;
-   setTimeout(function () { self.addRow(); }, 1000);
+    setTimeout(function () { self.addRow(); }, 1000);
 
   }
 
@@ -129,7 +141,7 @@ export class TestsResultsComponent implements OnInit {
     await this.appointmentService.getAllTests(this.donationFormId).subscribe((r) => this.getPredonare(r.body));
   }
 
- async getPredonare(data: any) {
+  async getPredonare(data: any) {
     await this.rows.map(r => r.Valoare = data[r.Parametru.toLowerCase()])
   }
 
@@ -141,13 +153,17 @@ export class TestsResultsComponent implements OnInit {
     });
   }
 
-   addRow() {
-    const control =  this.userTable.get('tableRows') as FormArray;
+  addRow() {
+    const control = this.userTable.get('tableRows') as FormArray;
     this.rows.forEach(row => control.push(this.initiateForm(row)));
   }
 
   doneRow(group: FormGroup) {
-    group.get('isEditable').setValue(false);
+    var role = this.auth.getRole();
+    if (role == "Pacient")
+      group.get('editable').setValue(true);
+    else if (role = "Doctor_Specialist")
+      group.get('editable').setValue(false);
   }
 
   saveUserDetails() {

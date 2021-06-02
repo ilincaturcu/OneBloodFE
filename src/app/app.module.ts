@@ -38,6 +38,7 @@ import { RoleGuardsService } from './services/role-guards.service';
 import { AuthGuardService } from './services/auth-guards.service';
 import { AppointmentGuardsService } from './services/appointment-guards.service';
 import { QuizGuardsService } from './services/quiz-guards.service';
+import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { QuizGuardsService } from './services/quiz-guards.service';
     ExamenMedicalComponent,
     AnalizeDonatorComponent,
     NavbarComponent,
-    DialogComponent
+    DialogComponent,
+    DoctorHomeComponent
   ],
   imports: [
     BrowserModule,

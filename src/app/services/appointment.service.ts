@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Appointment } from '../models/Appointment';
+import { Appointment, PacientAppointment } from '../models/Appointment';
 import { JwtClientService } from './jwt-client.service';
 
 @Injectable({
@@ -36,6 +36,12 @@ donor_code =  this.JwtService.getDonorCode();
   getDoctorsAppointmentsByDate(doctor_code : string, timestamp : number): Observable<any> {
     return this.http.get(`http://localhost:9090/api/appointment/doctor/${doctor_code}/day/${timestamp}`, this.httpOptions);
   }
+
+
+  getTodayAppointmentsAndPacientsInfo(doctor_code : string): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/aggregator/appointments/pacient/doctor/` + doctor_code, this.httpOptions);
+  }
+
 
   getFreeHoursForAppointment(doctor_code : string, date : Date, ): Observable<any> {
     return this.http.get(`http://localhost:9090/api/appointment/doctor/${doctor_code}/day/${date}/hours`, this.httpOptions);
