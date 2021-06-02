@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionsService } from '../services/questions.service';
 import { Answers, Question } from '../models/quiz.model';
 import { JwtClientService } from '../services/jwt-client.service';
@@ -15,28 +15,28 @@ export class ResultsComponent implements OnInit {
   @Input() questions: Question[];
   status: string
   donor_code ;
-  constructor(public questionsService: QuestionsService, private jwtService: JwtClientService) { }
+  diaplyedMessage = {};
+  public loading = true;
+  public errorMsg: string;
+  public successMsg: string;
+
+  constructor(public questionsService: QuestionsService, private jwtService: JwtClientService, private router: Router) { }
   async ngOnInit() {
-    // this.questionsService.getQuestions()
-    //   .subscribe(questions => {
-    //     this.questions = questions;
-
-    //   });
-
     this.donor_code = this.jwtService.getDonorCode();
-    console.log(this.donor_code + " donor code")
-    console.log(this.answers)
     this.questionsService.addResponses(this.answers).subscribe((status) => {
       this.status = status;
-      console.log("status " + this.status)
       this.questionsService.addStatus(this.status, this.donor_code).subscribe();
-     
-     }
-    );
+      this.loading = false;
+    },
+    (error: ErrorEvent) => {
+      this.errorMsg = error.error.message;
+      this.loading = false;
+    });
     (await this.questionsService.addResponseIdToPacient()).subscribe();
   }
 
-  // getIshResults(){
-  //   this.answers.values.filter(choice => choice.correct == 'ish')
-  // }
+
+  redirectProgramare(){
+    this.router.navigate(['/programare']);
+  }
 }

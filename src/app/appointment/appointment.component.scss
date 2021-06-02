@@ -30,11 +30,8 @@ alert {
 }
 
 .jumbotron {
-  color: white;
-  text-shadow: $shadow;
   text-align: center;
   vertical-align: middle;
-  //margin-top: 10px;
   margin-bottom: 30px;
   height: 50px;
 }
@@ -149,7 +146,6 @@ li {
 }
 
 mat-form-field * {
-  color: white;
   font: 22px Raleway, sans-serif;
 }
 
@@ -163,7 +159,6 @@ mat-form-field * {
   border: 1px solid white;
   border-radius: 5px;
   background: #2156f3;
-  color: white;
   font: $button-font;
   //font-weight: bold;
   padding: 5px 8px;
@@ -175,14 +170,12 @@ mat-form-field * {
 .actionBtn:hover {
   cursor: pointer;
   color: #2156f3;
-  background: white;
   border: 1px solid white;
 }
 
 .card {
   width: 400px;
-  border: 1px solid white;
-  color: white;
+  border: 1px solid;
   padding: 5px;
   margin-bottom: 5px;
   display: flex;
@@ -190,29 +183,6 @@ mat-form-field * {
   justify-content: space-between;
 }
 
-.card:hover {
-  background-color: #1a44c2;
-  color: white;
-  cursor: pointer;
-}
-
-.card:hover h3 {
-  color: white;
-}
-
-.card:focus {
-  background-color: cyan;
-  color: $primary-color;
-  cursor: pointer;
-}
-
-.card:focus h3 {
-  color: $primary-color;
-}
-
-.card:focus h5 {
-  color: $alt-color;
-}
 
 @media(max-width: 480px) {
   .card {
@@ -283,7 +253,6 @@ mat-form-field * {
 
 h3 {
   margin: 0;
-  color: white;
 }
 
 @media(max-width: 400px) {
@@ -413,22 +382,16 @@ h4 {
 }
 
 #confirmBtn {
-  border: 1px solid white;
-  background: #00aa30;
-  color: white;
+  border: 1px solid;
   font: 16px Raleway, sans-serif;
   padding: 3px 8px;
   width: 140px;
   margin-bottom: 10px;
 }
 
-#confirmBtn:hover {
-  cursor: pointer;
-}
 
 #cancelBtn {
   border: 1px solid white;
-  background: #ff0000;
   color: white;
   font: 16px Raleway, sans-serif;
   padding: 3px 8px;
@@ -524,9 +487,7 @@ h4 {
   cursor: pointer;
   padding: 0;
 }
-.rating label:not(:first-of-type) {
-  /*padding-right: 1px;*/
-}
+
 .rating label:before {
   content: "\2605";
   font-size: 20px;

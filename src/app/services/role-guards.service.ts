@@ -22,6 +22,8 @@ export class RoleGuardsService implements CanActivate {
     console.log("real role:")
     console.log(role)
     if (!this.auth.isAuthenticated() || role !== expectedRole) {
+      window.alert("Ne pare rau, dar nu aveti acces");
+      this.router.navigate(['/home']);
       return false;
     }
     return true;

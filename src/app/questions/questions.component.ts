@@ -36,7 +36,7 @@ export class QuestionsComponent implements OnInit {
       this.questionsService.getQuestionsFemei()
         .subscribe((questions: Question[]) => {
           this.questions = questions;
-          var date = new Date().toLocaleString("se").split(" ")[0];
+          var date = new Date().toISOString().split('T')[0]
           date += "T22:00:00.000+00:00";
           this.answers = new Answers(date, donorCode);
           this.currentQuestionIndex = 0;
@@ -46,7 +46,6 @@ export class QuestionsComponent implements OnInit {
       this.questionsService.getQuestionsBarbati()
         .subscribe((questions: Question[]) => {
           this.questions = questions;
-        // var date = new Date().toLocaleString("se").split(" ")[0];
         var date = new Date().toISOString().split('T')[0]
           console.log(date);
           date += "T22:00:00.000+00:00";

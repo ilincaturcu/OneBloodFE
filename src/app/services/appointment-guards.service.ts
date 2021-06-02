@@ -11,9 +11,13 @@ export class AppointmentGuardsService implements CanActivate {
     const expectedPacientStatus = route.data.expectedPacientStatus;
       const status = await this.checkStatusAsPromise();
       const current = await this.checkDonorDoesNotHaveAnAppPromise();
-      if (!this.auth.isAuthenticated() || status !== expectedPacientStatus || current==true) {
-        //TODO
-      //DIALOG CU NE PARE RAU DAR NU PUTETI FACE O PROGRMAARE :(
+      if (!this.auth.isAuthenticated() || status !== expectedPacientStatus || current=='true') {
+        if(status !== expectedPacientStatus)
+        window.alert("Ne pare rau, dar nu sunteti eligibili pentru a face o programare");
+        else
+        window.alert("Ne pare rau, dar ati facut o programare deja");
+        
+        this.router.navigate(['/home']);
         return false;
       }
       return true;
@@ -29,9 +33,9 @@ export class AppointmentGuardsService implements CanActivate {
     });
   }
 
-  public checkDonorDoesNotHaveAnAppPromise(): Promise<boolean> {
+  public checkDonorDoesNotHaveAnAppPromise(): Promise<string> {
     var donor_code = this.auth.getDonorCode();
-    return new Promise<boolean>((resolve) => {
+    return new Promise<string>((resolve) => {
       setTimeout(() => {
         this.pacientService.doesTheDonorHaveAnApp(donor_code).subscribe(status =>resolve(status))
       }, 300)

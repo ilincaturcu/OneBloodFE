@@ -32,7 +32,6 @@
       </li>
     </ul>
   </div>
-
   <div class="form" *ngIf="stepCounter == 1">
     <form [formGroup]="doctorForm" (ngSubmit)="submitdoctor()">
       <mat-form-field>
@@ -51,7 +50,6 @@
       </div>
     </form>
   </div>
-
   <div class="form" *ngIf="stepCounter == 2">
     <form [formGroup]="dayForm" (ngSubmit)="submitday()">
       <mat-form-field>
@@ -96,7 +94,6 @@
     <h1 *ngIf="!requestSent" id="confirmRequest">Finalizati programarea?</h1>
     <alert></alert>
   </div>
-
   <div *ngIf="stepCounter === 4 && selectedDoctor !== undefined" class="confirm">
     <div class="card">
       <div class="cardTitle">
@@ -111,8 +108,13 @@
       </div>
     </div>
     <div class="finalBtn" *ngIf="!requestSent">
-      <button id="confirmBtn" (click)="sendRequest()">Send a request</button>
-      <button id="cancelBtn" (click)="stepCounter = 3">Cancel</button>
+      <mat-card-actions class="buttons">
+        <button mat-raised-button color="primary" type="submit" id="confirmBtn" (click)="sendRequest()">Finalizare</button>
+      </mat-card-actions>
+      <mat-card-actions class="buttons">
+        <button mat-raised-button color="primary" type="submit" id="cancelBtn"
+          (click)="stepCounter = 3">Anulare</button>
+      </mat-card-actions>
     </div>
   </div>
 </div>

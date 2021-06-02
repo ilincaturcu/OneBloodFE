@@ -32,7 +32,7 @@
                     <p>
                         <mat-form-field class="box" appearance="fill">
                             <mat-label>CNP</mat-label>
-                            <input matInput #cnp maxlength="13" type="text" placeholder="" formControlName="cnp"
+                            <input matInput #cnp maxlength="13" type="number" placeholder="" formControlName="cnp"
                                 id="cnp">
                             <mat-error *ngIf=" pacientHasError('cnp', 'required' )">CNP-ul este obligatoriu</mat-error>
                             <mat-hint align="end">{{ cnp.value?.length || 0}}/13</mat-hint>
@@ -112,7 +112,7 @@
                         <p>
                             <mat-form-field class="box" appearance="fill">
                                 <mat-label>Număr de telefon</mat-label>
-                                <input matInput #phone_number maxlength="10" type="text" placeholder=""
+                                <input matInput #phone_number maxlength="10" type="number" placeholder=""
                                     formControlName="phone_number" id="phone_number">
                                 <mat-error *ngIf=" hasError('phone_number', 'required' )">Numărul de telefon este
                                     obligatoriu</mat-error>

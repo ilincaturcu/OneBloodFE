@@ -14,14 +14,11 @@ export class QuizGuardsService implements CanActivate {
   async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
     const expectedResponse = route.data.expectedResponse;
     const response = await this.checkStatusAsPromise();
-    console.log('#############')
-    console.log(response)
-    console.log(expectedResponse)
     if (!this.auth.isAuthenticated() || response !== expectedResponse) {
+      window.alert("Ne pare rau, dar ati completat formularul deja.");
       this.router.navigate(['/home']);
       return false;
     }
-    console.log('&&&&&')
     return true;
   }
 

@@ -53,7 +53,7 @@ cnp;
   }
 
   public getRoleReq(request){
-   
+
     return this.http.post(`${baseUrlSql}authorization`, request, {responseType: 'text' as 'json'});
   }
 
@@ -79,7 +79,7 @@ cnp;
     return new Promise<string>((resolve) => {
       setTimeout(() => {
         this.http.get(url,  {headers, responseType: 'text'}).subscribe(status =>resolve(status))
-      }, 100)
+      }, 300)
     });
   }
 

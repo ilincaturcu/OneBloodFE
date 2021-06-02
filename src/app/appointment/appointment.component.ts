@@ -13,6 +13,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { JwtClientService } from '../services/jwt-client.service';
+import { PacientService } from '../services/pacient.service';
 
 const options = {
   title: 'Finalizare programare',
@@ -61,6 +62,7 @@ export class AppointmentComponent implements OnInit {
   visitsCount;
   hoursList;
   dialogRef: MatDialogRef<DialogComponent>;
+  emailAdress: string;
 
 
   @ViewChild('datePicker', {static: true}) datePicker: MatDatepicker<Date>;
@@ -73,7 +75,8 @@ export class AppointmentComponent implements OnInit {
     private renderer: Renderer2,
     private dialog: MatDialog,
     private appointmentService : AppointmentService,
-    private jwtService : JwtClientService
+    private jwtService : JwtClientService,
+    private pacientService : PacientService
   ) {
     this.renderer.addClass(document.body, 'landing1');
   }
@@ -162,10 +165,13 @@ export class AppointmentComponent implements OnInit {
   getNextBusinessDays() {
     const firstDate = Date.now();
     const noOfDays = 12;
-    var i=0;
-    for (var currentDate = new Date(firstDate); i <= noOfDays; currentDate.setDate(currentDate.getDate() + 1)) {
+    var i=0; 
+    const tomorrow = new Date(firstDate)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    for (var currentDate = new Date(tomorrow); i <= noOfDays; currentDate.setDate(currentDate.getDate() + 1)) {
       if (currentDate.getDay() != 0 && currentDate.getDay() != 6) {
-        var newDate = new Date(currentDate).toLocaleString("se").split(" ")[0];
+        var newDate = new Date(currentDate).toISOString().split('T')[0]
         this.days.push(newDate);
         i+=1;
       }
@@ -205,11 +211,41 @@ export class AppointmentComponent implements OnInit {
       }
     ));
   }
-  sendRequest() {
+
+async sendMail(){
+  var donorCode = this.jwtService.getDonorCode();
+  var emailContent = `Ati realizat cu succes o programare la centrul de Transfuzii Iasi pe data de ${this.selectedDay} , la ora ${this.selectedHour}`;
+  var accountId = await this.getAccountId(donorCode);
+ this.emailAdress = await this.getMail(accountId);
+ console.log("email " + this.emailAdress);
+  this.appointmentService.sendMailAfterApp(emailContent, this.emailAdress.toString()).subscribe();
+}
+
+
+
+public getAccountId(donorCode): Promise<string> {
+  return new Promise<string>((resolve) => {
+    setTimeout(() => {
+      this.pacientService.getAccountIdAdressByDonorCode(donorCode).subscribe(id => resolve(id));
+    }, 300)
+  });
+}
+
+
+
+public getMail(accountId): Promise<string> {
+  return new Promise<string>((resolve) => {
+    setTimeout(() => {
+      this.pacientService.getEmailAdressByAccountId(accountId).subscribe(mail => resolve(mail));
+    }, 300)
+  });
+}
+
+  async sendRequest() {
 
     var donorCode = this.jwtService.getDonorCode();
     this.appointmentService.postAppointment(donorCode, this.selectedDoctor, this.selectedDay, this.selectedHour).subscribe();
-  //  console.log('IS00050653' + this.selectedDoctor + " " + this.selectedDay + " " + this.selectedHour);
+   await this.sendMail();
     this.openDialog(options);
     this.confirmed().subscribe(confirmed => {
       if (confirmed) {

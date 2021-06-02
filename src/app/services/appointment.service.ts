@@ -14,6 +14,8 @@ export class AppointmentService {
 token;
 httpOptions;
 donor_code =  this.JwtService.getDonorCode();
+
+
   constructor(private http: HttpClient, private JwtService : JwtClientService) {
   this.token = JwtService.getToken();
    this.httpOptions = { headers: new HttpHeaders({ 'responseType': 'text','Authorization': `Bearer ${this.token}`})};
@@ -48,10 +50,6 @@ donor_code =  this.JwtService.getDonorCode();
     return this.http.post(`http://localhost:9090/api/appointments`, {fk_donor_code, fk_doctor_code, appointment_date, appointment_hour, appointment_status }, this.httpOptions);
   }
 
-  createAppointment(appointmentDate: string, status: string, hour: string): Observable<Appointment> {
-    console.log(appointmentDate)
-    return this.http.post<Appointment>(``, { appointmentDate, status, hour });
-  }
 
   // cancelAppointment(id: string): Observable<any> {
   //   //this.http.options(`http://localhost:9090/api/appointment/` + id, this.httpOptions);
@@ -61,5 +59,10 @@ donor_code =  this.JwtService.getDonorCode();
   
    cancelAppointment(id: string): Observable<any> {
      return this.http.put<any>(`http://localhost:9090/api/appointment/deleted/` + id,'', this.httpOptions);
+   }
+
+
+   sendMailAfterApp(emailContent, emailAddress){
+     return this.http.put<any>(`http://localhost:9090/api/mail/` + emailAddress,emailContent, this.httpOptions);
    }
 }

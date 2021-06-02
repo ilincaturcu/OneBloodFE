@@ -1,4 +1,12 @@
-<div class="results">
-  <h2>Statusul este:</h2>
-  <h3>{{status}}</h3>
+<app-navbar></app-navbar>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+
+<div *ngIf="status == 'valid'"><p>Valid</p>
+  <mat-card-actions class="buttons">
+    <button mat-raised-button color="primary" type="submit" (click)="redirectProgramare()">Programare</button>
+</mat-card-actions>
 </div>
+<div *ngIf="status == 'invalid'"><p>invalid</p></div>
+<div *ngIf="status == 'suspendat'"><p>suspendat</p></div>

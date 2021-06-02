@@ -45,8 +45,12 @@ donorReq:any =
     response.subscribe(tokenJWT => this.service.saveToken(tokenJWT),
       error => {
         console.log(error);
+        window.alert("Credentialele sunt gresite. Incercati din nou");
+        sessionStorage.setItem('Role', 'wrongCredentials');
         this.errorMessage = error.error.message;
         this.invalidLogin = true;
+        this.router.navigate(['/login']);
+        return;
       });
   }
 
@@ -78,23 +82,25 @@ donorReq:any =
 
   async onSubmit() {
     this.submitted = true;
-     if (this.loginForm.invalid) {
-       return;
-     }
     this.authRequest.userName = this.loginForm.controls['email'].value;
     this.authRequest.password = this.loginForm.controls['password'].value;
     console.log(this.authRequest)
     await this.getAccessToken(this.authRequest);
     this.getRoleValue(this.authRequest);
-    
+    if (this.loginForm.invalid) {
+      return;
+    }
     
 
     setTimeout(() => {
-      if (sessionStorage.getItem("Role").valueOf() == 'Pacient') {
+      if (sessionStorage.getItem("Role").valueOf() == 'wrongCredentials') {
+        this.router.navigate(['/login']);
+        this.invalidLogin = true;
+      }
+      else if (sessionStorage.getItem("Role").valueOf() == 'Pacient') {
         console.log("pacient")
         this.donorReq.email = this.loginForm.controls['email'].value;
         this.donorReq.password = this.loginForm.controls['password'].value;
-        //var token = this.getAccessToken(this.authRequest);
         this.getDonorCode(this.donorReq);
         this.router.navigate(['/']);
         this.invalidLogin = false;
