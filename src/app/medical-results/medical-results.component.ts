@@ -3,6 +3,7 @@ import { Appointment } from '../models/Appointment';
 import { AppointmentService } from '../services/appointment.service';
 import { mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DonationForm } from '../models/donation-form.model';
 
 @Component({
   selector: 'app-medical-results',
@@ -24,7 +25,7 @@ export class MedicalResultsComponent implements OnInit {
   ngOnInit() {
     this.appointmentService.getAppointments()
       .subscribe((appointments: Appointment[]) => {
-        this.appointments = appointments.filter(a => this.isDeleted( a.appointment_status));
+        this.appointments = appointments.filter(a => this.isDeleted(a.appointment_status));
         console.log(this.appointments);
         this.loading = false;
       },
@@ -40,7 +41,7 @@ export class MedicalResultsComponent implements OnInit {
         mergeMap(() => this.appointmentService.getAppointments())
       )
       .subscribe((appointments: Appointment[]) => {
-        this.appointments = appointments.filter(a => this.isDeleted( a.appointment_status));
+        this.appointments = appointments.filter(a => this.isDeleted(a.appointment_status));
         this.successMsg = 'Ati anulat programarea cu succes';
       },
         (error: ErrorEvent) => {
@@ -49,20 +50,32 @@ export class MedicalResultsComponent implements OnInit {
   }
 
 
-isDeleted (status : string): boolean { 
-    return (status !=  'deleted'); 
- } 
-           
-
-  viewResults(id: string){
-    //redirect to results
-    console.log('aicea')
-    this.router.navigate(['tests-results/'+id]);
-  
+  isDeleted(status: string): boolean {
+    return (status != 'deleted');
   }
 
 
-  actionButton(status: string, id: string) {
+  async viewResults(donor_code: string, appointmentDate: string) {
+    var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
+    console.log('aicea')
+    var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
+    console.log("donation form id " + id);
+    this.router.navigate(['tests-results/' + id]);
+
+  }
+
+
+  public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationForm> {
+    return new Promise<DonationForm>((resolve) => {
+      setTimeout(() => {
+        this.appointmentService.getDonationFormByDonorCodeAndDate(donor_code, appointmentDate).subscribe(r => resolve(r.donation_form_id));
+      }, 300)
+    });
+  }
+
+
+  async actionButton(status: string, id: string, donor_code: string, appointmentDate: string) {
     console.log('aicea2')
     switch (status) {
       case "progress": {
@@ -74,7 +87,8 @@ isDeleted (status : string): boolean {
       }
       case "completed": {
         //view test results; 
-        this.viewResults(id);
+        console.log(donor_code, + " " + appointmentDate)
+       await this.viewResults(donor_code, appointmentDate);
         break;
       }
     }

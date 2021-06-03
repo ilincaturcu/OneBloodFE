@@ -137,6 +137,8 @@ export class TestsResultsComponent implements OnInit {
   }
 
 
+
+
   async fetchTestsTesults() {
     await this.appointmentService.getAllTests(this.donationFormId).subscribe((r) => this.getPredonare(r.body));
   }

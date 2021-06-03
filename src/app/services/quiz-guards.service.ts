@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { JwtClientService } from './jwt-client.service';
 import { PacientService } from './pacient.service';
 
@@ -26,7 +27,9 @@ export class QuizGuardsService implements CanActivate {
   public checkStatusAsPromise(): Promise<any> {
     return new Promise<any>((resolve) => {
       setTimeout(() => {
-        this.auth.canDonorCompleteTheQuiz().subscribe(status =>resolve(status))
+        this.auth.canDonorCompleteTheQuiz().subscribe((status) =>{
+          if (status != null ) resolve(status);
+          })
       }, 300)
     });
   }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Appointment, PacientAppointment } from '../models/Appointment';
 import { JwtClientService } from './jwt-client.service';
+import { DonationForm } from '../models/donation-form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +71,14 @@ donor_code =  this.JwtService.getDonorCode();
 
    sendMailAfterApp(emailContent, emailAddress){
      return this.http.put<any>(`http://localhost:9090/api/mail/` + emailAddress,emailContent, this.httpOptions);
+   }
+
+   getDonationFormByDonorCodeAndDate(donor_code: string, date:string) : Observable<any>{
+     console.log("HEREEEEEE")
+     return this.http.get<DonationForm>(`http://localhost:9090/api/donationForm/${donor_code}/${date}`, this.httpOptions);
+   }
+
+   generateDonationFormByDonorCode(donationForm: DonationForm) : Observable<any>{
+    return this.http.put<DonationForm>(`http://localhost:9090/api/donationForm/${donationForm.fk_donor_code}`,donationForm, this.httpOptions);
    }
 }

@@ -7,6 +7,7 @@ import { mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { PacientService } from '../services/pacient.service';
 import { QuestionsService } from '../services/questions.service';
+import { DonationForm } from '../models/donation-form.model';
 @Component({
   selector: 'app-doctor-home',
   templateUrl: './doctor-home.component.html',
@@ -89,10 +90,31 @@ isDeleted (status : string): boolean {
  } 
            
 
-  viewResults(id: string){
-    this.router.navigate(['tests-results/'+id]);
-  }
+ 
+ async viewResults(donor_code: string, appointmentDate: number) {
+  console.log('aicea')
+  var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
+  var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
+  var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
+  console.log("donation form id " + id);
+  if(id!= null)
+  this.router.navigate(['tests-results-doctor/' + id]);
 
+
+}
+
+
+public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationForm> {
+  return new Promise<DonationForm>((resolve) => {
+    setTimeout(() => {
+      this.appointmentService.getDonationFormByDonorCodeAndDate(donor_code, appointmentDate).subscribe((r )=> 
+      {
+        if(r!=null) resolve(r.donation_form_id);
+        else  window.alert("Pacientul nu are fisa de donare generata");
+      });
+    }, 100)
+  });
+}
 
   actionButton(status: string, id: string) {
     switch (status) {
@@ -110,11 +132,17 @@ isDeleted (status : string): boolean {
   }
 
 
-  changeStatus(event: any, donor_code: string){
+  changeStatus(event: any, donor_code: string, appointment_date:number){
     this.questionService.addStatus(event.value, donor_code).subscribe();
     console.log("Status of " + donor_code + " has changed to " + event.value)
     if(event.value == "valid"){
-      //create donation form with appointment date as create_at
+     this.generateDonationForm(donor_code, appointment_date);
     }
+  }
+
+
+  generateDonationForm(donor_code:string, appointment_date : number){
+    var donationForm = new DonationForm(donor_code, '0', '0',appointment_date)
+    this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
   }
 }

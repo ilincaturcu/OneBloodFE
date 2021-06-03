@@ -105,9 +105,9 @@ donorReq:any =
         this.router.navigate(['/']);
         this.invalidLogin = false;
       }
-      else if(sessionStorage.getItem("Role").valueOf() == 'Doctor') {
+      else if(sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
         console.log("doctor")
-        this.router.navigate(['/']);
+        this.router.navigate(['/doctor-home']);
         this.invalidLogin = false;
       }
     },
