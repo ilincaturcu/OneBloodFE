@@ -99,8 +99,8 @@ export class RegisterComponent implements OnInit {
 
 
    //validate email does not exist in the system
-   var account = await this.emailAlredyExists();
-   if(account === 'false'){
+   var account = await this.emailAlredyExists(this.loginForm.controls['email'].value);
+   if(account.toString() == 'false'){
       this.credentials = this.loginForm.value;
       this.pacient = this.pacientControl.value;
       this.personalInfo = this.fisaDonareControl.value;
@@ -126,10 +126,10 @@ export class RegisterComponent implements OnInit {
 
 
 
-public emailAlredyExists(): Promise<string> {
+public emailAlredyExists(email): Promise<string> {
   return new Promise<string>((resolve) => {
     setTimeout(() => {
-      this.pacientService.doesTheEmailHasAnAccount("ilinca.turcu@bestis.ro").subscribe(flag =>resolve(flag))
+      this.pacientService.doesTheEmailHasAnAccount(email).subscribe(flag =>resolve(flag))
     }, 300)
   });
 }

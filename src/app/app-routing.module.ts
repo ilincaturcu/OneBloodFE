@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppointmentComponent } from './appointment/appointment.component';
-
-import { CalendarDoctorComponent } from './calendar-doctor/calendar-doctor.component';
 import { ExamenMedicalComponent } from './examen-medical/examen-medical.component';
 import { HomePacientComponent } from './home-pacient/home-pacient.component';
 import { LoginComponent } from './login/login.component';
@@ -15,6 +13,7 @@ import { TestsResultsComponent } from './tests-results/tests-results.component';
 import {AppointmentGuardsService as AppGuard} from './services/appointment-guards.service';
 import { QuizGuardsService as QuizGuard} from './services/quiz-guards.service';
 import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
+import { IstoricProgramariComponent } from './istoric-programari/istoric-programari.component';
 //import { AuthGuardService as AuthGuard, } from '../voluntari/services/auth.guard';
 
 
@@ -23,9 +22,9 @@ const routes: Routes = [
   { path: 'chestionarAutoexcludere', component: QuestionsComponent, canActivate: [QuizGuard], data: {expectedResponse : 'true'} },
   { path : 'programare', component : AppointmentComponent, canActivate: [AppGuard], data: { expectedPacientStatus: 'valid'} },
   { path : 'medical-results', component : MedicalResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
-  { path : 'calendar-doctor', component : CalendarDoctorComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
+  { path : 'istoric-programari', component : IstoricProgramariComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
   { path : 'tests-results/:id', component : TestsResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
-  { path : 'tests-results-doctor/:id', component : TestsResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
+  { path : 'tests-results-doctor/:id/:donorCode/:type', component : TestsResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
   { path : 'examen-medical', component : ExamenMedicalComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
   { path : 'register', component : RegisterComponent},
   { path : 'login', component : LoginComponent},

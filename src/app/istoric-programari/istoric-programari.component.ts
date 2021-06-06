@@ -1,5 +1,4 @@
 
-
 import { Component, OnInit } from '@angular/core';
 import { Appointment, PacientAppointment } from '../models/Appointment';
 import { AppointmentService } from '../services/appointment.service';
@@ -8,12 +7,14 @@ import { Router } from '@angular/router';
 import { PacientService } from '../services/pacient.service';
 import { QuestionsService } from '../services/questions.service';
 import { DonationForm } from '../models/donation-form.model';
+
 @Component({
-  selector: 'app-doctor-home',
-  templateUrl: './doctor-home.component.html',
-  styleUrls: ['./doctor-home.component.scss']
+  selector: 'app-istoric-programari',
+  templateUrl: './istoric-programari.component.html',
+  styleUrls: ['./istoric-programari.component.scss']
 })
-export class DoctorHomeComponent implements OnInit {
+export class IstoricProgramariComponent implements OnInit {
+
 
   public loading = true;
   public errorMsg: string;
@@ -21,7 +22,7 @@ export class DoctorHomeComponent implements OnInit {
   public appointments: PacientAppointment[];
 
  // public todayAppointmensInfo: PacientAppointment[];
-  public columns = ['name', 'nickname','donor_code', 'hour', 'status','changeStatus', 'tests', 'cancel'];
+  public columns = ['name', 'nickname','donor_code','day', 'hour', 'status', 'tests'];
   public button = { "progress": "", "pending": "Cancel", "completed": "Results" };
   public appointment_status = ["progress", "pending", "completed"]
   statuses=[
@@ -34,7 +35,7 @@ export class DoctorHomeComponent implements OnInit {
 
   async ngOnInit() {
 
-    await this.appointmentService.getTodayAppointmentsAndPacientsInfo('891750')
+    await this.appointmentService.getAllAppointmentsAndPacientsInfo('891750')
     .subscribe((appointments: PacientAppointment[]) => {
       this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
     // this.appointments =  this.todayAppointmensInfo.map(a=> a.appointment);
@@ -98,7 +99,7 @@ isDeleted (status : string): boolean {
   var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
   console.log("donation form id " + id);
   if(id!= null)
-  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/pre"]);
+  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/post"]);
 
 
 }

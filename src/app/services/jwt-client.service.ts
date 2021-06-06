@@ -75,11 +75,13 @@ cnp;
 
 
  async getCNP(headers): Promise<string> {
-    let url = `${baseUrlSql}api/pacient/cnp/` + this.donor_code;
+
     return new Promise<string>((resolve) => {
+      
       setTimeout(() => {
+        let url = `${baseUrlSql}api/pacient/cnp/` + this.donor_code;
         this.http.get(url,  {headers, responseType: 'text'}).subscribe(status =>resolve(status))
-      }, 300)
+      }, 500)
     });
   }
 

@@ -29,7 +29,7 @@
         </tbody>
     </table>
     <div class="action-container">
-        <button mat-raised-button type="submit" (click)="submitForm()">Submit</button>
+        <button *ngIf="editable" mat-raised-button type="submit" (click)="submitForm()">Submit</button>
     </div>
 </form>
 <!-- <div class="output">

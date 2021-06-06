@@ -5,6 +5,7 @@ import { Appointment, PacientAppointment } from '../models/Appointment';
 import { JwtClientService } from './jwt-client.service';
 import { DonationForm } from '../models/donation-form.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,7 @@ donor_code =  this.JwtService.getDonorCode();
   }
   
   getAppointments(): Observable<any> {
+    console.log("donor_code " + this.donor_code);
     return this.http.get<Appointment[]>(`http://localhost:9090/api/appointment/donor/` + this.donor_code, this.httpOptions);
   }
 
@@ -43,6 +45,10 @@ donor_code =  this.JwtService.getDonorCode();
     return this.http.get(`http://localhost:9090/api/aggregator/appointments/pacient/doctor/` + doctor_code, this.httpOptions);
   }
 
+  getAllAppointmentsAndPacientsInfo(doctor_code : string): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/aggregator/allAppointments/pacient/doctor/` + doctor_code, this.httpOptions);
+  }
+
 
   getFreeHoursForAppointment(doctor_code : string, date : Date, ): Observable<any> {
     return this.http.get(`http://localhost:9090/api/appointment/doctor/${doctor_code}/day/${date}/hours`, this.httpOptions);
@@ -50,6 +56,14 @@ donor_code =  this.JwtService.getDonorCode();
 
   getAllTests(donationFormId : string ): Observable<any> {
     return this.http.get(`http://localhost:9090/api/donationForm/tests/${donationFormId}`, this.httpOptions);
+  }
+
+  getAllPreDonationTests(donationFormId : string ): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/donationForm/tests/pre/${donationFormId}`, this.httpOptions);
+  }
+
+  getAllPostDonationTests(donationFormId : string ): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/donationForm/tests/post/${donationFormId}`, this.httpOptions);
   }
 
 
@@ -74,11 +88,25 @@ donor_code =  this.JwtService.getDonorCode();
    }
 
    getDonationFormByDonorCodeAndDate(donor_code: string, date:string) : Observable<any>{
-     console.log("HEREEEEEE")
      return this.http.get<DonationForm>(`http://localhost:9090/api/donationForm/${donor_code}/${date}`, this.httpOptions);
    }
 
    generateDonationFormByDonorCode(donationForm: DonationForm) : Observable<any>{
     return this.http.put<DonationForm>(`http://localhost:9090/api/donationForm/${donationForm.fk_donor_code}`,donationForm, this.httpOptions);
    }
+
+   postPreDonare(predonareData):Observable<any>{
+     console.log("PREDONARE");
+    return this.http.post(`http://localhost:7070/api/predonare`,predonareData, {responseType: 'text'})
+  }
+
+  
+  postPostDonare(postdonareData):Observable<any>{
+    console.log("POSTDONARE")
+    return this.http.post(`http://localhost:7070/api/postdonare`,postdonareData, {responseType: 'text'})
+  }
+
+  addAnalizeIDs(donationFormId : number, id_analize_pre_donare: string, id_analize_post_donare:string):Observable<any>{
+    return this.http.put(`http://localhost:9090/api/donationForm/${donationFormId}/${id_analize_pre_donare}/${id_analize_post_donare}`,'', this.httpOptions)
+  }
 }

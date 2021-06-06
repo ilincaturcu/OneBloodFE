@@ -25,7 +25,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DemoMaterialModule } from './material.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { CalendarDoctorComponent } from './calendar-doctor/calendar-doctor.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +39,7 @@ import { AppointmentGuardsService } from './services/appointment-guards.service'
 import { QuizGuardsService } from './services/quiz-guards.service';
 import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 import { NavbarDoctorComponent } from './navbar-doctor/navbar-doctor.component';
+import { IstoricProgramariComponent } from './istoric-programari/istoric-programari.component';
 
 @NgModule({
   declarations: [
@@ -55,13 +55,13 @@ import { NavbarDoctorComponent } from './navbar-doctor/navbar-doctor.component';
     InformationalModalComponent,
     QuestionsComponent,
     ResultsComponent,
-    CalendarDoctorComponent,
     ExamenMedicalComponent,
     AnalizeDonatorComponent,
     NavbarComponent,
     DialogComponent,
     DoctorHomeComponent,
-    NavbarDoctorComponent
+    NavbarDoctorComponent,
+    IstoricProgramariComponent
   ],
   imports: [
     BrowserModule,
