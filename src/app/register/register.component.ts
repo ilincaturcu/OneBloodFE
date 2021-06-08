@@ -4,6 +4,7 @@ import { datePickerValidator } from '../datepicker-validator';
 import { PacientService } from '../services/pacient.service';
 import { Credentials, Pacient, PacientCredentials, personalInformation } from '../models/pacient.model';
 import { Router } from '@angular/router';
+import { nanoid } from 'nanoid'
 
 @Component({
   selector: 'app-register',
@@ -23,8 +24,8 @@ export class RegisterComponent implements OnInit {
   pacient: Pacient;
   personalInfo: personalInformation;
   pacientCredentials: PacientCredentials;
-  pacientID = 'IS00050663';
-  newID = 'IS00050666';
+  //pacientID = 'IS' + nanoid(8);
+  newID = 'IS' + nanoid(8);
   statusDefault = 'pending';
   invalid = false;
 

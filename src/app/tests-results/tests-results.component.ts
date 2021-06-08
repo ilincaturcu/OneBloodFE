@@ -186,6 +186,7 @@ export class TestsResultsComponent implements OnInit {
   donor_code;
   role;
   type;
+  appointment_id;
   list = ["HIV", "Syphilis"];
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService, private router: Router) {
@@ -195,8 +196,9 @@ export class TestsResultsComponent implements OnInit {
           this.donationFormId = params.id;
           this.donor_code = params.donorCode;
           this.type = params.type;
+          this.appointment_id = params.appId;
 
-          console.log("**********" + this.type);
+          console.log("**********" + this.appointment_id);
           console.log("params donor code " + this.donor_code)
         }
       )
@@ -295,13 +297,16 @@ export class TestsResultsComponent implements OnInit {
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
     if (this.role = "Doctor_Specialist"){
       if(this.type == "pre"){
-        //dac a e predonare randare predonare, daca e post, randare post
         this.rows = this.rowsDefaultPre;
         await this.addPreTestResults();
+        //appointment status pending
+        this.appointmentService.changeAppointmentStatus(this.appointment_id, "pending").subscribe() ;
         }
         else if(this.type == "post"){
           this.rows = this.rowsDefaultPost;
           await this.addPostTestResults();
+          //appointment status completed
+          this.appointmentService.changeAppointmentStatus(this.appointment_id, "completed").subscribe();
         }
      
      }

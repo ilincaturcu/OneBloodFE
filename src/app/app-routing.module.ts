@@ -24,7 +24,7 @@ const routes: Routes = [
   { path : 'medical-results', component : MedicalResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
   { path : 'istoric-programari', component : IstoricProgramariComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
   { path : 'tests-results/:id', component : TestsResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
-  { path : 'tests-results-doctor/:id/:donorCode/:type', component : TestsResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
+  { path : 'tests-results-doctor/:id/:donorCode/:type/:appId', component : TestsResultsComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
   { path : 'examen-medical', component : ExamenMedicalComponent, canActivate: [RoleGuard], data: { expectedRole: 'Pacient'} },
   { path : 'register', component : RegisterComponent},
   { path : 'login', component : LoginComponent},

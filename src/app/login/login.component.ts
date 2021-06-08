@@ -65,6 +65,17 @@ donorReq:any =
       });
   }
 
+
+  async getDoctorCode(req) {
+    let response = this.service.getDoctorCodeReq(req);
+    await response.subscribe(donorCode =>  this.service.saveDoctorCode(donorCode),
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.invalidLogin = true;
+      });
+  }
+
   public getRoleValue(req) {
     let response = this.service.getRoleReq(req);
     response.subscribe(role => this.service.saveRole(role),
@@ -92,7 +103,7 @@ donorReq:any =
     }
     
 
-    setTimeout(() => {
+    setTimeout(async () => {
       if (sessionStorage.getItem("Role").valueOf() == 'wrongCredentials') {
         this.router.navigate(['/login']);
         this.invalidLogin = true;
@@ -106,8 +117,15 @@ donorReq:any =
         this.invalidLogin = false;
       }
       else if(sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
+        this.donorReq.email = this.loginForm.controls['email'].value;
+        this.donorReq.password = this.loginForm.controls['password'].value;
         console.log("doctor")
-        this.router.navigate(['/doctor-home']);
+        console.log(this.donorReq)
+        await this.getDoctorCode(this.donorReq);
+        setTimeout(() => {
+          this.router.navigate(['/doctor-home']);
+        }, 1000)
+      
         this.invalidLogin = false;
       }
     },

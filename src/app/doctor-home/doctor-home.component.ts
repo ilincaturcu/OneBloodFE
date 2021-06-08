@@ -33,8 +33,11 @@ export class DoctorHomeComponent implements OnInit {
   constructor(private appointmentService: AppointmentService, private router: Router, private pacientService : PacientService, private questionService : QuestionsService) { }
 
   async ngOnInit() {
-
-    await this.appointmentService.getTodayAppointmentsAndPacientsInfo('891750')
+    let doctor_code
+     if(sessionStorage.getItem("DoctorCode").valueOf()!=null){
+     doctor_code = sessionStorage.getItem("DoctorCode").valueOf();
+     }
+    await this.appointmentService.getTodayAppointmentsAndPacientsInfo(doctor_code)
     .subscribe((appointments: PacientAppointment[]) => {
       this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
     // this.appointments =  this.todayAppointmensInfo.map(a=> a.appointment);
@@ -91,14 +94,14 @@ isDeleted (status : string): boolean {
            
 
  
- async viewResults(donor_code: string, appointmentDate: number) {
+ async viewResults(donor_code: string, appointmentDate: number, appId: number) {
   console.log('aicea')
   var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
   var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
   console.log("donation form id " + id);
   if(id!= null)
-  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/pre"]);
+  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/pre" + "/" + appId]);
 
 
 }

@@ -49,6 +49,10 @@ donor_code =  this.JwtService.getDonorCode();
     return this.http.get(`http://localhost:9090/api/aggregator/allAppointments/pacient/doctor/` + doctor_code, this.httpOptions);
   }
 
+  getAllAppointmentsAndPacientsInfoPaginated(doctor_code : string, pageNo : number, pageSize: number): Observable<any> {
+    return this.http.get(`http://localhost:9090/api/aggregator/allAppointments/pacient/doctor/${doctor_code}/${pageNo}/${pageSize}`, this.httpOptions);
+  }
+
 
   getFreeHoursForAppointment(doctor_code : string, date : Date, ): Observable<any> {
     return this.http.get(`http://localhost:9090/api/appointment/doctor/${doctor_code}/day/${date}/hours`, this.httpOptions);
@@ -82,6 +86,10 @@ donor_code =  this.JwtService.getDonorCode();
      return this.http.put<any>(`http://localhost:9090/api/appointment/deleted/` + id,'', this.httpOptions);
    }
 
+   changeAppointmentStatus(id: string, status : string): Observable<any> {
+    return this.http.put<any>(`http://localhost:9090/api/appointment/${status}/` + id,'', this.httpOptions);
+  }
+
 
    sendMailAfterApp(emailContent, emailAddress){
      return this.http.put<any>(`http://localhost:9090/api/mail/` + emailAddress,emailContent, this.httpOptions);
@@ -108,5 +116,9 @@ donor_code =  this.JwtService.getDonorCode();
 
   addAnalizeIDs(donationFormId : number, id_analize_pre_donare: string, id_analize_post_donare:string):Observable<any>{
     return this.http.put(`http://localhost:9090/api/donationForm/${donationFormId}/${id_analize_pre_donare}/${id_analize_post_donare}`,'', this.httpOptions)
+  }
+
+  getNumberOfAppointmentsOfADoctor(doctor_code: string):Observable<any>{
+    return this.http.get(`http://localhost:9090/api/appointment/doctor/${doctor_code}/number`, this.httpOptions);
   }
 }

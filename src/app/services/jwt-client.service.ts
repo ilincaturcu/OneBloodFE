@@ -6,6 +6,7 @@ import { baseUrlSql } from 'src/environments/environment';
 const TOKEN_KEY = 'AuthToken';
 const ROLE_KEY = 'Role';
 const DONOR_CODE = 'DonorCode';
+const DOCTOR_CODE = 'DoctorCode';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,12 @@ cnp;
     window.sessionStorage.setItem(DONOR_CODE, donorCode);
   }
 
+   
+  public saveDoctorCode(doctor_Code){
+    window.sessionStorage.removeItem(DOCTOR_CODE);
+    window.sessionStorage.setItem(DOCTOR_CODE, doctor_Code);
+  }
+
   public getToken(){
     return sessionStorage.getItem(TOKEN_KEY);
   }
@@ -42,6 +49,10 @@ cnp;
 
   public getDonorCode(){
     return sessionStorage.getItem(DONOR_CODE);
+  }
+
+  public getDoctorCode(){
+    return sessionStorage.getItem(DOCTOR_CODE);
   }
 
   signOut() {
@@ -62,6 +73,13 @@ cnp;
     const headers = new HttpHeaders().set("Authorization", token);
     return this.http.post(`${baseUrlSql}api/aggregator/pacient/donor_code`, request,  {headers, responseType: 'text' as 'json'})
   }
+
+  public getDoctorCodeReq(request){
+    let token = 'Bearer ' + sessionStorage.getItem(TOKEN_KEY);
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.http.post(`${baseUrlSql}api/aggregator/doctor/doctor_code`, request,  {headers, responseType: 'text' as 'json'})
+  }
+  
 
 
   async getDonorGender(){

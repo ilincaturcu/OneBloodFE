@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Appointment, PacientAppointment } from '../models/Appointment';
 import { AppointmentService } from '../services/appointment.service';
 import { mergeMap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { PacientService } from '../services/pacient.service';
 import { QuestionsService } from '../services/questions.service';
 import { DonationForm } from '../models/donation-form.model';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-istoric-programari',
@@ -14,12 +15,15 @@ import { DonationForm } from '../models/donation-form.model';
   styleUrls: ['./istoric-programari.component.scss']
 })
 export class IstoricProgramariComponent implements OnInit {
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public loading = true;
   public errorMsg: string;
   public successMsg: string;
   public appointments: PacientAppointment[];
+  totalElements;
+  index=0;
+  size=5;
 
  // public todayAppointmensInfo: PacientAppointment[];
   public columns = ['name', 'nickname','donor_code','day', 'hour', 'status', 'tests'];
@@ -34,18 +38,21 @@ export class IstoricProgramariComponent implements OnInit {
   constructor(private appointmentService: AppointmentService, private router: Router, private pacientService : PacientService, private questionService : QuestionsService) { }
 
   async ngOnInit() {
-
-    await this.appointmentService.getAllAppointmentsAndPacientsInfo('891750')
+    this.totalElements = await this.getNoOfAppointments();
+    this.totalElements -=1;
+    console.log("total elem"  +this.totalElements)
+    await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index, this.size)
     .subscribe((appointments: PacientAppointment[]) => {
       this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
+      
     // this.appointments =  this.todayAppointmensInfo.map(a=> a.appointment);
      // console.log(this.getData());
      this.loading = false;
       console.log(this.appointments)
     //  console.log(this.todayAppointmensInfo)});
     });
-   
 
+   
       
       // public getQuestionsFemei() {
       //   return this.http.get(`./assets/chestionar-femei.json`).pipe(
@@ -64,6 +71,18 @@ export class IstoricProgramariComponent implements OnInit {
     //       this.errorMsg = error.error.message;
     //       this.loading = false;
     //     });
+  }
+  async pageEvents(event: PageEvent) {
+    const request = {};
+    this.index = event.pageIndex;
+    this.size = event.pageSize;
+    console.log("page index " + event.pageIndex);
+    console.log("page size " + event.pageSize);
+  await this.ngOnInit();
+  }
+
+  ngAfterViewInit(): void {
+//???????????????
   }
 
 
@@ -92,14 +111,14 @@ isDeleted (status : string): boolean {
            
 
  
- async viewResults(donor_code: string, appointmentDate: number) {
+ async viewResults(donor_code: string, appointmentDate: number, appId:number) {
   console.log('aicea')
   var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
   var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
   console.log("donation form id " + id);
   if(id!= null)
-  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/post"]);
+  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/post" + "/" + appId]);
 
 
 }
@@ -146,4 +165,38 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
     var donationForm = new DonationForm(donor_code, '0', '0',appointment_date)
     this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
   }
+
+
+  async applyFilter(filterValue: string) {
+
+    // var filterdata = this.appointments.filter(function (vol) {
+    //   return vol.appointment.fk_donor_code.toLowerCase().includes(filterValue.toLowerCase());
+    // });
+    // this.appointments = filterdata;
+  
+
+  await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index+1, this.size)
+  .subscribe((appointments: PacientAppointment[]) => {
+    this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status))
+                                    .filter(function (vol) { return vol.appointment.fk_donor_code.toLowerCase().includes(filterValue.toLowerCase());
+    });
+    
+  // this.appointments =  this.todayAppointmensInfo.map(a=> a.appointment);
+   // console.log(this.getData());
+   this.loading = false;
+    console.log(this.appointments)
+  //  console.log(this.todayAppointmensInfo)});
+  });
+  }
+
+
+  public getNoOfAppointments(): Promise<string> {
+    return new Promise<string>((resolve) => {
+      setTimeout(() => {
+        this.appointmentService.getNumberOfAppointmentsOfADoctor(sessionStorage.getItem("DoctorCode").valueOf()).subscribe(no =>resolve(no))
+      }, 300)
+    });
+  }
 }
+
+

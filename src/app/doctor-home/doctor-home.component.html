@@ -41,7 +41,7 @@
     <ng-container matColumnDef="tests">
       <th mat-header-cell *matHeaderCellDef> Analize </th>
       <td mat-cell *matCellDef="let appointment"><button
-          (click)="viewResults(appointment.appointment.fk_donor_code, appointment.appointment.appointment_date)" mat-raised-button
+          (click)="viewResults(appointment.appointment.fk_donor_code, appointment.appointment.appointment_date, appointment.appointment.appointment_id)" mat-raised-button
           color="warn">
           Adaugare Analize </button></td>
     </ng-container>
