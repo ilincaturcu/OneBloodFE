@@ -1,18 +1,13 @@
-$primaryRed: #dc0028;
-$primaryWhite: #fff;
-
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color:$primaryRed;
-
+    background-color:#eef4f5;
     position: fixed;
     top: 0;
     z-index: 10;
     width: 100%;
-   
   }
   
   li {
@@ -22,19 +17,20 @@ ul {
   li button
   {
     display: block;
-    color: $primaryWhite;
-    background: $primaryRed;
+    color: #2e333c;
+    font-family: graphik-medium;
+    font-size: 0.9375rem;
+    background: #e3eff1;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     border: 0px;
     height: 58px; 
-    &:hover {
-      background: #a1001e;
-    }
   }
   
- 
+  li button:hover:not(.active) {
+    background-color: white;
+  }
   ul img{
     width: 10%;
     height: 100%;
@@ -75,7 +71,7 @@ ul {
 
 .liDivP{
   padding: 18px 10px;
-  color: $primaryWhite;
+  color: white;
   margin-left: 15px;
   display: block;
 }

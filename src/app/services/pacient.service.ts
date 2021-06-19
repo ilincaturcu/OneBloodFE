@@ -93,4 +93,9 @@ export class PacientService {
    getPacientByDonorCode(donor_code : string): Observable<any> {
     return this.http.get(`http://localhost:9090/api/pacient/` + donor_code, this.httpOptionsWithtoken);
   }
+
+  public changePacientStatus(status, donor_code): Observable<any> {
+    var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
+    return this.http.put<any>(`http://localhost:9090/api/pacient/${status}/${donor_code}`, "", httpOptions3);
+  }
 }

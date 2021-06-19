@@ -1,13 +1,18 @@
+$primaryRed: #dc0028;
+$primaryWhite: #fff;
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color:#247c8c;
+    background-color:$primaryRed;
+
     position: fixed;
     top: 0;
     z-index: 10;
     width: 100%;
+   
   }
   
   li {
@@ -17,18 +22,19 @@ ul {
   li button
   {
     display: block;
-    color: white;
-    background: #247c8c;
+    color: $primaryWhite;
+    background: $primaryRed;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     border: 0px;
     height: 58px; 
+    &:hover {
+      background: #a1001e;
+    }
   }
   
-  li button:hover:not(.active) {
-    background-color: #f25e4a;
-  }
+ 
   ul img{
     width: 10%;
     height: 100%;
@@ -69,7 +75,7 @@ ul {
 
 .liDivP{
   padding: 18px 10px;
-  color: white;
+  color: $primaryWhite;
   margin-left: 15px;
   display: block;
 }

@@ -1,10 +1,15 @@
-$primary-color: #3668ff;
-$opposite-primary: #ffcd36;
-$secondary-color: rgb(0,212,255);
+
+
+$primaryRed: #dc0028;
+$primaryWhite: #fff;
+
+ $primary-color: #dc0028;
+ $opposite-primary: #bd6172;
+ $secondary-color: #2e333c;
 
 $alt-color: #3c4b63;
 
-$bluer: #2156f3;
+$bluer: #dc0028;
 
 
 $shadow: 1px 2px rgba(0, 0, 0, 0.2);
@@ -105,7 +110,7 @@ li {
 }
 
 .currentStepLabel {
-  color: cyan;
+  color: #2e333c;
 }
 
 .label {
@@ -129,7 +134,7 @@ li {
 }
 
 .subLabel {
-  color: cyan;
+  color: #2e333c;
   font: 15px Raleway, sans-serif;
 }
 
@@ -158,7 +163,7 @@ mat-form-field * {
 .actionBtn {
   border: 1px solid white;
   border-radius: 5px;
-  background: #2156f3;
+  background: #dc0028;
   font: $button-font;
   //font-weight: bold;
   padding: 5px 8px;
@@ -169,7 +174,7 @@ mat-form-field * {
 
 .actionBtn:hover {
   cursor: pointer;
-  color: #2156f3;
+  color: #a1001e;
   border: 1px solid white;
 }
 
@@ -264,7 +269,7 @@ h3 {
 h5 {
   margin: 0;
   margin-top: -5px;
-  color: cyan;
+  color: #2e333c;
   vertical-align: middle;
 }
 
@@ -378,7 +383,7 @@ h2 {
 
 h4 {
   margin: 0;
-  color: cyan;
+  color: #a1001e;
 }
 
 #confirmBtn {
@@ -387,6 +392,7 @@ h4 {
   padding: 3px 8px;
   width: 140px;
   margin-bottom: 10px;
+  background-color: $primary-color
 }
 
 
@@ -398,6 +404,7 @@ h4 {
   width: 70px;
   margin-bottom: 10px;
   margin-left: 5px;
+  background-color: $primary-color
 }
 
 #cancelBtn {

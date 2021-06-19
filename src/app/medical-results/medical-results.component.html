@@ -18,7 +18,7 @@
       <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment_status }} </td>
     </ng-container>
     <ng-container matColumnDef="cancel">
-      <th mat-header-cell *matHeaderCellDef> Cancel </th>
+      <th mat-header-cell *matHeaderCellDef> Acțiuni </th>
       <td mat-cell *matCellDef="let appointment"><button
           (click)="actionButton(appointment.appointment_status, appointment.appointment_id, appointment.fk_donor_code, appointment.appointment_date)" mat-raised-button
           color="warn">

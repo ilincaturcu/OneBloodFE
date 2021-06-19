@@ -8,8 +8,10 @@ import { JwtClientService } from '../services/jwt-client.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
-  ngOnInit(): void {
+  role;
+  async ngOnInit() {
+   this.role = await this.auth.getRole();
+   console.log(this.role)
   }
 
   public selected;
@@ -20,6 +22,9 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.auth.signOut();
+    this.router.navigate(['/login']);
+  }
+  redirectToLogin(){
     this.router.navigate(['/login']);
   }
 }

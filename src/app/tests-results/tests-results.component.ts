@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppointmentService } from '../services/appointment.service';
 import { JwtClientService } from '../services/jwt-client.service';
+import { PacientService } from '../services/pacient.service';
 
 
 @Component({
@@ -189,7 +190,7 @@ export class TestsResultsComponent implements OnInit {
   appointment_id;
   list = ["HIV", "Syphilis"];
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService, private router: Router) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService, private router: Router,private pacient :PacientService) {
     this.route.params
       .subscribe(
         (params) => {
@@ -307,6 +308,7 @@ export class TestsResultsComponent implements OnInit {
           await this.addPostTestResults();
           //appointment status completed
           this.appointmentService.changeAppointmentStatus(this.appointment_id, "completed").subscribe();
+          this.pacient.changePacientStatus("pending",this.donor_code ).subscribe();
         }
      
      }

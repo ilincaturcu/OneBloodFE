@@ -1,34 +1,34 @@
 <app-navbar></app-navbar>
 <div class="pickerContainer" [ngClass]="{ stepperUp: stepCounter == 3 || stepCounter == 4 }">
   <div class="jumbotron" *ngIf="stepCounter !== 3 && stepCounter !== 4" (click)="fetchDoctors()">
-    <h1>Realizati o programare in 4 pasi simpli</h1>
+    <h1>Realizați o programare în 4 pași simpli</h1>
   </div>
   <div class="stepper">
     <ul>
       <li>
         <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 1 }">1</span>
         <div class="stepperLabel">
-          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 1 }">Alegeti un doctor</span>
+          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 1 }">Alegeți un doctor</span>
           <span class="subLabel" *ngIf="stepCounter !== 1">{{ doctor }}</span>
         </div>
       </li>
       <li>
         <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 2 }">2</span>
         <div class="stepperLabel">
-          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 2 }">Alegeti o zi</span>
+          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 2 }">Alegeți o zi</span>
           <span class="subLabel" *ngIf="stepCounter !== 2 && stepCounter !== 1">{{ day }}</span>
         </div>
       </li>
       <li>
         <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 3 }">3</span>
         <div class="stepperLabel">
-          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 3 }">Alegeti o ora</span>
+          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 3 }">Alegeți o oră</span>
           <span class="subLabel" *ngIf="stepCounter !== 2 && stepCounter !== 1">{{ hour }}</span>
         </div>
       </li>
       <li>
         <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 4 }">4</span><span class="label"
-          [ngClass]="{ currentStepLabel: stepCounter == 4 }">Finalizati programarea</span>
+          [ngClass]="{ currentStepLabel: stepCounter == 4 }">Finalizați programarea</span>
       </li>
     </ul>
   </div>
@@ -42,11 +42,11 @@
           </mat-option>
         </mat-select>
         <div *ngIf="f.doctor.errors && doctorSubmitted" class="invalid-feedInapoi">
-          <div *ngIf="f.doctor.errors.required">Alegeti un doctor</div>
+          <div *ngIf="f.doctor.errors.required">Alegeți un doctor</div>
         </div>
       </mat-form-field>
       <div class="formButtons">
-        <button class="actionBtn" type="submit">Inainte</button>
+        <button class="actionBtn" type="submit">Înainte</button>
       </div>
     </form>
   </div>
@@ -60,14 +60,14 @@
           </mat-option>
         </mat-select>
         <div *ngIf="g.day.errors && daySubmitted" class="invalid-feedInapoi">
-          <div *ngIf="g.day.errors.required">Alegeti o zi</div>
+          <div *ngIf="g.day.errors.required">Alegeți o zi</div>
         </div>
       </mat-form-field>
       <div class="formButtons">
         <button class="actionBtn" type="button" (click)="stepCounter = 1">
           Inapoi
         </button>
-        <button class="actionBtn" type="submit">Inainte</button>
+        <button class="actionBtn" type="submit">Înainte</button>
       </div>
     </form>
   </div>
@@ -76,14 +76,14 @@
       <div class="timePicker">
         <h4 class="timePickerLabel">Orele disponibile:</h4>
         <mat-form-field>
-          <mat-label id="hourLabel">Alegeti o ora:</mat-label>
+          <mat-label id="hourLabel">Alegeți o oră:</mat-label>
           <mat-select (selectionChange)="pickHour(hour.value)" #hour formControlName="hour">
             <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="formButtons" *ngIf="hourPicked">
-          <button class="actionBtn" (click)="stepCounter = 2">Inapoi</button>
-          <button class="actionBtn" (click)="stepCounter = 4">Inainte</button>
+          <button class="actionBtn" (click)="stepCounter = 2">Înapoi</button>
+          <button class="actionBtn" (click)="stepCounter = 4">Înainte</button>
         </div>
       </div>
     </form>
@@ -91,7 +91,7 @@
 </div>
 <div class="wrapper">
   <div class="jumbotron" *ngIf="stepCounter === 4">
-    <h1 *ngIf="!requestSent" id="confirmRequest">Finalizati programarea?</h1>
+    <h1 *ngIf="!requestSent" id="confirmRequest">Finalizați programarea?</h1>
     <alert></alert>
   </div>
   <div *ngIf="stepCounter === 4 && selectedDoctor !== undefined" class="confirm">

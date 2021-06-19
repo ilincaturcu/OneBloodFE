@@ -17,7 +17,7 @@ export class MedicalResultsComponent implements OnInit {
   public successMsg: string;
   public appointments: Appointment[];
   public columns = ['appointmentDate', 'hour', 'status', 'cancel'];
-  public button = { "progress": "", "pending": "Cancel", "completed": "Results" };
+  public button = { "progress": "", "pending": "Anulare", "completed": "Rezultate analize" };
   public appointment_status = ["progress", "pending", "completed"]
 
   constructor(private appointmentService: AppointmentService, private router: Router) { }

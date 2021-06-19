@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { PacientService } from '../services/pacient.service';
 import { QuestionsService } from '../services/questions.service';
 import { DonationForm } from '../models/donation-form.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-doctor-home',
   templateUrl: './doctor-home.component.html',
@@ -19,8 +20,8 @@ export class DoctorHomeComponent implements OnInit {
   public errorMsg: string;
   public successMsg: string;
   public appointments: PacientAppointment[];
+  statusPacient: FormGroup;
 
- // public todayAppointmensInfo: PacientAppointment[];
   public columns = ['name', 'nickname','donor_code', 'hour', 'status','changeStatus', 'tests', 'cancel'];
   public button = { "progress": "", "pending": "Cancel", "completed": "Results" };
   public appointment_status = ["progress", "pending", "completed"]
@@ -30,13 +31,17 @@ export class DoctorHomeComponent implements OnInit {
     {value: 'invalid', viewValue: 'invalid'}
   ];
 
-  constructor(private appointmentService: AppointmentService, private router: Router, private pacientService : PacientService, private questionService : QuestionsService) { }
+  constructor(private appointmentService: AppointmentService, private router: Router,  private questionService : QuestionsService, private fb: FormBuilder){}
 
   async ngOnInit() {
-    let doctor_code
+    let doctor_code;
+    this.statusPacient = this.fb.group({
+      status: ['']
+    })
      if(sessionStorage.getItem("DoctorCode").valueOf()!=null){
      doctor_code = sessionStorage.getItem("DoctorCode").valueOf();
      }
+    
     await this.appointmentService.getTodayAppointmentsAndPacientsInfo(doctor_code)
     .subscribe((appointments: PacientAppointment[]) => {
       this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
@@ -44,7 +49,7 @@ export class DoctorHomeComponent implements OnInit {
      // console.log(this.getData());
      this.loading = false;
       console.log(this.appointments)
-    //  console.log(this.todayAppointmensInfo)});
+  
     });
    
 
@@ -136,16 +141,24 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
 
 
   changeStatus(event: any, donor_code: string, appointment_date:number){
-    this.questionService.addStatus(event.value, donor_code).subscribe();
-    console.log("Status of " + donor_code + " has changed to " + event.value)
-    if(event.value == "valid"){
-     this.generateDonationForm(donor_code, appointment_date);
-    }
+    // var tzoffset = (new Date(appointment_date)).getTimezoneOffset() * 60000; //offset in milliseconds
+    // var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
+    // if(this.getDonationFormIdPromise(donor_code, localISOTime)!= null){
+    //   window.alert("Pacientul are deja o fisa de donare pentru astazi");
+    // }else{
+      //TODO: ADAUGAT LOGICA SA NU POATE FACE 2 DONATION FORM PENTRU ACEEASI ZI
+      this.questionService.addStatus(event.value, donor_code).subscribe();
+      console.log("Status of " + donor_code + " has changed to " + event.value)
+      if(event.value == "valid"){
+       this.generateDonationForm(donor_code, appointment_date);
+      }
+
+    
   }
 
 
   generateDonationForm(donor_code:string, appointment_date : number){
-    var donationForm = new DonationForm(donor_code, '0', '0',appointment_date)
-    this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
+      var donationForm = new DonationForm(donor_code, '0', '0',appointment_date)
+      this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
   }
 }

@@ -39,7 +39,7 @@ export class IstoricProgramariComponent implements OnInit {
 
   async ngOnInit() {
     this.totalElements = await this.getNoOfAppointments();
-    this.totalElements -=1;
+    //this.totalElements -=1;
     console.log("total elem"  +this.totalElements)
     await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index, this.size)
     .subscribe((appointments: PacientAppointment[]) => {
@@ -162,6 +162,7 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
 
 
   generateDonationForm(donor_code:string, appointment_date : number){
+    //verifica daca are deja unul pe azi, daca da => windows.alert, dara nu => genereaza
     var donationForm = new DonationForm(donor_code, '0', '0',appointment_date)
     this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
   }
@@ -173,9 +174,14 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
     //   return vol.appointment.fk_donor_code.toLowerCase().includes(filterValue.toLowerCase());
     // });
     // this.appointments = filterdata;
-  
+  if(filterValue==null){
+    this.index = 0;
+    this.size = 5;
+    await this.ngOnInit();
+    return;
+  }
 
-  await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index+1, this.size)
+  await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), 0, this.size)
   .subscribe((appointments: PacientAppointment[]) => {
     this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status))
                                     .filter(function (vol) { return vol.appointment.fk_donor_code.toLowerCase().includes(filterValue.toLowerCase());
@@ -185,6 +191,7 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
    // console.log(this.getData());
    this.loading = false;
     console.log(this.appointments)
+    this.totalElements = appointments.length;
   //  console.log(this.todayAppointmensInfo)});
   });
   }

@@ -3,19 +3,19 @@ $secondary-color: #1ea896;
 $tertiary-color: white;
 $primary-font:'Ubuntu', sans-serif;
 $secondary-font: 'Source Sans Pro', sans-serif;
-
+$primaryRed: #dc0028;
+$primaryWhite: #fff;
 
 .questions {
  
   padding-top: 2%;
-  background-color: $tertiary-color;
+ 
   margin: auto;
   margin-top: 5%;
 }
 
 button {
-  border-color: $secondary-color;
-  color: $primary-color;
+  
   font-family: $primary-font;
   font-size: 20px;
   margin-top: 1%;
@@ -25,4 +25,55 @@ button {
   button {
     font-size: 16px;
   }
+}
+
+body {
+  background: white;
+  background-size: cover;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &::before {
+    z-index: -1;
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: $primaryWhite;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.questions{
+  text-align: center;
+  box-shadow: 20px 2px 5px $primaryRed;
+}
+
+.btn-success{
+  cursor: pointer;
+  background: $primaryRed;
+  width: 5%;
+  padding: 10px 15px;
+  border: 1px;
+  color: $primaryWhite;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 10px;
+  margin-bottom: 1%;
+  &:hover {
+    background: #a1001e;
+  }
+}
+
+button:disabled {
+  background: #bd6172;
+  &:hover {
+    background: #bd6172;
+  }
+}
+
+app-quiz{
+  font-family: "Roboto";
 }

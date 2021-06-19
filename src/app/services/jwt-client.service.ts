@@ -104,7 +104,7 @@ cnp;
   }
 
   public canDonorCompleteTheQuiz(){
-    const donorCode = this.donor_code;
+    const donorCode = this.getDonorCode();
     return this.http.get(`http://localhost:7070/api/responses/dates/` + donorCode, {responseType: 'text' as 'json'})
   }
 

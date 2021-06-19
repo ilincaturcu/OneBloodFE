@@ -40,6 +40,8 @@ import { QuizGuardsService } from './services/quiz-guards.service';
 import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 import { NavbarDoctorComponent } from './navbar-doctor/navbar-doctor.component';
 import { IstoricProgramariComponent } from './istoric-programari/istoric-programari.component';
+import { NavbarHomeComponent } from './navbar-home/navbar-home.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { IstoricProgramariComponent } from './istoric-programari/istoric-program
     DialogComponent,
     DoctorHomeComponent,
     NavbarDoctorComponent,
-    IstoricProgramariComponent
+    IstoricProgramariComponent,
+    NavbarHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ import { IstoricProgramariComponent } from './istoric-programari/istoric-program
     BrowserAnimationsModule,
     CommonModule,
     NgbModalModule,
+    ImageCropperModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
