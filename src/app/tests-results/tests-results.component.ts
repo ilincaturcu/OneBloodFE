@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -96,12 +96,12 @@ export class TestsResultsComponent implements OnInit {
     {
       "Parametru": "HIV",
       "Valoare": "",
-      "UM": ""
+      
     },
     {
       "Parametru": "Syphilis",
       "Valoare": "",
-      "UM": ""
+      
     }
   ]
 
@@ -174,12 +174,12 @@ export class TestsResultsComponent implements OnInit {
     {
       "Parametru": "HIV",
       "Valoare": "",
-      "UM": ""
+      
     },
     {
       "Parametru": "Syphilis",
       "Valoare": "",
-      "UM": ""
+      
     }
   ]
   donationFormId;
@@ -189,6 +189,9 @@ export class TestsResultsComponent implements OnInit {
   type;
   appointment_id;
   list = ["HIV", "Syphilis"];
+
+
+
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService, private router: Router,private pacient :PacientService) {
     this.route.params
@@ -209,6 +212,7 @@ export class TestsResultsComponent implements OnInit {
   async ngOnInit() {
     this.role = this.auth.getRole();
     console.log(this.role);
+    
     if (this.role == "Pacient")
     {
       this.editable = false;

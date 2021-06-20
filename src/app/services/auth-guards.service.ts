@@ -9,7 +9,7 @@ export class AuthGuardService implements CanActivate {
     
     canActivate(): boolean {
     if (!this.auth.isAuthenticated()) {
-      window.alert("Ne pare rau, dar nu aveti acces");
+      window.alert("Ne pare rău, dar nu aveți acces");
       this.router.navigate(['/home']);
       return false;
     }

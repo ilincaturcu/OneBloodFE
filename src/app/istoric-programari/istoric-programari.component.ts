@@ -23,7 +23,7 @@ export class IstoricProgramariComponent implements OnInit {
   public appointments: PacientAppointment[];
   totalElements;
   index=0;
-  size=5;
+  size=10;
 
  // public todayAppointmensInfo: PacientAppointment[];
   public columns = ['name', 'nickname','donor_code','day', 'hour', 'status', 'tests'];
@@ -39,38 +39,16 @@ export class IstoricProgramariComponent implements OnInit {
 
   async ngOnInit() {
     this.totalElements = await this.getNoOfAppointments();
-    //this.totalElements -=1;
+    //for the firs call its alwais index 0 size 5 ( maybe make a specific endpoint that returns only the first 5 appointments)
     console.log("total elem"  +this.totalElements)
     await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index, this.size)
     .subscribe((appointments: PacientAppointment[]) => {
-      this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
-      
-    // this.appointments =  this.todayAppointmensInfo.map(a=> a.appointment);
-     // console.log(this.getData());
+      this.appointments = appointments;
      this.loading = false;
       console.log(this.appointments)
-    //  console.log(this.todayAppointmensInfo)});
+
     });
 
-   
-      
-      // public getQuestionsFemei() {
-      //   return this.http.get(`./assets/chestionar-femei.json`).pipe(
-      //     map((result: any[]) => {
-      //       return result.map(r => new Question(r.question, r.choices, r.question_type, r.question_number));
-      //     })
-      //   );
-      // }
-    // this.appointmentService.getDoctorsAppointments('891750')
-    //   .subscribe((appointments: Appointment[]) => {
-    //     this.appointments = appointments.filter(a => this.isDeleted( a.appointment_status));
-       
-    //     this.loading = false;
-    //   },
-    //     (error: ErrorEvent) => {
-    //       this.errorMsg = error.error.message;
-    //       this.loading = false;
-    //     });
   }
   async pageEvents(event: PageEvent) {
     const request = {};
@@ -85,11 +63,6 @@ export class IstoricProgramariComponent implements OnInit {
 //???????????????
   }
 
-
-  // public getData(): Appointment[]{
-  //  return this.appointments.map(a=>
-  //     new Appointment(a.appointment.appointment_date, a.appointment.appointment_hour, a.appointment.appointment_id, a.appointment.appointment_status, a.appointment.fk_doctor_code, a.appointment.fk_donor_code));
-  // }
   cancelAppointment(id: string) {
     // this.appointmentService.cancelAppointment(id)
     //   .pipe(
@@ -170,29 +143,21 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
 
   async applyFilter(filterValue: string) {
 
-    // var filterdata = this.appointments.filter(function (vol) {
-    //   return vol.appointment.fk_donor_code.toLowerCase().includes(filterValue.toLowerCase());
-    // });
-    // this.appointments = filterdata;
+    //refresh
   if(filterValue==null){
     this.index = 0;
-    this.size = 5;
+    this.size = 10;
     await this.ngOnInit();
     return;
   }
 
-  await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), 0, this.size)
+  //different endpoint for filtered and paginated appointments
+  await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginatedFiltered(sessionStorage.getItem("DoctorCode").valueOf(), 0, 10, filterValue)
   .subscribe((appointments: PacientAppointment[]) => {
-    this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status))
-                                    .filter(function (vol) { return vol.appointment.fk_donor_code.toLowerCase().includes(filterValue.toLowerCase());
-    });
-    
-  // this.appointments =  this.todayAppointmensInfo.map(a=> a.appointment);
-   // console.log(this.getData());
+    this.appointments = appointments;
    this.loading = false;
     console.log(this.appointments)
     this.totalElements = appointments.length;
-  //  console.log(this.todayAppointmensInfo)});
   });
   }
 

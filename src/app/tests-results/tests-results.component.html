@@ -1,13 +1,14 @@
 <!-- <div class="export-container">
     <button mat-raised-button color="primary" (click)="exportTable()">Export</button>
 </div> -->
+<app-navbar></app-navbar>
 
 <form [formGroup]="userTable">
-    <table id="ExampleTable" class="table table-border" [ngClass]="{'table-dark': mode}">
+    <table id="ExampleTable" class="table table-border" >
         <thead class="text-nowrap">
             <th>Analiza <span class="ui-column-resizer" dragableColumn> </span></th>
             <th>Valoare<span class="ui-column-resizer" dragableColumn> </span></th>
-            <th>Unitate de masura<span class="ui-column-resizer" dragableColumn> </span></th>
+            <th *ngIf= "type !== 'post'">Unitate de masura<span class="ui-column-resizer" dragableColumn> </span></th>
             <th></th>
         </thead>
         <tbody>
@@ -21,7 +22,7 @@
                                 <input [readonly]="!editable"  name="{{i}}" formControlName = 'Valoare'  matInput type="text" value= "{{group.get('Valoare').value}}"/>
                             </mat-form-field>
                         </td>
-                        <td >
+                        <td *ngIf= "group.get('UM').value" >
                             {{group.get('UM').value}}
                         </td>
                 </tr>

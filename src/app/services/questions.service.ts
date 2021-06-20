@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Quiz, Question, Answers } from '../models/quiz.model';
+import { Question, Answers } from '../models/quiz.model';
 import { JwtClientService } from './jwt-client.service';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { baseUrlMongo, baseUrlSql } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,9 @@ export class QuestionsService {
       })
     );
   }
-
   public getQuestionsMongo(): Observable<any> {
 
-    var response = this.http.get(`http://localhost:7070/api/questions`, { responseType: 'json' }).pipe(
+    var response = this.http.get(`${baseUrlMongo}api/questions`, { responseType: 'json' }).pipe(
       map((result: Question[]) => {
         result.map(r => new Question(r.question, r.choices, r.question_type, r.question_number));
       })
@@ -47,19 +47,15 @@ export class QuestionsService {
     return response;
   }
 
-
   public addResponses(answers: Answers): Observable<any> {
 
-    return this.http.post<Answers>(`http://localhost:7070/api/response`, answers, this.httpOptions2);
+    return this.http.post<Answers>(`${baseUrlMongo}api/response`, answers, this.httpOptions2);
   }
 
-
-
-  
   public getMostRecentResponseID(donor_code): Promise<any> {
     return new Promise<any>((resolve) => {
       setTimeout(() => {
-        this.http.get(`http://localhost:7070/api/responses/responseId/` + donor_code, this.httpOptions2).subscribe(r=> resolve(r));
+        this.http.get(`${baseUrlMongo}api/responses/responseId/` + donor_code, this.httpOptions2).subscribe(r=> resolve(r));
       }, 300)
     });
   }
@@ -69,37 +65,23 @@ export class QuestionsService {
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
     var responseId = await this.getMostRecentResponseID(donor_code);
     console.log("response id" + responseId);
-    return this.http.put<any>(`http://localhost:9090/api/pacient/quizId/` + donor_code, responseId, httpOptions3);
+    return this.http.put<any>(`${baseUrlSql}api/pacient/quizId/` + donor_code, responseId, httpOptions3);
   }
 
   public addStatus(status, donor_code): Observable<any> {
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
-    return this.http.put<any>(`http://localhost:9090/api/pacient/${status}/${donor_code}`, "", httpOptions3);
+    return this.http.put<any>(`${baseUrlSql}api/pacient/${status}/${donor_code}`, "", httpOptions3);
   }
 
-  // public getQuestionsMongoData() {
-  //   return new Promise(resolve => {
-  //     this.getQuestionsMongo()
-  //       .subscribe(data => {
-  //         this.data = data;
-
-  //         resolve(this.data);
-  //       });
-  //   });
-  // }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
-    // Return an observable with a user-facing error message.
     return throwError(
       'Something bad happened; please try again later.');
   }

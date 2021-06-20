@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JwtClientService } from './jwt-client.service';
-import { Credentials, Pacient, PacientCredentials, personalInformation } from '../models/pacient.model';
-import { map } from 'rxjs/operators';
+import { PacientCredentials } from '../models/pacient.model';
+import { baseUrlSql } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -29,73 +29,59 @@ export class PacientService {
     this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   }
 
-  // public getQuestionsMongo(): Observable<any>{
-
-  //   var response = this.http.get(`http://localhost:7070/api/questions`, {responseType: 'json'}).pipe(
-  //     map((result: Question[]) => {
-  //       result.map(r => new Question(r.question, r.choices, r.question_type));
-  //     })
-  //   );;
-
-  //   return response;
-  // }
-
-
   public addPacientWithCredentials(pacient: PacientCredentials): Observable<any> {
     console.log(pacient)
-    return this.http.post<PacientCredentials>(`http://localhost:9090/agreggator/cont/pacient`, pacient, this.httpOptions);
+    return this.http.post<PacientCredentials>(`${baseUrlSql}agreggator/cont/pacient`, pacient, this.httpOptions);
   }
 
 
   public getPacientStatus(donor_code: string): Observable<any> {
 
-    return this.http.get<string>(`http://localhost:9090/api/pacient/status/` + donor_code, this.httpOptionsWithtoken);
+    return this.http.get<string>(`${baseUrlSql}api/pacient/status/` + donor_code, this.httpOptionsWithtoken);
   }
 
 
   public doesTheDonorHaveAnApp(donor_code: string): Observable<any> {
 
-    return this.http.get<string>(`http://localhost:9090/api/appointment/current/` + donor_code, this.httpOptionsWithtoken);
+    return this.http.get<string>(`${baseUrlSql}api/appointment/current/` + donor_code, this.httpOptionsWithtoken);
   }
 
   public getLastDonorID(): Observable<any> {
-    return this.http.get<string>(`http://localhost:9090/api/pacient/last/donor_code`, this.httpOptionsWithtoken)
+    return this.http.get<string>(`${baseUrlSql}api/pacient/last/donor_code`, this.httpOptionsWithtoken)
   }
 
   public getAccountIdAdressByDonorCode(donor_code: string): Observable<any> {
-   return this.http.get<string>(`http://localhost:9090/api/pacient/accountId/donor_code/` + donor_code, this.httpOptionsWithtoken);
+    return this.http.get<string>(`${baseUrlSql}api/pacient/accountId/donor_code/` + donor_code, this.httpOptionsWithtoken);
   }
 
 
   public getEmailAdressByAccountId(accountID: string): Observable<any> {
-    console.log("accountID " + accountID);
-    return this.http.get<string>(`http://localhost:9090/api/cont/email/accountId/` + accountID, this.httpOptionsWithtoken);
-   }
-
-   sendMailAfterApp(emailContent, emailAddress){
-    return this.http.put<any>(`http://localhost:9090/api/mail/` + emailAddress, emailContent, this.httpOptions);
+    return this.http.get<string>(`${baseUrlSql}api/cont/email/accountId/` + accountID, this.httpOptionsWithtoken);
   }
 
-   doesTheEmailHasAnAccount(email: string): Observable<any> {
-    console.log("register email " + email);
-    return this.http.get<string>(`http://localhost:9090/api/mail/existingAccount/` + email, this.httpOptions);
-   }
+  sendMailAfterApp(emailContent, emailAddress) {
+    return this.http.put<any>(`${baseUrlSql}api/mail/` + emailAddress, emailContent, this.httpOptions);
+  }
 
-   getPacientByDonorCode1(donor_code : string): any{
-    return this.http.get<string>(`http://localhost:9090/api/pacient/` + donor_code, this.httpOptionsWithtoken);
-   }
+  doesTheEmailHasAnAccount(email: string): Observable<any> {
+    return this.http.get<string>(`${baseUrlSql}api/mail/existingAccount/` + email, this.httpOptions);
+  }
 
-   getPacientPErsonalInfoByCnp(cnp : bigint): any{
-    return this.http.get<string>(`http://localhost:9090/api/personalInformation/` + cnp, this.httpOptionsWithtoken);
-   }
+  getPacientByDonorCode1(donor_code: string): any {
+    return this.http.get<string>(`${baseUrlSql}api/pacient/` + donor_code, this.httpOptionsWithtoken);
+  }
+
+  getPacientPErsonalInfoByCnp(cnp: bigint): any {
+    return this.http.get<string>(`${baseUrlSql}api/personalInformation/` + cnp, this.httpOptionsWithtoken);
+  }
 
 
-   getPacientByDonorCode(donor_code : string): Observable<any> {
-    return this.http.get(`http://localhost:9090/api/pacient/` + donor_code, this.httpOptionsWithtoken);
+  getPacientByDonorCode(donor_code: string): Observable<any> {
+    return this.http.get(`${baseUrlSql}api/pacient/` + donor_code, this.httpOptionsWithtoken);
   }
 
   public changePacientStatus(status, donor_code): Observable<any> {
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
-    return this.http.put<any>(`http://localhost:9090/api/pacient/${status}/${donor_code}`, "", httpOptions3);
+    return this.http.put<any>(`${baseUrlSql}api/pacient/${status}/${donor_code}`, "", httpOptions3);
   }
 }
