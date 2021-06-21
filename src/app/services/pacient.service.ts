@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { JwtClientService } from './jwt-client.service';
 import { PacientCredentials } from '../models/pacient.model';
 import { baseUrlSql } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -83,5 +84,14 @@ export class PacientService {
   public changePacientStatus(status, donor_code): Observable<any> {
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
     return this.http.put<any>(`${baseUrlSql}api/pacient/${status}/${donor_code}`, "", httpOptions3);
+  }
+
+
+  public getExtraInfoForTestsResults() {
+    return this.http.get(`./assets/analize.json`).pipe(
+      map((result: any[]) => {
+        return result;
+      })
+    );
   }
 }

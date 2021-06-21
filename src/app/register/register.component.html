@@ -1,4 +1,4 @@
-<div>
+<div class= "all">
     <div class="add-title">
         <h1 class="primary">Înregistrare</h1>
     </div>
@@ -8,18 +8,18 @@
             <form [formGroup]="loginForm" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
                 <mat-card-content>
                     <p>
-                        <mat-form-field class="box" appearance="fill">
+                        <mat-form-field class="box" >
                             <mat-label>Email</mat-label>
                             <input matInput maxlength="30" type="text" placeholder="" formControlName="email" id="email"
-                                autocomplete="new-password">
+                                autocomplete= " ">
                             <mat-error *ngIf=" loginHasError('email', 'required' )">Email-ul este obligatoriu</mat-error>
                         </mat-form-field>
                     </p>
                     <p>
-                        <mat-form-field class="box" appearance="fill">
+                        <mat-form-field class="box" >
                             <mat-label>Parolă</mat-label>
                             <input matInput type="password" placeholder="**********" formControlName="password"
-                                id="password" autocomplete="new-password">
+                                id="password" autocomplete=" ">
                             <mat-error *ngIf=" loginHasError('password', 'required' )">Parola este obligatorie
                             </mat-error>
                         </mat-form-field>
@@ -30,7 +30,7 @@
                 fxLayoutAlign="center center" fxLayoutGap="10px">
                 <mat-card-content>
                     <p>
-                        <mat-form-field class="box" appearance="fill">
+                        <mat-form-field class="box">
                             <mat-label>CNP</mat-label>
                             <input matInput #cnp maxlength="13" type="number" placeholder="" formControlName="cnp"
                                 id="cnp">
@@ -44,7 +44,7 @@
                     fxLayoutAlign="center center" fxLayoutGap="10px">
                     <mat-card-content>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
+                            <mat-form-field class="box" >
                                 <mat-label>Nume</mat-label>
                                 <input matInput #name maxlength="30" type="text" placeholder="" formControlName="name"
                                     id="name">
@@ -53,7 +53,7 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
+                            <mat-form-field class="box" >
                                 <mat-label>Prenume</mat-label>
                                 <input matInput #surname maxlength="30" type="text" placeholder=""
                                     formControlName="surname" id="surname">
@@ -63,7 +63,7 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="dateOfBirth">
+                            <mat-form-field class="box">
                                 <mat-label>Data nașterii</mat-label>
                                 <input name="birthdate" matInput [matDatepicker]="dob" formControlName="birthdate">
                                 <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
@@ -77,7 +77,7 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
+                            <mat-form-field class="box">
                                 <mat-label>Serie Buletin</mat-label>
                                 <input matInput #identity_card_series maxlength="2" type="text" placeholder=""
                                     formControlName="identity_card_series" id="identity_card_series">
@@ -87,8 +87,8 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
-                                <mat-label>Numar buletin</mat-label>
+                            <mat-form-field class="box" >
+                                <mat-label>Număr buletin</mat-label>
                                 <input matInput #identity_card_number maxlength="6" type="number" placeholder=""
                                     formControlName="identity_card_number" id="identity_card_number">
                                 <mat-error *ngIf="hasError('identity_card_number', 'required')">Numărul buletinului este
@@ -98,7 +98,7 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-label>Sex </mat-label>
+                            <mat-label class="box" >Sex </mat-label>
                             <mat-radio-group aria-label="form-group" formControlName="sex">
                                 <div>
                                     <label *ngFor="let sex of sexes">
@@ -110,7 +110,7 @@
                             </mat-radio-group>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
+                            <mat-form-field class="box">
                                 <mat-label>Număr de telefon</mat-label>
                                 <input matInput #phone_number maxlength="10" type="number" placeholder=""
                                     formControlName="phone_number" id="phone_number">
@@ -120,7 +120,7 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
+                            <mat-form-field class="box">
                                 <mat-label>Vârstă</mat-label>
                                 <input matInput #inputAge maxlength="3" type="number" placeholder=""
                                     formControlName="age" id="number">
@@ -130,15 +130,15 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" hintLabel="Judet, Oras, Strada, Bloc, Apartament.."
-                                appearance="fill">
+                            <mat-form-field class="box" hintLabel="Județ, Oras, Strada, Bloc, Apartament.."
+                                >
                                 <mat-label>Domiciliu</mat-label>
                                 <input matInput #adress type="text" placeholder="" formControlName="adress" id="adress">
                                 <mat-error *ngIf=" hasError('adress', 'required' )">Adresa este obligatorie</mat-error>
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" hintLabel="Ocupatia pe care o aveti acum" appearance="fill">
+                            <mat-form-field class="box" hintLabel="Ocupația pe care o aveți acum">
                                 <mat-label>Loc de muncă</mat-label>
                                 <input matInput #job type="text" placeholder="" formControlName="job" id="job">
                                 <mat-error *ngIf=" hasError('job', 'required' )">Locul de muncă este obligatoriu
@@ -146,15 +146,15 @@
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
+                            <mat-form-field class="box">
                                 <mat-label>Prenumele mamei</mat-label>
                                 <input matInput #mothers_name type="text" placeholder="" formControlName="mothers_name"
                                     id="mothers_name">
                             </mat-form-field>
                         </p>
                         <p>
-                            <mat-form-field class="box" appearance="fill">
-                                <mat-label>Prenumele tatalui</mat-label>
+                            <mat-form-field class="box" >
+                                <mat-label>Prenumele tatălui</mat-label>
                                 <input matInput #fathers_name type="text" placeholder="" formControlName="fathers_name"
                                     id="fathers_name">
                             </mat-form-field>
@@ -167,4 +167,5 @@
                     </mat-card-actions>
                 </form>
         </div>
+    </div>
     </div>

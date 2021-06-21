@@ -1,13 +1,12 @@
 $primaryRed: #dc0028;
 $primaryWhite: #fff;
 
-body{
-    .form {
+form {
         position: absolute;
         top: 30%;
-        left: 50%;
+        left: 45%;
         background-color: white;
-        width: 285px;
+        width: 500px;
         margin: -140px 0 0 -182px;
         padding: 40px;
         box-shadow: 0 0 3px $primaryRed;
@@ -44,4 +43,8 @@ body{
           }
         }
       }
+
+th, td{
+  padding:20px 25px;
+  width: auto;
 }

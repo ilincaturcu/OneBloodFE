@@ -1,17 +1,20 @@
-<div *ngIf="!questions" class="spinner-grow text-primary"></div>
-<mat-spinner *ngIf="!questions"></mat-spinner>
+<div class="all">
+  <div *ngIf="!questions" class="spinner-grow text-primary"></div>
+  <mat-spinner *ngIf="!questions"></mat-spinner>
 
-<div class="quiz2" *ngIf="questions">
+  <div class="quiz2" *ngIf="questions">
 
-  <div class="questions" *ngIf="!showResults">
-    <app-quiz [question]="questions[currentQuestionIndex]" (onChoiceMade)="updateChoice($event)">
-    </app-quiz>
-    <button mat-stroked-button class="btn-success" (click)="back()"  [disabled]="currentQuestionIndex==0"
-    >{{'Înapoi'}}</button>
-    <button mat-stroked-button class="btn-success" (click)="nextOrViewResults()"
-      [disabled]="!answers.responses[currentQuestionIndex]">{{currentQuestionIndex === questions.length - 1 ? 'Finalizați' : 'Înainte'}}</button>
+    <div class="questions" *ngIf="!showResults">
+      <app-quiz [question]="questions[currentQuestionIndex]" (onChoiceMade)="updateChoice($event)">
+      </app-quiz>
+      <button mat-stroked-button class="btn-success" (click)="back()"
+        [disabled]="currentQuestionIndex==0">{{'Înapoi'}}</button>
+      <button mat-stroked-button class="btn-success" (click)="nextOrViewResults()"
+        [disabled]="!answers.responses[currentQuestionIndex]">{{currentQuestionIndex === questions.length - 1 ?
+        'Finalizați' : 'Înainte'}}</button>
 
-  </div> 
+    </div>
 
-  <app-results *ngIf="showResults" [answers]="answers"></app-results>
+    <app-results *ngIf="showResults" [answers]="answers"></app-results>
+  </div>
 </div>

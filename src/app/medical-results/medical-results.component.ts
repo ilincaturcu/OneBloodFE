@@ -22,8 +22,8 @@ export class MedicalResultsComponent implements OnInit {
 
   constructor(private appointmentService: AppointmentService, private router: Router) { }
 
-  ngOnInit() {
-    this.appointmentService.getAppointments()
+  async ngOnInit() {
+   await this.appointmentService.getAppointments()
       .subscribe((appointments: Appointment[]) => {
         this.appointments = appointments.filter(a => this.isDeleted(a.appointment_status));
         console.log(this.appointments);

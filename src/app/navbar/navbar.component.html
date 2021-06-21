@@ -2,7 +2,7 @@
     <div *ngSwitchCase="'Pacient'">
         <ul>
             <li>
-                <button class="btn btn-primary" type="input" id="home" routerLink="../">Home</button>
+                <button class="btn btn-primary" type="input" id="home" routerLink="../">Acasă</button>
             </li>
             <li>
                 <button class="btn btn-primary" type="input" id="quiz"
@@ -19,7 +19,7 @@
             <li style="float: right;"><button class="btn btn-primary" type="button" (click)="logout()">Delogare</button>
             </li>
             <li class="liUserDiv">
-                <p class="liDivP" id="username">Ilinca</p>
+                <p class="liDivP" id="username"></p>
 
             </li>
         </ul>
@@ -27,18 +27,18 @@
     <div *ngSwitchCase="'Doctor_Specialist'">
         <ul>
             <li>
-                <button class="btn btn-primary" type="input" id="home" routerLink="../doctor-home">Programările
+                <button class="btn btn-primary" type="input" id="home" routerLink="/doctor-home">Programările
                     curente</button>
             </li>
             <li>
                 <button class="btn btn-primary" type="input" id="istoric-programari"
-                    routerLink="../istoric-programari">Istoric Medical</button>
+                    routerLink="/istoric-programari">Istoric Medical</button>
             </li>
 
             <li style="float: right;"><button class="btn btn-primary" type="button" (click)="logout()">Delogare</button>
             </li>
             <li class="liUserDiv">
-                <p class="liDivP" id="username">Doctor</p>
+                <p class="liDivP" id="username"></p>
 
             </li>
         </ul>

@@ -2,29 +2,34 @@
     <button mat-raised-button color="primary" (click)="exportTable()">Export</button>
 </div> -->
 <app-navbar></app-navbar>
-
+<h2>Analize medicale</h2>
 <form [formGroup]="userTable">
-    <table id="ExampleTable" class="table table-border" >
+    <table id="ExampleTable" class="table table-border">
         <thead class="text-nowrap">
-            <th>Analiza <span class="ui-column-resizer" dragableColumn> </span></th>
+            <th>Parametru <span class="ui-column-resizer" dragableColumn> </span></th>
             <th>Valoare<span class="ui-column-resizer" dragableColumn> </span></th>
-            <th *ngIf= "type !== 'post'">Unitate de masura<span class="ui-column-resizer" dragableColumn> </span></th>
+            <th *ngIf="type !== 'post'">Unitate de masură<span class="ui-column-resizer" dragableColumn> </span></th>
             <th></th>
         </thead>
         <tbody>
             <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
                 <tr [formGroupName]="i">
-                        <td >
-                            {{group.get('Parametru').value}}
-                        </td>
-                        <td>
-                            <mat-form-field > 
-                                <input [readonly]="!editable"  name="{{i}}" formControlName = 'Valoare'  matInput type="text" value= "{{group.get('Valoare').value}}"/>
-                            </mat-form-field>
-                        </td>
-                        <td *ngIf= "group.get('UM').value" >
-                            {{group.get('UM').value}}
-                        </td>
+                    <td  mat-raised-button matTooltip="{{extraInfo[i].Info}}"
+                    matTooltipPosition="left"
+                    aria-label="Button that displays a tooltip in various positions">
+                        
+                        {{group.get('Parametru').value}}
+                        
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input [readonly]="!editable" name="{{i}}" formControlName='Valoare' matInput type="text"
+                                value="{{group.get('Valoare').value}}" />
+                        </mat-form-field>
+                    </td>
+                    <td *ngIf="group.get('UM').value">
+                        {{group.get('UM').value}}
+                    </td>
                 </tr>
             </ng-container>
         </tbody>

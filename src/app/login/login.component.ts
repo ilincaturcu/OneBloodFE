@@ -32,8 +32,6 @@ donorReq:any =
 
 
   ngOnInit() {
-    //this.getAccessToken(this.authRequest);
-    //this.accessApi(this.service.getToken());
     this.loginForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required]
@@ -84,11 +82,6 @@ donorReq:any =
         this.errorMessage = error.error.message;
         this.invalidLogin = true;
       });
-  }
-
-  public accessApi(token) {
-    let res = this.service.welcome(token);
-    res.subscribe(data => this.response = data)
   }
 
   async onSubmit() {

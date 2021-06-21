@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<div>
 <div class="pickerContainer" [ngClass]="{ stepperUp: stepCounter == 3 || stepCounter == 4 }">
   <div class="jumbotron" *ngIf="stepCounter !== 3 && stepCounter !== 4" (click)="fetchDoctors()">
     <h1>Realizați o programare în 4 pași simpli</h1>
@@ -38,7 +39,7 @@
         <mat-label *ngIf="!doctorSubmitted || !f.doctor.errors">doctor</mat-label>
         <mat-select name="doctor" #doctor formControlName="doctor" (selectionChange)="pickdoctor(doctor.value)">
           <mat-option *ngFor="let doctor of doctors" [value]="doctor.name">
-            {{ doctor.name }}
+           Dr. {{ doctor.name }}
           </mat-option>
         </mat-select>
         <div *ngIf="f.doctor.errors && doctorSubmitted" class="invalid-feedInapoi">
@@ -98,12 +99,9 @@
     <div class="card">
       <div class="cardTitle">
         <div class="cardBasic">
-          <div class="cardName">
-            <h3>{{ selectedDoctor }}</h3>
-          </div>
         </div>
         <div class="cardBtn">
-          <h3>{{ selectedDay }}, {{ selectedHour }}</h3>
+          <h3>Programare la data:  {{ selectedDay }} ora:  {{ selectedHour }}</h3>
         </div>
       </div>
     </div>
@@ -117,4 +115,6 @@
       </mat-card-actions>
     </div>
   </div>
+</div>
+
 </div>

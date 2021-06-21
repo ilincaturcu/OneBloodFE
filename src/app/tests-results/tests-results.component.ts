@@ -189,7 +189,7 @@ export class TestsResultsComponent implements OnInit {
   type;
   appointment_id;
   list = ["HIV", "Syphilis"];
-
+  extraInfo=[];
 
 
 
@@ -243,6 +243,8 @@ export class TestsResultsComponent implements OnInit {
     var self = this;
     setTimeout(function () { self.addRow(); }, 1000);
 
+    this.fetchExtraInfo();
+    console.log(this.extraInfo)
   }
 
   ngAfterOnInit() {
@@ -250,7 +252,11 @@ export class TestsResultsComponent implements OnInit {
   }
 
 
-
+async fetchExtraInfo(){
+ await this.pacient.getExtraInfoForTestsResults().subscribe((result: any[]) => {
+    this.extraInfo = result;
+  });
+}
 
   async fetchTestsTesultsPreDonation() {
     await this.appointmentService.getAllPreDonationTests(this.donationFormId).subscribe((r) => this.getTestsData(r.body));
