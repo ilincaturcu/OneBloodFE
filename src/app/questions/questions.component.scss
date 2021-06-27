@@ -80,16 +80,7 @@ app-quiz{
  
 }
 
-//edit parent styles from child styles
-::ng-deep body{
-//   background-image: linear-gradient(
-//     0deg,
-//     rgba(220, 0, 40, 0.3),
-//     rgba(255, 0, 150, 0.3)
-//   ),
-//   url("../../assets/images/doc.jpg");
-// background-repeat: no-repeat;
-// background-size: cover;
-// background-position: bottom bottom;
 
-}
+.mat-spinner-color::ng-deep circle{
+  stroke: #dc0028 !important;
+  }

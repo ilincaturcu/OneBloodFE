@@ -1,45 +1,57 @@
-$primary-color: #5C6BC0;
-$secondary-color: #1ea896;
-$tertiary-color: white;
-$primary-font:'Ubuntu', sans-serif;
-$secondary-font: 'Source Sans Pro', sans-serif;
+
+$primaryRed: #dc0028;
+$primaryWhite: #fff;
 
 
 .results {
   max-width: 80%;
   padding: 5%;
   padding-top: 2%;
-  background-color: $tertiary-color;
+  background-color: $primaryWhite;
   margin: auto;
   margin-top: 5%;
 }
 
 
-
-@mixin checked($correct) {
-  content: "\2717";
-  display: inline-block;
-  color: gray;
-  padding: 0 6px 0 0;
-
-  @if $correct == false {
-    content: "\2717";
-    color:red;
-  }
-  @else if $correct == true{
-    content: '\2713';
-    color: green;
-  }
-  @else if $correct{
-    content: '\2713';
-    color: gray;
+ .appointment {
+  cursor: pointer;
+  background: #dc0028;
+  width: 10%;
+  padding: 10px 15px;
+  border: 0;
+  color: $primaryWhite;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  &:hover {
+    background: #a1001e;
   }
 }
 
 
-.answer.correct:before  {
-  @include checked($correct : true);
-}
-.answer:not(.correct):before  {
-  @include checked($correct : false);
+.mat-spinner-color::ng-deep circle{
+  stroke: #dc0028 !important;
+  }
+
+  .info{
+    margin-top: 100px;
+    margin-left: 50px;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+  }
+ 
+  
+::ng-deep body{
+  background-image: linear-gradient(
+    0deg,
+    rgba(255, 0, 150, 0.3),
+    white 
+  ),
+  url("../../assets/images/LOGO.png");
+background-repeat: no-repeat;
+background-size: auto;
+background-position: center center;
+
 }

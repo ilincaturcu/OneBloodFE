@@ -13,10 +13,10 @@ import { JwtClientService } from '../services/jwt-client.service';
 export class ResultsComponent implements OnInit {
   @Input() answers: Answers;
   @Input() questions: Question[];
-  status: string
+  status= 'valid'; 
   donor_code ;
   diaplyedMessage = {};
-  public loading = true;
+  public loading = false;
   public errorMsg: string;
   public successMsg: string;
 
@@ -33,6 +33,7 @@ export class ResultsComponent implements OnInit {
       this.loading = false;
     });
     (await this.questionsService.addResponseIdToPacient()).subscribe();
+    
   }
 
 

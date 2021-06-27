@@ -14,6 +14,7 @@ import {AppointmentGuardsService as AppGuard} from './services/appointment-guard
 import { QuizGuardsService as QuizGuard} from './services/quiz-guards.service';
 import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 import { IstoricProgramariComponent } from './istoric-programari/istoric-programari.component';
+import { ResultsComponent } from './results/results.component';
 //import { AuthGuardService as AuthGuard, } from '../voluntari/services/auth.guard';
 
 
@@ -30,6 +31,8 @@ const routes: Routes = [
   { path : 'login', component : LoginComponent},
   { path : 'home', component : HomePacientComponent},
   { path : 'doctor-home', component : DoctorHomeComponent, canActivate: [RoleGuard], data: { expectedRole: 'Doctor_Specialist'} },
+  //only for test purpose
+  { path : 'results', component : ResultsComponent},
 ];
 
 @NgModule({

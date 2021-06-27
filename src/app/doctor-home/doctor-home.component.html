@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-spinner class="mat-spinner-color" *ngIf="loading"></mat-spinner>
 <mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
 <mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
 <!--<div *ngIf="!loading && !error">-->
