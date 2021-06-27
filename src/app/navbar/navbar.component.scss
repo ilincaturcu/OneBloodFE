@@ -19,6 +19,26 @@ ul {
     float: left;
   }
   
+  @media screen and (max-width: 750px) {
+    li button
+    {
+      display: block;
+      color: $primaryWhite;
+      background: $primaryRed;
+      text-align: center;
+      padding: 7px 7px;
+      text-decoration: none;
+      border: 0px;
+      height: 58px; 
+      &:hover {
+        background: #a1001e;
+      }
+    }
+}
+
+
+
+@media screen and (min-width: 750px) {
   li button
   {
     display: block;
@@ -33,6 +53,8 @@ ul {
       background: #a1001e;
     }
   }
+}
+  
   
  
   ul img{
@@ -52,12 +74,12 @@ ul {
   height: 80%;
 }
 
-.liUserDiv{
-  float: right;
-   width: 9%;
-   height: 58px;
-   overflow: hidden;
-}
+// .liUserDiv{
+//   float: right;
+//    width: 9%;
+//    height: 58px;
+//    overflow: hidden;
+// }
 
 .liInsideDiv{
   width: 30%;

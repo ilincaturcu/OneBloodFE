@@ -2,7 +2,6 @@
 <div>
 <div class="pickerContainer" [ngClass]="{ stepperUp: stepCounter == 3 || stepCounter == 4 }">
   <div class="jumbotron" *ngIf="stepCounter !== 3 && stepCounter !== 4" (click)="fetchDoctors()">
-    <h1>Realizați o programare în 4 pași simpli</h1>
   </div>
   <div class="stepper">
     <ul>

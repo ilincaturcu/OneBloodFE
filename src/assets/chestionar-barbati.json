@@ -92,7 +92,7 @@
     {
         "question_number": 7,
         "question_type": "YESNO",
-        "question": "În ultimele 12 luni aţi avut contact sexual cu un partener ce se droghează prin injecţii",
+        "question": "În ultimele 12 luni aţi avut contact sexual cu un partener ce se droghează prin injecţii?",
         "choices": [
             {
                 "value": "Da",
@@ -212,7 +212,7 @@
     {
         "question_number": 16,
         "question_type": "YESNO",
-        "question": "Cati / cate parteneri ( partenere ) ati avut  în ultimele 6 luni?",
+        "question": "Câți / câte parteneri ( partenere ) ați avut în ultimele 6 luni?",
         "choices": [
             {
                 "value": "0-2",
@@ -242,7 +242,7 @@
     {
         "question_number": 18,
         "question_type": "YESNO",
-        "question": "De la ultima donare, sau în ultimele 12 luni aţi suferit tatuaje, acupunctura, gauri pentru cercei ?",
+        "question": "De la ultima donare, sau în ultimele 12 luni aţi suferit tatuaje, acupunctură, găuri pentru cercei?",
         "choices": [
             {
                 "value": "Da",
@@ -257,7 +257,7 @@
     {
         "question_number": 19,
         "question_type": "YESNO",
-        "question": "De la ultima donare, sau în ultimele 12 luni aţi fost transfuzat ?",
+        "question": "De la ultima donare sau în ultimele 12 luni aţi fost transfuzat?",
         "choices": [
             {
                 "value": "Da",
@@ -362,7 +362,7 @@
     {
         "question_number": 31,
         "question_type": "YESNO",
-        "question": "Aţi suferit vreodată de: astm?",
+        "question": "Aţi suferit vreodată de astm?",
         "choices": [
             {
                 "value": "Da",
@@ -392,7 +392,7 @@
     {
         "question_number": 33,
         "question_type": "YESNO",
-        "question": "Aţi suferit vreodată de: boli cronice (diabet, ulcer, cancer, astm) ?",
+        "question": "Aţi suferit vreodată de: boli cronice (diabet, ulcer, cancer, astm)?",
         "choices": [
             {
                 "value": "Da",
@@ -467,7 +467,7 @@
     {
         "question_number": 40,
         "question_type": "YESNO",
-        "question": "Aveţi pasiuni sau ocupaţii ce necesită atenţie specială 24 ore postdonare (de ex: sofer, alpinist, scafandru, etc) ?",
+        "question": "Aveţi pasiuni sau ocupaţii ce necesită atenţie specială 24 ore postdonare (de ex: șofer, alpinist, scafandru, etc) ?",
         "choices": [
             {
                 "value": "Da",
@@ -482,7 +482,7 @@
     {
         "question_number": 41,
         "question_type": "YESNO",
-        "question": "Ati calatorit in ultimele 30 de zile in tari cu circulatie cunoscuta cu infectii datorate virusului ZIKA?",
+        "question": "Ați călătorit în ultimele 30 de zile în țări cu circulație cunoscută cu infecții datorate virusului ZIKA?",
         "choices": [
             {
                 "value": "Da",
@@ -497,7 +497,7 @@
     {
         "question_number": 42,
         "question_type": "YESNO",
-        "question": "Ati calatorit in ultimele 30 de zile in tari cu circulatie cunoscuta cu infectii datorate virusului WEST NILE?",
+        "question": "Ați călătorit in ultimele 30 de zile în țări cu circulație cunoscută cu infecții datorate virusului WEST NILE?",
         "choices": [
             {
                 "value": "Da",

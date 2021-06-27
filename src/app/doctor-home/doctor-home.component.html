@@ -50,9 +50,9 @@
     </ng-container>
     
     <ng-container matColumnDef="cancel">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <th mat-header-cell *matHeaderCellDef> Acțiuni </th>
       <td mat-cell *matCellDef="let appointment"><button
-          (click)="actionButton(appointment.appointment.fk_donor_code, appointment.appointment_date.appointment_status, appointment.appointment.appointment_id)" mat-raised-button
+          (click)="actionButton(appointment.appointment.appointment_status, appointment.appointment.appointment_id)" mat-raised-button
           color="warn">
           Anulare </button></td>
     </ng-container>

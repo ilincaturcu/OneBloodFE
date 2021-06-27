@@ -59,9 +59,6 @@ export class IstoricProgramariComponent implements OnInit {
   await this.ngOnInit();
   }
 
-  ngAfterViewInit(): void {
-//???????????????
-  }
 
   cancelAppointment(id: string) {
     // this.appointmentService.cancelAppointment(id)

@@ -27,24 +27,44 @@ margin: 15px 0;
   margin: 5px;
 }
 
-@media all and (max-width: 750px) {
+@media screen  and (max-width: 750px) {
   .label {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
   }
 }
 
-.titlu{
-  font-family: tiemposfine-regular;
-  font-size: 64px;
-  font-weight: 500;
-    line-height: 1.2;
-    top: 60%;
-    left: 50%;
-
-    padding: 40px;
-    color: #2e333c;
+@media screen and (max-width: 750px) {
+  .titlu{
+    margin-top: 50px;
+    font-family: tiemposfine-regular;
+    font-size: 32px;
+    font-weight: 500;
+      line-height: 1.2;
+      top: 60%;
+      left: 50%;
+  
+      padding: 40px;
+      color: #2e333c;
+  }
 }
+
+
+
+@media screen and (min-width: 750px) {
+  .titlu{
+    font-family: tiemposfine-regular;
+    font-size: 64px;
+    font-weight: 500;
+      line-height: 1.2;
+      top: 60%;
+      left: 50%;
+  
+      padding: 40px;
+      color: #2e333c;
+  }
+}
+
 
 .content{
   position: absolute;
