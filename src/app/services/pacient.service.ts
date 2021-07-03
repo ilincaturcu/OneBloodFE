@@ -31,13 +31,11 @@ export class PacientService {
   }
 
   public addPacientWithCredentials(pacient: PacientCredentials): Observable<any> {
-    console.log(pacient)
     return this.http.post<PacientCredentials>(`${baseUrlSql}agreggator/cont/pacient`, pacient, this.httpOptions);
   }
 
 
   public getPacientStatus(donor_code: string): Observable<any> {
-
     return this.http.get<string>(`${baseUrlSql}api/pacient/status/` + donor_code, this.httpOptionsWithtoken);
   }
 

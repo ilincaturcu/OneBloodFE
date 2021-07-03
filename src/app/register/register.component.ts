@@ -24,10 +24,11 @@ export class RegisterComponent implements OnInit {
   pacient: Pacient;
   personalInfo: personalInformation;
   pacientCredentials: PacientCredentials;
-  //pacientID = 'IS' + nanoid(8);
   newID = 'IS' + nanoid(8);
   statusDefault = 'pending';
-  invalid = false;
+  invalid1 = false;
+  invalid2 = false;
+  invalid3 = false;
 
 
   myDateFilter = (m: Date | null): boolean => {
@@ -42,18 +43,18 @@ export class RegisterComponent implements OnInit {
 
 
     this.fisaDonareControl = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(20)]],
-      surname: ['', [Validators.required, Validators.maxLength(15)]],
+      name: ['', [Validators.required, Validators.maxLength(20),Validators.pattern('^[a-zA-Z ]*$')]],
+      surname: ['', [Validators.required, Validators.maxLength(15), Validators.pattern('^[a-zA-Z ]*$')]],
       identity_card_series: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
       identity_card_number: ['', [Validators.required, Validators.min(0), Validators.minLength(6), Validators.maxLength(6)]],
       birthdate: ['', [Validators.required, datePickerValidator()]],
       age: ['', [Validators.required, Validators.min(18), Validators.maxLength(3)]],
       adress: ['', Validators.required],
       phone_number: ['', [Validators.required, Validators.min(0), Validators.minLength(10), Validators.maxLength(15)]],
-      job: ['', Validators.required],
+      job: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       sex: ['', Validators.required],
-      mothers_name: [''],
-      fathers_name: ['']
+      mothers_name: ['', Validators.pattern('^[a-zA-Z ]*$')],
+      fathers_name: ['', Validators.pattern('^[a-zA-Z ]*$')]
     });
 
     this.loginForm = this.fb.group({
@@ -81,22 +82,32 @@ export class RegisterComponent implements OnInit {
 
   }
   public hasError = (controlName: string, errorName: string) => {
-    this.invalid = true;
-    return this.fisaDonareControl.controls[controlName].hasError(errorName);
+    var flag = this.fisaDonareControl.controls[controlName].hasError(errorName);
+    if(flag==true)
+      this.invalid1 = flag;
+    return flag;
   }
 
   public loginHasError = async (controlName: string, errorName: string) => {
-    this.invalid = true;
-    return this.loginForm.controls[controlName].hasError(errorName);
+    var flag = this.loginForm.controls[controlName].hasError(errorName);
+    if(flag==true)
+      this.invalid2 = flag;
+    return flag;
   }
 
   public pacientHasError = (controlName: string, errorName: string) => {
-    this.invalid = true;
-    return this.pacientControl.controls[controlName].hasError(errorName);
+    var flag = this.pacientControl.controls[controlName].hasError(errorName);
+    if(flag==true)
+      this.invalid3 = flag;
+    return flag;
   }
 
+
+  public errors(){
+
+  }
   async saveUserDetails() {
-   // if (this.invalid != true) {
+    if (this.invalid1 != true && this.invalid2 != true && this.invalid3 != true) {
 
 
    //validate email does not exist in the system
@@ -107,24 +118,16 @@ export class RegisterComponent implements OnInit {
       this.personalInfo = this.fisaDonareControl.value;
       this.pacientCredentials = new PacientCredentials(this.pacient, this.credentials, this.personalInfo);
       this.pacientService.addPacientWithCredentials(this.pacientCredentials).subscribe();
-      window.alert('Cont creat cu succes.Veti primi un email cu toate informatiile')
-      var emailContent = "Ati creat cu succes un nou cont pe platforma OneBlood. Urmatorul pas este sa completati chestionarul de autoexcludere si apoi sa realizati o programare.";
-      console.log(this.loginForm.controls['email'])
+      window.alert('Cont creat cu succes. Veți primi un email cu toate informațiile. Următorul pas este să vă logați.')
+      var emailContent = "Ați creat cu succes un nou cont pe platforma OneBlood. Următorul pas este să completați chestionarul de autoexcludere și apoi să realizați o programare.";
       this.pacientService.sendMailAfterApp(emailContent, this.loginForm.controls['email'].value).subscribe();
       this.router.navigate(['/login'])
    }
    else
-   window.alert('Exista un cont asociat email-ului ales')
-   //}
-    //else return;
+   window.alert('Există deja un cont asociat email-ului ales!')
+   }
+    else return;
   }
-
-// emailAlredyExists(){
-//  // this.pacientService.doesTheEmailHasAnAccount(this.loginForm.controls['email'].value).subscribe()
-//  return this.pacientService.doesTheEmailHasAnAccount("ilinca.turcu@bestis.ro").subscribe();
-// }
-
-
 
 
 public emailAlredyExists(email): Promise<string> {
@@ -139,10 +142,8 @@ public emailAlredyExists(email): Promise<string> {
     var lastPacientId;
     var kmsStr;
     this.pacientService.getLastDonorID().subscribe((id) => {
-
-
+      
       lastPacientId = id;
-      console.log(lastPacientId)
       let increasedNum = Number(lastPacientId.replace('IS', '')) + 1;
       kmsStr = lastPacientId.substr(0, 2);
       for (let i = 0; i < 8 - increasedNum.toString().length; i++) {

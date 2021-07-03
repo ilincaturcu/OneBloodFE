@@ -1,4 +1,4 @@
-import { MatPaginator } from "@angular/material/paginator";
+
 import { Pacient, personalInformation } from "./pacient.model";
 
 export class Appointment {

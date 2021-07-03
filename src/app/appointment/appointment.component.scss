@@ -459,15 +459,15 @@ h4 {
   }
 }
 
-::ng-deep body{
-    background-image: linear-gradient(
-      0deg,
-      rgba(220, 0, 40, 0.3),
-      rgba(255, 0, 150, 0.3)
-    ),
-    url("../../assets/images/centru3.jpg");
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-position: bottom bottom;
+// ::ng-deep body{
+//     background-image: linear-gradient(
+//       0deg,
+//       rgba(220, 0, 40, 0.3),
+//       rgba(255, 0, 150, 0.3)
+//     ),
+//     url("../../assets/images/centru3.jpg");
+//   background-repeat: no-repeat;
+//   background-size: auto;
+//   background-position: bottom bottom;
   
-  }
+//   }

@@ -39,13 +39,10 @@ export class IstoricProgramariComponent implements OnInit {
 
   async ngOnInit() {
     this.totalElements = await this.getNoOfAppointments();
-    //for the firs call its alwais index 0 size 5 ( maybe make a specific endpoint that returns only the first 5 appointments)
-    console.log("total elem"  +this.totalElements)
     await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index, this.size)
     .subscribe((appointments: PacientAppointment[]) => {
       this.appointments = appointments;
      this.loading = false;
-      console.log(this.appointments)
 
     });
 
@@ -54,8 +51,6 @@ export class IstoricProgramariComponent implements OnInit {
     const request = {};
     this.index = event.pageIndex;
     this.size = event.pageSize;
-    console.log("page index " + event.pageIndex);
-    console.log("page size " + event.pageSize);
   await this.ngOnInit();
   }
 
@@ -82,11 +77,9 @@ isDeleted (status : string): boolean {
 
  
  async viewResults(donor_code: string, appointmentDate: number, appId:number) {
-  console.log('aicea')
   var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
   var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
-  console.log("donation form id " + id);
   if(id!= null)
   this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/post" + "/" + appId]);
 
@@ -124,7 +117,7 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
 
   changeStatus(event: any, donor_code: string, appointment_date:number){
     this.questionService.addStatus(event.value, donor_code).subscribe();
-    console.log("Status of " + donor_code + " has changed to " + event.value)
+   // console.log("Status of " + donor_code + " has changed to " + event.value)
     if(event.value == "valid"){
      this.generateDonationForm(donor_code, appointment_date);
     }
@@ -153,7 +146,6 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
   .subscribe((appointments: PacientAppointment[]) => {
     this.appointments = appointments;
    this.loading = false;
-    console.log(this.appointments)
     this.totalElements = appointments.length;
   });
   }

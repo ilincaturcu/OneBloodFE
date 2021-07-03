@@ -64,7 +64,6 @@ export class QuestionsService {
     var donor_code = this.JwtService.getDonorCode();
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
     var responseId = await this.getMostRecentResponseID(donor_code);
-    console.log("response id" + responseId);
     return this.http.put<any>(`${baseUrlSql}api/pacient/quizId/` + donor_code, responseId, httpOptions3);
   }
 

@@ -14,7 +14,7 @@
         <tbody>
             <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
                 <tr [formGroupName]="i">
-                    <td  mat-raised-button matTooltip="{{extraInfo[i].Info}}"
+                    <td  mat-raised-button matTooltip="{{extraInfo[i]?.Info}}"
                     matTooltipPosition="left"
                     aria-label="Button that displays a tooltip in various positions">
                         

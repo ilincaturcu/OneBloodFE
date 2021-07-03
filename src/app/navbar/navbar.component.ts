@@ -11,7 +11,6 @@ export class NavbarComponent implements OnInit {
   role;
   async ngOnInit() {
    this.role = await this.auth.getRole();
-   console.log(this.role)
   }
 
   public selected;

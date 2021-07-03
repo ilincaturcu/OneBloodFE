@@ -26,7 +26,6 @@ export class MedicalResultsComponent implements OnInit {
    await this.appointmentService.getAppointments()
       .subscribe((appointments: Appointment[]) => {
         this.appointments = appointments.filter(a => this.isDeleted(a.appointment_status));
-        console.log(this.appointments);
         this.loading = false;
       },
         (error: ErrorEvent) => {
@@ -58,9 +57,7 @@ export class MedicalResultsComponent implements OnInit {
   async viewResults(donor_code: string, appointmentDate: string) {
     var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
-    console.log('aicea')
     var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
-    console.log("donation form id " + id);
     this.router.navigate(['tests-results/' + id]);
 
   }
@@ -76,7 +73,6 @@ export class MedicalResultsComponent implements OnInit {
 
 
   async actionButton(status: string, id: string, donor_code: string, appointmentDate: string) {
-    console.log('aicea2')
     switch (status) {
       case "progress": {
         break;
@@ -87,7 +83,6 @@ export class MedicalResultsComponent implements OnInit {
       }
       case "completed": {
         //view test results; 
-        console.log(donor_code, + " " + appointmentDate)
        await this.viewResults(donor_code, appointmentDate);
         break;
       }

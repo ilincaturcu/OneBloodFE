@@ -88,7 +88,6 @@ donorReq:any =
     this.submitted = true;
     this.authRequest.userName = this.loginForm.controls['email'].value;
     this.authRequest.password = this.loginForm.controls['password'].value;
-    console.log(this.authRequest)
     await this.getAccessToken(this.authRequest);
     this.getRoleValue(this.authRequest);
     if (this.loginForm.invalid) {
@@ -102,18 +101,17 @@ donorReq:any =
         this.invalidLogin = true;
       }
       else if (sessionStorage.getItem("Role").valueOf() == 'Pacient') {
-        console.log("pacient")
         this.donorReq.email = this.loginForm.controls['email'].value;
         this.donorReq.password = this.loginForm.controls['password'].value;
-        this.getDonorCode(this.donorReq);
-        this.router.navigate(['/']);
+        await this.getDonorCode(this.donorReq);
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 1000)
         this.invalidLogin = false;
       }
       else if(sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
         this.donorReq.email = this.loginForm.controls['email'].value;
         this.donorReq.password = this.loginForm.controls['password'].value;
-        console.log("doctor")
-        console.log(this.donorReq)
         await this.getDoctorCode(this.donorReq);
         setTimeout(() => {
           this.router.navigate(['/doctor-home']);
@@ -122,7 +120,7 @@ donorReq:any =
         this.invalidLogin = false;
       }
     },
-      1000);
+      2000);
   }
 
   public loginHasError = (controlName: string, errorName: string) => {

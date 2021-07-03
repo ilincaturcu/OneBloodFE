@@ -46,8 +46,6 @@ export class DoctorHomeComponent implements OnInit {
     .subscribe((appointments: PacientAppointment[]) => {
       this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
      this.loading = false;
-      console.log(this.appointments)
-  
     });
   }
 
@@ -70,7 +68,7 @@ export class DoctorHomeComponent implements OnInit {
 
 
 isDeleted (status : string): boolean { 
-    return (status !=  'deleted'); 
+    return (status !=  'deleted' && status != 'completed'); 
  } 
            
 
@@ -99,7 +97,6 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
 }
 
   actionButton(status: string, id: string) {
-    console.log(status)
     switch (status) {
       case "progress": {
         break;
@@ -114,21 +111,13 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
     }
   }
 
-
   changeStatus(event: any, donor_code: string, appointment_date:number){
-    // var tzoffset = (new Date(appointment_date)).getTimezoneOffset() * 60000; //offset in milliseconds
-    // var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
-    // if(this.getDonationFormIdPromise(donor_code, localISOTime)!= null){
-    //   window.alert("Pacientul are deja o fisa de donare pentru astazi");
-    // }else{
       //TODO: ADAUGAT LOGICA SA NU POATE FACE 2 DONATION FORM PENTRU ACEEASI ZI
       this.questionService.addStatus(event.value, donor_code).subscribe();
-      console.log("Status of " + donor_code + " has changed to " + event.value)
+     // console.log("Status of " + donor_code + " has changed to " + event.value)
       if(event.value == "valid"){
        this.generateDonationForm(donor_code, appointment_date);
       }
-
-    
   }
 
 

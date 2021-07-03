@@ -111,17 +111,10 @@ export class ExamenMedicalComponent implements OnInit {
   addRow() {
     const control =  this.userTable.get('tableRows') as FormArray;
       this.rows.map(x=> control.push(this.initiateForm(x)))
-      console.log(control)
   }
-
-
 
   doneRow(group: FormGroup) {
     group.get('isEditable').setValue(false);
-  }
-
-  saveUserDetails() {
-    console.log(this.userTable.value);
   }
 
   get getFormControls() {
@@ -133,7 +126,6 @@ export class ExamenMedicalComponent implements OnInit {
     const control = this.userTable.get('tableRows') as FormArray;
 
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
-    console.log(this.touchedRows);
 
   }
 

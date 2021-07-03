@@ -201,17 +201,13 @@ export class TestsResultsComponent implements OnInit {
           this.donor_code = params.donorCode;
           this.type = params.type;
           this.appointment_id = params.appId;
-
-          console.log("**********" + this.appointment_id);
-          console.log("params donor code " + this.donor_code)
         }
       )
-
+      this.fetchExtraInfo();
   }
 
   async ngOnInit() {
     this.role = this.auth.getRole();
-    console.log(this.role);
     
     if (this.role == "Pacient")
     {
@@ -231,10 +227,7 @@ export class TestsResultsComponent implements OnInit {
         await this.fetchTestsTesultsPostDonation();
       }
     }
-    console.log(this.editable)
 
-
-  
     this.touchedRows = [];
     this.userTable = this.fb.group({
       tableRows: this.fb.array([])
@@ -243,12 +236,12 @@ export class TestsResultsComponent implements OnInit {
     var self = this;
     setTimeout(function () { self.addRow(); }, 1000);
 
-    this.fetchExtraInfo();
-    console.log(this.extraInfo)
+   
   }
 
-  ngAfterOnInit() {
+  async ngAfterOnInit() {
     this.control = this.userTable.get('tableRows') as FormArray;
+    
   }
 
 
@@ -272,7 +265,6 @@ async fetchExtraInfo(){
 
   async getTestsData(data: any) {
     await this.rows.map((r) => {
-      console.log(data[r.Parametru.toLowerCase()])
       r.Valoare = data[r.Parametru.toLowerCase()]
     })
   }
@@ -290,10 +282,6 @@ async fetchExtraInfo(){
     this.rows.forEach(row => control.push(this.initiateForm(row)));
   }
 
-
-  saveUserDetails() {
-    console.log(this.userTable.value);
-  }
 
   get getFormControls() {
     const control = this.userTable.get('tableRows') as FormArray;
@@ -357,18 +345,11 @@ async fetchExtraInfo(){
 
     jsonDataPost["completedAt"] = localISOTime;
     jsonDataPre["completedAt"] = localISOTime;
-    console.log("JSON POST->>" + JSON.stringify(jsonDataPost));
-    console.log("JSON PRE->>" + JSON.stringify(jsonDataPre));
     let id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
     let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
 
-    console.log("PRE->>" + id_analize_pre_donare);
-    console.log("POST->>" + id_analize_post_donare);
-
     this.addTestsMongoIds(this.donationFormId, id_analize_pre_donare, id_analize_post_donare);
 
-
-    //legatura in sql, de pus in tabela donation from id ul primit pentru id_analiz_pre_donare, id_analize_post_donare
   }
 
 
@@ -385,7 +366,7 @@ async fetchExtraInfo(){
 
     jsonDataPre["cod_donator"] = this.donor_code;
     jsonDataPre["completedAt"] = localISOTime;
-    console.log("JSON PRE->>" + JSON.stringify(jsonDataPre));
+
     let id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
     console.log("PRE->>" + id_analize_pre_donare);
   }
@@ -403,10 +384,7 @@ async fetchExtraInfo(){
 
     jsonDataPost["cod_donator"] = this.donor_code;
     jsonDataPost["completedAt"] = localISOTime;
-    console.log("JSON POST->>" + JSON.stringify(jsonDataPost));
     let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
-
-    console.log("POST->>" + id_analize_post_donare);
 
   }
 

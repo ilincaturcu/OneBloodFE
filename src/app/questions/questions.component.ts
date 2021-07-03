@@ -27,11 +27,8 @@ export class QuestionsComponent implements OnInit {
 
     var donorCode = this.jwtService.getDonorCode();
 
-
-
     //if F else M
     const gender = await this.checkGender();
-    console.log(gender)
     if (gender == "Feminin") {
       this.questionsService.getQuestionsFemei()
         .subscribe((questions: Question[]) => {
@@ -47,7 +44,6 @@ export class QuestionsComponent implements OnInit {
         .subscribe((questions: Question[]) => {
           this.questions = questions;
         var date = new Date().toISOString().split('T')[0]
-          console.log(date);
           date += "T22:00:00.000+00:00";
           this.answers = new Answers(date, donorCode);
           this.currentQuestionIndex = 0;
@@ -72,11 +68,9 @@ export class QuestionsComponent implements OnInit {
       this.answers.responses[this.currentQuestionIndex] = new Response(this.questions[this.currentQuestionIndex].question_number, choice.correct);
     else if (this.questions[this.currentQuestionIndex].question_type === "TEXTBOX") {
       this.answers.responses[this.currentQuestionIndex] = new Response(this.questions[this.currentQuestionIndex].question_number, choice);
-      console.log(choice)
     }
     else if (this.questions[this.currentQuestionIndex].question_type === "DATE") {
       this.answers.responses[this.currentQuestionIndex] = new Response(this.questions[this.currentQuestionIndex].question_number, choice);
-      console.log("DATE" + choice)
     }
   }
 

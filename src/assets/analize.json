@@ -2,7 +2,7 @@
   [
     {
       "Parametru": "Hb",
-      "Info": "Hemoglobina, valori normale: Barbati 13.5-17.5g, Femei 12-16g"
+      "Info": "Hemoglobina, valori normale: Bărbați 13.5-17.5g, Femei 12-16g"
     },
     {
       "Parametru": "Glicemie",
@@ -11,7 +11,7 @@
     },
     {
       "Parametru": "Ht",
-      "Info": "Hematocrit, valori normale: Barbati 40-48%, Femei 36-42% "
+      "Info": "Hematocrit, valori normale: Bărbati 40-48%, Femei 36-42% "
     },
     {
       "Parametru": "Ga",
@@ -19,7 +19,7 @@
     },
     {
       "Parametru": "Gr",
-      "Info": "Globule rosii, valori normale: Barbati 4,32-5,72 milioane, Femei 3,90-5,03 milioane"
+      "Info": "Globule roșii, valori normale: Bărbați 4,32-5,72 milioane, Femei 3,90-5,03 milioane"
     },
     {
       "Parametru": "Pl",
@@ -35,11 +35,11 @@
     },
     {
       "Parametru": "Gr",
-      "Info": "Globule rosii(procente)"
+      "Info": "Globule roșii(procente)"
     },
     {
       "Parametru": "TA",
-      "Info": "Tensiune arteriala"
+      "Info": "Tensiune arterială"
     },
     {
       "Parametru": "P",
@@ -47,10 +47,10 @@
     },
     {
       "Parametru": "G",
-      "Info": "Greutate, valoare acceptata: >50kg"
+      "Info": "Greutate, valoare acceptată: >50kg"
     },
     {
       "Parametru": "H",
-      "Info": "Inaltime"
+      "Info": "Înălțime"
     }
   ]

@@ -7,8 +7,6 @@ export function datePickerValidator(): ValidatorFn {
     if (control.value) {
       const date: Date = control.value;
       if (date.getFullYear() < currentYear-17) {
-        console.log(date.getFullYear())
-        console.log(currentYear-17)
         forbidden = false;
       }
     }

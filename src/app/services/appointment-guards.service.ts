@@ -13,7 +13,7 @@ export class AppointmentGuardsService implements CanActivate {
     const current = await this.checkDonorDoesNotHaveAnAppPromise();
     if (!this.auth.isAuthenticated() || status !== expectedPacientStatus || current == 'true') {
       if (status !== expectedPacientStatus)
-        window.alert("Ne pare rău, dar nu sunteți eligibili pentru a face o programare");
+        window.alert("Ne pare rău, dar nu sunteți eligibil pentru a face o programare");
       else
         window.alert("Ne pare rău, dar ați făcut o programare deja");
 
