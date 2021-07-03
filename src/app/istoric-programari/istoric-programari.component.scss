@@ -1,0 +1,17 @@
+table { 
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  #filtrare{
+    margin-top: 90px;
+  }
+
+  .mat-paginator-range-label {
+    display: none;
+}
+
+
+.mat-spinner-color::ng-deep circle{
+  stroke: #dc0028 !important;
+  }

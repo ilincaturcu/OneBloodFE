@@ -1,0 +1,101 @@
+
+
+$primaryRed: #dc0028;
+$primaryWhite: #fff;
+
+
+mat-radio-group {
+display: flex;
+flex-direction: column;
+margin: 15px 0;
+}
+
+.label {
+  font-family: tiemposfine-regular;
+  font-weight: 600;
+  font-size: 24px;
+  padding-top: 2%;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.radio-button {
+  margin: 5px;
+}
+
+@media screen  and (max-width: 750px) {
+  .label {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .titlu{
+    margin-top: 50px;
+    font-family: tiemposfine-regular;
+    font-size: 32px;
+    font-weight: 500;
+      line-height: 1.2;
+      top: 60%;
+      left: 50%;
+  
+      padding: 40px;
+      color: #2e333c;
+  }
+}
+
+
+
+@media screen and (min-width: 750px) {
+  .titlu{
+    font-family: tiemposfine-regular;
+    font-size: 64px;
+    font-weight: 500;
+      line-height: 1.2;
+      top: 60%;
+      left: 50%;
+  
+      padding: 40px;
+      color: #2e333c;
+  }
+}
+
+
+.content{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+
+  width: 285px;
+  margin: -140px 0 0 -182px;
+  padding: 40px;
+  box-shadow: 0 0 5px $primaryRed;
+}
+
+.quiz{
+  font-family: tiemposfine-regular;
+  
+}
+
+.choices{
+  display: inline;
+  padding: 10px;
+  font-family: tiemposfine-regular;
+  
+}
+
+mat-radio-group{
+  display: flex;
+    flex-direction: row-reverse;
+}
+
+.message{
+ display: inline-block;
+ padding: 10px;
+}
+

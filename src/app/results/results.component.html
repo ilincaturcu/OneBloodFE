@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<mat-spinner  class="mat-spinner-color" *ngIf="loading"></mat-spinner>
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+
+<div class="info" *ngIf="status == 'valid'"><p>   Conform răspunsurilor dumneavoastră sunteți eligibil pentru donare. Următorul pas este să realizați o programare:</p>
+  <mat-card-actions class="buttons">
+    <button class="appointment" mat-raised-button color="primary" type="submit" (click)="redirectProgramare()">Programare</button>
+</mat-card-actions>
+</div>
+<div class="info" *ngIf="status == 'invalid'"><p>   Conform răspunsurilor dumneavoastră nu sunteți eligibil pentru donare. Pentru mai multe detalii ne puteți contacta la 0332 408 329 sau la adresa Strada Nicolae Bălcescu nr. 21, Iași 700117.</p></div>
+<div class="info" *ngIf="status == 'suspendat'"><p>   Conform răspunsurilor dumneavoastră nu sunteți momentan eligibil pentru donare. Vă sugerăm să reîncercați din nou peste 15-30 de zile. Pentru mai multe detalii ne puteți contacta la 0332 408 329 sau la adresa Strada Nicolae Bălcescu nr. 21, Iași 700117.</p></div>

@@ -1,1 +1,171 @@
-<p>register works!</p>
+<div class= "all">
+    <div class="add-title">
+        <h1 class="primary">Înregistrare</h1>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="form">
+            <form [formGroup]="loginForm" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-card-content>
+                    <p>
+                        <mat-form-field class="box" >
+                            <mat-label>Email</mat-label>
+                            <input matInput maxlength="30" type="text" placeholder="" formControlName="email" id="email"
+                                autocomplete= " ">
+                            <mat-error *ngIf=" loginHasError('email', 'required' )">Email-ul este obligatoriu</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field class="box" >
+                            <mat-label>Parolă</mat-label>
+                            <input matInput type="password" placeholder="**********" formControlName="password"
+                                id="password" autocomplete=" ">
+                            <mat-error *ngIf=" loginHasError('password', 'required' )">Parola este obligatorie
+                            </mat-error>
+                        </mat-form-field>
+                    </p>
+                </mat-card-content>
+            </form>
+            <form [formGroup]="pacientControl" autocomplete="off" novalidate fxLayout="column wrap"
+                fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-card-content>
+                    <p>
+                        <mat-form-field class="box">
+                            <mat-label>CNP</mat-label>
+                            <input matInput #cnp maxlength="13" type="number" placeholder="" formControlName="cnp"
+                                id="cnp">
+                            <mat-error *ngIf=" pacientHasError('cnp', 'required' )">CNP-ul este obligatoriu</mat-error>
+                            <mat-hint align="end">{{ cnp.value?.length || 0}}/13</mat-hint>
+                        </mat-form-field>
+                    </p>
+                </mat-card-content>
+                </form>
+                <form [formGroup]="fisaDonareControl" autocomplete="off" novalidate fxLayout="column wrap"
+                    fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-card-content>
+                        <p>
+                            <mat-form-field class="box" >
+                                <mat-label>Nume</mat-label>
+                                <input matInput #name maxlength="30" type="text" placeholder="" formControlName="name"
+                                    id="name">
+                                <mat-error *ngIf=" hasError('name', 'required' )">Numele este obligatoriu</mat-error>
+                                <mat-hint>{{ name.value?.length || 0}}/30</mat-hint>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box" >
+                                <mat-label>Prenume</mat-label>
+                                <input matInput #surname maxlength="30" type="text" placeholder=""
+                                    formControlName="surname" id="surname">
+                                <mat-error *ngIf=" hasError('surname', 'required' )">Prenumele este obligatoriu
+                                </mat-error>
+                                <mat-hint>{{ surname.value?.length || 0}}/30</mat-hint>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box">
+                                <mat-label>Data nașterii</mat-label>
+                                <input name="birthdate" matInput [matDatepicker]="dob" formControlName="birthdate">
+                                <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                                <mat-datepicker #dob></mat-datepicker>
+                                <mat-error *ngIf="hasError('birthdate', 'required')">
+                                    Introduceți o dată validă
+                                </mat-error>
+                                <mat-error *ngIf="hasError('birthdate', 'invalidDOBYear')">
+                                    Conform datei alese nu sunteți major/ă
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box">
+                                <mat-label>Serie Buletin</mat-label>
+                                <input matInput #identity_card_series maxlength="2" type="text" placeholder=""
+                                    formControlName="identity_card_series" id="identity_card_series">
+                                <mat-error *ngIf=" hasError('identity_card_series', 'required' )">Seria este obligatorie
+                                </mat-error>
+                                <mat-hint align="end">{{ identity_card_series.value?.length || 0}}/2</mat-hint>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box" >
+                                <mat-label>Număr buletin</mat-label>
+                                <input matInput #identity_card_number maxlength="6" type="number" placeholder=""
+                                    formControlName="identity_card_number" id="identity_card_number">
+                                <mat-error *ngIf="hasError('identity_card_number', 'required')">Numărul buletinului este
+                                    obligatoriu
+                                </mat-error>
+                                <mat-hint align="end">{{ identity_card_number.value?.length || 0}}/6</mat-hint>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-label class="box" >Sex </mat-label>
+                            <mat-radio-group aria-label="form-group" formControlName="sex">
+                                <div>
+                                    <label *ngFor="let sex of sexes">
+                                        <mat-radio-button [value]="sex">
+                                            {{ sex }}
+                                        </mat-radio-button>
+                                    </label>
+                                </div>
+                            </mat-radio-group>
+                        </p>
+                        <p>
+                            <mat-form-field class="box">
+                                <mat-label>Număr de telefon</mat-label>
+                                <input matInput #phone_number maxlength="10" type="number" placeholder=""
+                                    formControlName="phone_number" id="phone_number">
+                                <mat-error *ngIf=" hasError('phone_number', 'required' )">Numărul de telefon este
+                                    obligatoriu</mat-error>
+                                <mat-hint align="end">{{ phone_number.value?.length || 0}}/10</mat-hint>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box">
+                                <mat-label>Vârstă</mat-label>
+                                <input matInput #inputAge maxlength="3" type="number" placeholder=""
+                                    formControlName="age" id="number">
+                                <mat-error *ngIf="hasError('age', 'required')">Vârsta este
+                                    obligatorie
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box" hintLabel="Județ, Oras, Strada, Bloc, Apartament.."
+                                >
+                                <mat-label>Domiciliu</mat-label>
+                                <input matInput #adress type="text" placeholder="" formControlName="adress" id="adress">
+                                <mat-error *ngIf=" hasError('adress', 'required' )">Adresa este obligatorie</mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box" hintLabel="Ocupația pe care o aveți acum">
+                                <mat-label>Loc de muncă</mat-label>
+                                <input matInput #job type="text" placeholder="" formControlName="job" id="job">
+                                <mat-error *ngIf=" hasError('job', 'required' )">Locul de muncă este obligatoriu
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box">
+                                <mat-label>Prenumele mamei</mat-label>
+                                <input matInput #mothers_name type="text" placeholder="" formControlName="mothers_name"
+                                    id="mothers_name">
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field class="box" >
+                                <mat-label>Prenumele tatălui</mat-label>
+                                <input matInput #fathers_name type="text" placeholder="" formControlName="fathers_name"
+                                    id="fathers_name">
+                            </mat-form-field>
+                        </p>
+                        <br>
+                    </mat-card-content>
+                    <mat-card-actions class="buttons">
+                        <button mat-raised-button color="primary" type="submit" (click)="saveUserDetails()"
+                            id="fisaDonareControl">Salvează</button>
+                    </mat-card-actions>
+                </form>
+        </div>
+    </div>
+    </div>

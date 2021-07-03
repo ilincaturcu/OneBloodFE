@@ -1,0 +1,37 @@
+<!-- <div class="export-container">
+    <button mat-raised-button color="primary" (click)="exportTable()">Export</button>
+</div> -->
+
+<form [formGroup]="userTable">
+    <table id="ExampleTable" class="table table-border" [ngClass]="{'table-dark': mode}">
+        <thead class="text-nowrap">
+            <th>Analiza <span class="ui-column-resizer" dragableColumn> </span></th>
+            <th>Valoare<span class="ui-column-resizer" dragableColumn> </span></th>
+            <th>Unitate de masura<span class="ui-column-resizer" dragableColumn> </span></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
+                <tr [formGroupName]="i">
+                        <td >
+                            {{group.get('Parametru').value}}
+                        </td>
+                        <td>
+                            <mat-form-field > 
+                                <input name="{{i}}" formControlName = 'Valoare'  matInput type="text" value= "{{group.get('Valoare').value}}"/>
+                            </mat-form-field>
+                        </td>
+                        <td >
+                            {{group.get('UM').value}}
+                        </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    <div class="action-container">
+        <button mat-raised-button type="submit" (click)="submitForm()">Submit</button>
+    </div>
+</form>
+<!-- <div class="output">
+    <p>Form Data: {{userTable.value | json}}</p>
+</div> -->

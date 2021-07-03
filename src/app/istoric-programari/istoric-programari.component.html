@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+<mat-spinner class="mat-spinner-color" *ngIf="loading"></mat-spinner>
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+<!--<div *ngIf="!loading && !error">-->
+  <mat-form-field color="warn"  id="filtrare" >
+    <mat-label  >Filtrare după cod donator</mat-label>
+    <input matInput (keydown.enter)="applyFilter($event.target.value)"  placeholder="" #input>
+  </mat-form-field>
+<div *ngIf="!loading">
+  <table mat-table [dataSource]="appointments" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nume</th>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.personalInformation.name }} </td>
+    </ng-container>
+    <ng-container matColumnDef="nickname">
+        <th mat-header-cell *matHeaderCellDef>Prenume</th>
+        <td mat-cell *matCellDef="let appointment"> {{ appointment.personalInformation.surname }} </td>
+      </ng-container>
+      <ng-container matColumnDef="donor_code">
+        <th mat-header-cell *matHeaderCellDef>Cod Donator</th>
+        <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.fk_donor_code }} </td>
+      </ng-container>
+      <ng-container matColumnDef="day">
+        <th mat-header-cell *matHeaderCellDef> Dată Programare </th>
+        <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.appointment_date | date: 'dd-MM-yyyy'  }} </td>
+      </ng-container>
+    <ng-container matColumnDef="hour">
+      <th mat-header-cell *matHeaderCellDef> Oră Programare </th>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.appointment_hour }} </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status Programare </th>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.appointment_status }} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="tests">
+      <th mat-header-cell *matHeaderCellDef> Analize </th>
+      <td mat-cell *matCellDef="let appointment"><button
+          (click)="viewResults(appointment.appointment.fk_donor_code, appointment.appointment.appointment_date, appointment.appointment.appointment_id)" mat-raised-button
+          color="warn">
+          Adăugare Analize </button></td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let appointments; columns: columns"></tr>
+  </table>
+
+  <mat-paginator #paginator
+  [length]="totalElements"
+  [pageIndex]="0"
+  [pageSize]="10"
+   (page)="pageEvents($event)">
+  
+</mat-paginator>
+</div>

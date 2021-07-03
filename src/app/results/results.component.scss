@@ -1,0 +1,57 @@
+
+$primaryRed: #dc0028;
+$primaryWhite: #fff;
+
+
+.results {
+  max-width: 80%;
+  padding: 5%;
+  padding-top: 2%;
+  background-color: $primaryWhite;
+  margin: auto;
+  margin-top: 5%;
+}
+
+
+ .appointment {
+  cursor: pointer;
+  background: #dc0028;
+  width: 10%;
+  padding: 10px 15px;
+  border: 0;
+  color: $primaryWhite;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  &:hover {
+    background: #a1001e;
+  }
+}
+
+
+.mat-spinner-color::ng-deep circle{
+  stroke: #dc0028 !important;
+  }
+
+  .info{
+    margin-top: 100px;
+    margin-left: 50px;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+  }
+ 
+  
+::ng-deep body{
+  background-image: linear-gradient(
+    0deg,
+    rgba(255, 0, 150, 0.3),
+    white 
+  ),
+  url("../../assets/images/LOGO.png");
+background-repeat: no-repeat;
+background-size: auto;
+background-position: center center;
+
+}
