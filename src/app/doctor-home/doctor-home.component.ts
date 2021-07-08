@@ -111,10 +111,11 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
     }
   }
 
-  changeStatus(event: any, donor_code: string, appointment_date:number){
-      //TODO: ADAUGAT LOGICA SA NU POATE FACE 2 DONATION FORM PENTRU ACEEASI ZI
+  changeStatus(event: any, donor_code: string, appointment_date:number, appointment_id: string){
+      
       this.questionService.addStatus(event.value, donor_code).subscribe();
-     // console.log("Status of " + donor_code + " has changed to " + event.value)
+     // schimba appointment status in progress
+     this.appointmentService.changeAppointmentStatus(appointment_id, "progress").subscribe() ;
       if(event.value == "valid"){
        this.generateDonationForm(donor_code, appointment_date);
       }

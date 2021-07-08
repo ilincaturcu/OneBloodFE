@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder, ValidationErrors } from '@angular/forms';
 import { datePickerValidator } from '../datepicker-validator';
 import { PacientService } from '../services/pacient.service';
 import { Credentials, Pacient, PacientCredentials, personalInformation } from '../models/pacient.model';
@@ -35,16 +35,16 @@ export class RegisterComponent implements OnInit {
     const day = m.getDay();
     return day !== 0 && day !== 6;
   }
-   constructor(private fb: FormBuilder, private pacientService: PacientService, private router: Router) {
-  
-   }
+  constructor(private fb: FormBuilder, private pacientService: PacientService, private router: Router) {
+
+  }
 
   ngOnInit(): void {
 
 
     this.fisaDonareControl = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(20),Validators.pattern('^[a-zA-Z ]*$')]],
-      surname: ['', [Validators.required, Validators.maxLength(15), Validators.pattern('^[a-zA-Z ]*$')]],
+      name: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z- ]*$')]],
+      surname: ['', [Validators.required, Validators.maxLength(15), Validators.pattern('^[a-zA-Z- ]*$')]],
       identity_card_series: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
       identity_card_number: ['', [Validators.required, Validators.min(0), Validators.minLength(6), Validators.maxLength(6)]],
       birthdate: ['', [Validators.required, datePickerValidator()]],
@@ -82,67 +82,92 @@ export class RegisterComponent implements OnInit {
 
   }
   public hasError = (controlName: string, errorName: string) => {
-    var flag = this.fisaDonareControl.controls[controlName].hasError(errorName);
-    if(flag==true)
-      this.invalid1 = flag;
-    return flag;
+    return this.fisaDonareControl.controls[controlName].hasError(errorName);
   }
 
   public loginHasError = async (controlName: string, errorName: string) => {
-    var flag = this.loginForm.controls[controlName].hasError(errorName);
-    if(flag==true)
-      this.invalid2 = flag;
-    return flag;
+    return this.loginForm.controls[controlName].hasError(errorName);
   }
 
   public pacientHasError = (controlName: string, errorName: string) => {
-    var flag = this.pacientControl.controls[controlName].hasError(errorName);
-    if(flag==true)
-      this.invalid3 = flag;
-    return flag;
+    return this.pacientControl.controls[controlName].hasError(errorName);
   }
 
+  getFormValidationErrors() {
+    this.invalid1 = false;
+    this.invalid2 = false;
+    this.invalid3 = false;
+    let pacientControlErrors: ValidationErrors = null;
+    let fisaDonareControlErrors: ValidationErrors = null;
+    let loginFormErrors: ValidationErrors = null;
+    Object.keys(this.fisaDonareControl.controls).forEach(key => {
+      fisaDonareControlErrors = this.fisaDonareControl.get(key).errors;
+      if (fisaDonareControlErrors != null) {
+          this.invalid1 = true;
+      }
+    });
+    if (fisaDonareControlErrors == null) {
+      this.invalid1 = false;
+    }
+    Object.keys(this.pacientControl.controls).forEach(key => {
+      pacientControlErrors = this.pacientControl.get(key).errors;
+      if (pacientControlErrors != null) {
+          this.invalid2 = true;
+      }
+    });
 
-  public errors(){
+    Object.keys(this.loginForm.controls).forEach(key => {
+      loginFormErrors = this.loginForm.get(key).errors;
+      if (loginFormErrors != null) {
+          this.invalid3 = true;
+      }
+    });
+    if (pacientControlErrors == null) {
+      this.invalid3 = false;
+    }
 
   }
+
   async saveUserDetails() {
+    await this.getFormValidationErrors();
     if (this.invalid1 != true && this.invalid2 != true && this.invalid3 != true) {
+      console.log(this.invalid1);
+      console.log(this.invalid2);
+      console.log(this.invalid3);
 
-
-   //validate email does not exist in the system
-   var account = await this.emailAlredyExists(this.loginForm.controls['email'].value);
-   if(account.toString() == 'false'){
-      this.credentials = this.loginForm.value;
-      this.pacient = this.pacientControl.value;
-      this.personalInfo = this.fisaDonareControl.value;
-      this.pacientCredentials = new PacientCredentials(this.pacient, this.credentials, this.personalInfo);
-      this.pacientService.addPacientWithCredentials(this.pacientCredentials).subscribe();
-      window.alert('Cont creat cu succes. Veți primi un email cu toate informațiile. Următorul pas este să vă logați.')
-      var emailContent = "Ați creat cu succes un nou cont pe platforma OneBlood. Următorul pas este să completați chestionarul de autoexcludere și apoi să realizați o programare.";
-      this.pacientService.sendMailAfterApp(emailContent, this.loginForm.controls['email'].value).subscribe();
-      this.router.navigate(['/login'])
-   }
-   else
-   window.alert('Există deja un cont asociat email-ului ales!')
-   }
+      //validate email does not exist in the system
+      var account = await this.emailAlredyExists(this.loginForm.controls['email'].value);
+      if (account.toString() == 'false') {
+        this.credentials = this.loginForm.value;
+        this.pacient = this.pacientControl.value;
+        this.personalInfo = this.fisaDonareControl.value;
+        this.pacientCredentials = new PacientCredentials(this.pacient, this.credentials, this.personalInfo);
+        this.pacientService.addPacientWithCredentials(this.pacientCredentials).subscribe();
+        window.alert('Cont creat cu succes. Veți primi un email cu toate informațiile. Următorul pas este să vă logați.')
+        var emailContent = "Ați creat cu succes un nou cont pe platforma OneBlood. Următorul pas este să completați chestionarul de autoexcludere și apoi să realizați o programare.";
+        this.pacientService.sendMailAfterApp(emailContent, this.loginForm.controls['email'].value).subscribe();
+        this.router.navigate(['/login'])
+      }
+      else
+        window.alert('Există deja un cont asociat email-ului ales!')
+    }
     else return;
   }
 
 
-public emailAlredyExists(email): Promise<string> {
-  return new Promise<string>((resolve) => {
-    setTimeout(() => {
-      this.pacientService.doesTheEmailHasAnAccount(email).subscribe(flag =>resolve(flag))
-    }, 300)
-  });
-}
+  public emailAlredyExists(email): Promise<string> {
+    return new Promise<string>((resolve) => {
+      setTimeout(() => {
+        this.pacientService.doesTheEmailHasAnAccount(email).subscribe(flag => resolve(flag))
+      }, 300)
+    });
+  }
 
   autoIncrementPacientId(): string {
     var lastPacientId;
     var kmsStr;
     this.pacientService.getLastDonorID().subscribe((id) => {
-      
+
       lastPacientId = id;
       let increasedNum = Number(lastPacientId.replace('IS', '')) + 1;
       kmsStr = lastPacientId.substr(0, 2);

@@ -198,7 +198,7 @@ export class AppointmentComponent implements OnInit {
 
 async sendMail(){
   var donorCode = this.jwtService.getDonorCode();
-  var emailContent = `Ați realizat cu succes o programare la centrul de Transfuzii Iași la data de ${this.selectedDay},  ora ${this.selectedHour}. Pentru a afla mai multe informații accesați prima pagina de pe platformă. Vă sugerăm sa mancați bine și să beți multe lichide în ziua donării. O zi frumoasă!`;
+  var emailContent = `Ați realizat cu succes o programare la centrul de Transfuzii Iași la data de ${this.selectedDay},  ora ${this.selectedHour}. Pentru a afla mai multe informații accesați prima pagină de pe platformă sau ne puteți contacta la numărul 0332 408 329. Vă sugerăm să mâncați bine și să beți multe lichide în ziua donării. O zi frumoasă! `;
   var accountId = await this.getAccountId(donorCode);
  this.emailAdress = await this.getMail(accountId);
   this.appointmentService.sendMailAfterApp(emailContent, this.emailAdress.toString()).subscribe();

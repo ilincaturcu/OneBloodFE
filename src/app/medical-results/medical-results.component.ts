@@ -41,7 +41,7 @@ export class MedicalResultsComponent implements OnInit {
       )
       .subscribe((appointments: Appointment[]) => {
         this.appointments = appointments.filter(a => this.isDeleted(a.appointment_status));
-        this.successMsg = 'Ati anulat programarea cu succes';
+        this.successMsg = 'Ați anulat programarea cu succes';
       },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;

@@ -14,9 +14,14 @@
         <tbody>
             <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
                 <tr [formGroupName]="i">
-                    <td  mat-raised-button matTooltip="{{extraInfo[i]?.Info}}"
+                    <td  *ngIf="type !== 'post'" mat-raised-button matTooltip="{{extraInfo[i]?.Info}}"
                     matTooltipPosition="left"
                     aria-label="Button that displays a tooltip in various positions">
+                        
+                        {{group.get('Parametru').value}}
+                        
+                    </td>
+                    <td  *ngIf="type == 'post'">
                         
                         {{group.get('Parametru').value}}
                         

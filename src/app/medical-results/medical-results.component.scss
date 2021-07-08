@@ -1,9 +1,14 @@
 table { 
     margin-top: 50px;
     width: 100%;
+   
   }
 
   
 .mat-spinner-color::ng-deep circle{
   stroke: #dc0028 !important;
   }
+  
+  // ::ng-deep .mat-header-cell, .mat-cell, .mat-footer-cell{
+  //   font-size: 20px;
+  // }
