@@ -83,7 +83,7 @@ margin: 15px 0;
 }
 
 .choices{
-  display: inline;
+  display:inline;
   padding: 10px;
   font-family: tiemposfine-regular;
   
@@ -91,7 +91,7 @@ margin: 15px 0;
 
 mat-radio-group{
   display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 .message{

@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
   invalid1 = false;
   invalid2 = false;
   invalid3 = false;
+  gdpr = false;
 
 
   myDateFilter = (m: Date | null): boolean => {
@@ -180,6 +181,13 @@ export class RegisterComponent implements OnInit {
     });
     return kmsStr;
   }
+  public onSaveGDPR(value:any){
+    this.gdpr = value.currentTarget.checked;
+    console.log(this.gdpr);
+}
 
+getGdpr(){
+  return this.gdpr;
+}
 
 }

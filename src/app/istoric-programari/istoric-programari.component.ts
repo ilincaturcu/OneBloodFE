@@ -15,7 +15,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   styleUrls: ['./istoric-programari.component.scss']
 })
 export class IstoricProgramariComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   public loading = true;
   public errorMsg: string;
@@ -35,9 +35,12 @@ export class IstoricProgramariComponent implements OnInit {
     {value: 'invalid', viewValue: 'invalid'}
   ];
 
-  constructor(private appointmentService: AppointmentService, private router: Router, private pacientService : PacientService, private questionService : QuestionsService) { }
+  constructor(private appointmentService: AppointmentService, private router: Router, private pacientService : PacientService, private questionService : QuestionsService) { 
+   
+  }
 
   async ngOnInit() {
+    
     this.totalElements = await this.getNoOfAppointments();
     await this.appointmentService.getAllAppointmentsAndPacientsInfoPaginated(sessionStorage.getItem("DoctorCode").valueOf(), this.index, this.size)
     .subscribe((appointments: PacientAppointment[]) => {
@@ -45,7 +48,6 @@ export class IstoricProgramariComponent implements OnInit {
      this.loading = false;
 
     });
-
   }
   async pageEvents(event: PageEvent) {
     const request = {};
@@ -93,7 +95,7 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
       this.appointmentService.getDonationFormByDonorCodeAndDate(donor_code, appointmentDate).subscribe((r )=> 
       {
         if(r!=null) resolve(r.donation_form_id);
-        else  window.alert("Pacientul nu are fisa de donare generata");
+        else  window.alert("Pacientul nu are fișa de donare generată");
       });
     }, 100)
   });
@@ -159,5 +161,6 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
     });
   }
 }
+
 
 

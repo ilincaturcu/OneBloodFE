@@ -190,6 +190,7 @@ export class TestsResultsComponent implements OnInit {
   appointment_id;
   list = ["HIV", "Syphilis"];
   extraInfo=[];
+  id_analize_pre_donare;
 
 
 
@@ -313,7 +314,7 @@ async fetchExtraInfo(){
 
    // this.addTestsResults();
     this.router.navigate(['/doctor-home']);
-    //de trimis mail cu : rezultatele analizelor au fost urcate. accesati ... pentru a le vedea
+   
 
   }
 
@@ -367,8 +368,9 @@ async fetchExtraInfo(){
     jsonDataPre["cod_donator"] = this.donor_code;
     jsonDataPre["completedAt"] = localISOTime;
 
-    let id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
-    console.log("PRE->>" + id_analize_pre_donare);
+    this.id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
+    console.log("PRE->>" + this.id_analize_pre_donare);
+   // this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, 0);
   }
 
   async addPostTestResults(){
@@ -385,6 +387,8 @@ async fetchExtraInfo(){
     jsonDataPost["cod_donator"] = this.donor_code;
     jsonDataPost["completedAt"] = localISOTime;
     let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
+    console.log("PRE->>" + this.id_analize_pre_donare);
+    this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, id_analize_post_donare);
 
   }
 

@@ -5,6 +5,7 @@ import { Appointment } from '../models/Appointment';
 import { JwtClientService } from './jwt-client.service';
 import { DonationForm } from '../models/donation-form.model';
 import { baseUrlMongo, baseUrlSql } from 'src/environments/environment';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 
 @Injectable({
@@ -52,7 +53,7 @@ export class AppointmentService {
     return this.http.get(`${baseUrlSql}api/aggregator/allAppointments/pacient/doctor/${doctor_code}/${pageNo}/${pageSize}/${filter}`, this.httpOptions);
   }
 
-  getFreeHoursForAppointment(doctor_code: string, date: Date,): Observable<any> {
+  getFreeHoursForAppointment(doctor_code: string, date: string,): Observable<any> {
     return this.http.get(`${baseUrlSql}api/appointment/doctor/${doctor_code}/day/${date}/hours`, this.httpOptions);
   }
 
@@ -110,4 +111,7 @@ export class AppointmentService {
   getNumberOfAppointmentsOfADoctor(doctor_code: string): Observable<any> {
     return this.http.get(`${baseUrlSql}api/appointment/doctor/${doctor_code}/number`, this.httpOptions);
   }
+
+  
 }
+

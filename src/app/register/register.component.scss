@@ -22,6 +22,7 @@
     background-origin: border-box;
     background-clip: content-box, border-box;
   }
+
 }
 
 .buttons {
@@ -106,6 +107,9 @@ $primaryWhite: #fff;
     &:hover {
       background: #a1001e;
     }
+    &:disabled {
+      background:  #cccccc;
+    }
   }
 }
 
@@ -113,5 +117,17 @@ mat-radio-button {
   padding: 10px 35px;
 }
 
-body {
+#gdpr{
+ width: 2%;
+ padding: 5px;
+}
+.gdpr{
+  display: flex;
+ 
+}
+
+.gdprText{
+  margin-right: 75px;
+  margin-left: 20px;
+  
 }

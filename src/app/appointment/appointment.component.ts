@@ -14,7 +14,7 @@ import { PacientService } from '../services/pacient.service';
 
 const options = {
   title: 'Finalizare programare',
-  message: 'Veti primi un email cu toate informatiile',
+  message: 'Veți primi un email cu toate informațiile despre programarea realizată.',
   cancelText: '',
   confirmText: 'ok'
 };
@@ -154,11 +154,14 @@ export class AppointmentComponent implements OnInit {
     const noOfDays = 12;
     var i=0; 
     const tomorrow = new Date(firstDate)
-    tomorrow.setDate(tomorrow.getDate() + 1)
+    tomorrow.setDate(tomorrow.getDate())
 
     for (var currentDate = new Date(tomorrow); i <= noOfDays; currentDate.setDate(currentDate.getDate() + 1)) {
       if (currentDate.getDay() != 0 && currentDate.getDay() != 6) {
         var newDate = new Date(currentDate).toISOString().split('T')[0]
+        console.log(newDate)
+        //daca in acea zi nu mai este niciun slot liber
+        if(this.appointmentService.getFreeHoursForAppointment(this.selectedDoctor, newDate).subscribe() != null)
         this.days.push(newDate);
         i+=1;
       }

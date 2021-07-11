@@ -90,7 +90,7 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
       this.appointmentService.getDonationFormByDonorCodeAndDate(donor_code, appointmentDate).subscribe((r )=> 
       {
         if(r!=null) resolve(r.donation_form_id);
-        else  window.alert("Pacientul nu are fisa de donare generata");
+        else  window.alert("Pacientul nu are fișa de donare generată");
       });
     }, 100)
   });
@@ -117,6 +117,7 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
      // schimba appointment status in progress
      this.appointmentService.changeAppointmentStatus(appointment_id, "progress").subscribe() ;
       if(event.value == "valid"){
+        console.log(event.value)
        this.generateDonationForm(donor_code, appointment_date);
       }
   }

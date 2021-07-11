@@ -36,6 +36,7 @@ export class PacientService {
 
 
   public getPacientStatus(donor_code: string): Observable<any> {
+    this.token = this.JwtService.getToken();
     return this.http.get<string>(`${baseUrlSql}api/pacient/status/` + donor_code, this.httpOptionsWithtoken);
   }
 

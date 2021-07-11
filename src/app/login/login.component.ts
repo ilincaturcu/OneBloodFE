@@ -43,7 +43,7 @@ donorReq:any =
     response.subscribe(tokenJWT => this.service.saveToken(tokenJWT),
       error => {
         console.log(error);
-        window.alert("Credentialele sunt gresite. Incercati din nou");
+        window.alert("Credențialele sunt greșite. Încercați din nou");
         sessionStorage.setItem('Role', 'wrongCredentials');
         this.errorMessage = error.error.message;
         this.invalidLogin = true;

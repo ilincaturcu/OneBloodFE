@@ -458,7 +458,7 @@
      {
         "question_number": 36,
         "question_type": "YESNO",
-        "question": "Ati consumat alcool in ultimele 48h?",
+        "question": "Ați consumat alcool in ultimele 48h?",
         "choices": [
             {
                 "value": "Da",

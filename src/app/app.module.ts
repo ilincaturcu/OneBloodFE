@@ -38,6 +38,7 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 import { IstoricProgramariComponent } from './istoric-programari/istoric-programari.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ContactComponent } from './contact/contact.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { ContactComponent } from './contact/contact.component';
       useFactory: adapterFactory,
     }),
   ],
-  providers: [RoleGuardsService, AuthGuardService, AppointmentGuardsService, QuizGuardsService],
+  providers: [RoleGuardsService, AuthGuardService, AppointmentGuardsService, QuizGuardsService, MatPaginatorIntl],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
