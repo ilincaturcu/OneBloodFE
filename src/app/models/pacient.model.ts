@@ -6,14 +6,14 @@ export class Pacient implements Deserializable {
   constructor(cnp: bigint,
     fk_donor_code: string,
     self_exclusion_form_id: number,
-    donor_code: string, 
+    donor_code: string,
     status: string,
     created_at: Date) { }
 
-    deserialize(input: any): this {
-      Object.assign(this, input);
-      return this;
-    }
+  deserialize(input: any): this {
+    Object.assign(this, input);
+    return this;
+  }
 }
 
 

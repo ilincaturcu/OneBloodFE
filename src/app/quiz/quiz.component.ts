@@ -12,11 +12,11 @@ export class QuizComponent implements OnInit {
   @Output() onChoiceMade = new EventEmitter<string>();
 
   private form: FormGroup;
-  constructor(private fb: FormBuilder){};
+  constructor(private fb: FormBuilder) { };
 
   ngOnInit() {
     this.form = this.fb.group({
-      choice:''
+      choice: ''
     });
     this.form.valueChanges.subscribe(this.onChange);
   }

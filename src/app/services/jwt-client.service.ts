@@ -13,8 +13,8 @@ const DOCTOR_CODE = 'DoctorCode';
 export class JwtClientService {
   donor_code;
   cnp;
-   constructor(private http: HttpClient) {
-    this.donor_code =  this.getDonorCode();
+  constructor(private http: HttpClient) {
+    this.donor_code = this.getDonorCode();
   }
 
   public saveToken(token) {
@@ -92,7 +92,7 @@ export class JwtClientService {
 
 
   async getCNP(headers): Promise<string> {
-    this.donor_code =  await this.getDonorCode();
+    this.donor_code = await this.getDonorCode();
     return new Promise<string>((resolve) => {
       setTimeout(() => {
         let url = `${baseUrlSql}api/pacient/cnp/` + this.donor_code;

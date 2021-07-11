@@ -3,7 +3,6 @@
   <mat-spinner class="mat-spinner-color" *ngIf="!questions"></mat-spinner>
 
   <div class="quiz2" *ngIf="questions">
-
     <div class="questions" *ngIf="!showResults">
       <app-quiz [question]="questions[currentQuestionIndex]" (onChoiceMade)="updateChoice($event)">
       </app-quiz>
@@ -12,9 +11,7 @@
       <button mat-stroked-button class="btn-success" (click)="nextOrViewResults()"
         [disabled]="!answers.responses[currentQuestionIndex]">{{currentQuestionIndex === questions.length - 1 ?
         'Finalizați' : 'Înainte'}}</button>
-
     </div>
-
     <app-results *ngIf="showResults" [answers]="answers"></app-results>
   </div>
 </div>

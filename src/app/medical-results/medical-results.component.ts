@@ -23,7 +23,7 @@ export class MedicalResultsComponent implements OnInit {
   constructor(private appointmentService: AppointmentService, private router: Router) { }
 
   async ngOnInit() {
-   await this.appointmentService.getAppointments()
+    await this.appointmentService.getAppointments()
       .subscribe((appointments: Appointment[]) => {
         this.appointments = appointments.filter(a => this.isDeleted(a.appointment_status));
         this.loading = false;
@@ -83,7 +83,7 @@ export class MedicalResultsComponent implements OnInit {
       }
       case "completed": {
         //view test results; 
-       await this.viewResults(donor_code, appointmentDate);
+        await this.viewResults(donor_code, appointmentDate);
         break;
       }
     }

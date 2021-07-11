@@ -92,16 +92,16 @@ export class TestsResultsComponent implements OnInit {
   ]
 
   rowsDefaultPost = [
-    
+
     {
       "Parametru": "HIV",
       "Valoare": "",
-      
+
     },
     {
       "Parametru": "Syphilis",
       "Valoare": "",
-      
+
     }
   ]
 
@@ -174,12 +174,12 @@ export class TestsResultsComponent implements OnInit {
     {
       "Parametru": "HIV",
       "Valoare": "",
-      
+
     },
     {
       "Parametru": "Syphilis",
       "Valoare": "",
-      
+
     }
   ]
   donationFormId;
@@ -189,12 +189,12 @@ export class TestsResultsComponent implements OnInit {
   type;
   appointment_id;
   list = ["HIV", "Syphilis"];
-  extraInfo=[];
+  extraInfo = [];
   id_analize_pre_donare;
 
 
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService, private router: Router,private pacient :PacientService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private appointmentService: AppointmentService, private auth: JwtClientService, private router: Router, private pacient: PacientService) {
     this.route.params
       .subscribe(
         (params) => {
@@ -204,26 +204,25 @@ export class TestsResultsComponent implements OnInit {
           this.appointment_id = params.appId;
         }
       )
-      this.fetchExtraInfo();
+    this.fetchExtraInfo();
   }
 
   async ngOnInit() {
     this.role = this.auth.getRole();
-    
-    if (this.role == "Pacient")
-    {
+
+    if (this.role == "Pacient") {
       this.editable = false;
-      this.rows=this.rowsDefaultAll;
+      this.rows = this.rowsDefaultAll;
       await this.fetchAllTesults();
     }
     else if (this.role = "Doctor_Specialist") {
       this.editable = true;
-      if(this.type == "pre"){
-      //dac a e predonare randare predonare, daca e post, randare post
-      this.rows = this.rowsDefaultPre;
-      await this.fetchTestsTesultsPreDonation();
+      if (this.type == "pre") {
+        //dac a e predonare randare predonare, daca e post, randare post
+        this.rows = this.rowsDefaultPre;
+        await this.fetchTestsTesultsPreDonation();
       }
-      else if(this.type == "post"){
+      else if (this.type == "post") {
         this.rows = this.rowsDefaultPost;
         await this.fetchTestsTesultsPostDonation();
       }
@@ -233,24 +232,21 @@ export class TestsResultsComponent implements OnInit {
     this.userTable = this.fb.group({
       tableRows: this.fb.array([])
     });
-   
+
     var self = this;
     setTimeout(function () { self.addRow(); }, 1000);
-
-   
   }
 
   async ngAfterOnInit() {
     this.control = this.userTable.get('tableRows') as FormArray;
-    
+
   }
 
-
-async fetchExtraInfo(){
- await this.pacient.getExtraInfoForTestsResults().subscribe((result: any[]) => {
-    this.extraInfo = result;
-  });
-}
+  async fetchExtraInfo() {
+    await this.pacient.getExtraInfoForTestsResults().subscribe((result: any[]) => {
+      this.extraInfo = result;
+    });
+  }
 
   async fetchTestsTesultsPreDonation() {
     await this.appointmentService.getAllPreDonationTests(this.donationFormId).subscribe((r) => this.getTestsData(r.body));
@@ -290,39 +286,28 @@ async fetchExtraInfo(){
   }
 
   async submitForm() {
-
-
-  
     const control = this.userTable.get('tableRows') as FormArray;
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
-    if (this.role = "Doctor_Specialist"){
-      if(this.type == "pre"){
+    if (this.role = "Doctor_Specialist") {
+      if (this.type == "pre") {
         this.rows = this.rowsDefaultPre;
         await this.addPreTestResults();
         //appointment status pending
-        this.appointmentService.changeAppointmentStatus(this.appointment_id, "pending").subscribe() ;
-        }
-        else if(this.type == "post"){
-          this.rows = this.rowsDefaultPost;
-          await this.addPostTestResults();
-          //appointment status completed
-          this.appointmentService.changeAppointmentStatus(this.appointment_id, "completed").subscribe();
-          this.pacient.changePacientStatus("pending",this.donor_code ).subscribe();
-        }
-     
-     }
+        this.appointmentService.changeAppointmentStatus(this.appointment_id, "pending").subscribe();
+      }
+      else if (this.type == "post") {
+        this.rows = this.rowsDefaultPost;
+        await this.addPostTestResults();
+        //appointment status completed
+        this.appointmentService.changeAppointmentStatus(this.appointment_id, "completed").subscribe();
+        this.pacient.changePacientStatus("pending", this.donor_code).subscribe();
+      }
 
-   // this.addTestsResults();
+    }
     this.router.navigate(['/doctor-home']);
-   
+
 
   }
-
-  toggleTheme() {
-    this.mode = !this.mode;
-  }
-
-
 
 
   async addTestsResults() {
@@ -355,13 +340,13 @@ async fetchExtraInfo(){
 
 
 
-  async addPreTestResults(){
+  async addPreTestResults() {
     var jsonDataPre = {};
     var tzoffset = (new Date()).getTimezoneOffset() * 60000;
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
     this.touchedRows.forEach((column) => {
       var columnName = column.Parametru;
-        jsonDataPre[columnName] = column.Valoare;
+      jsonDataPre[columnName] = column.Valoare;
 
     });
 
@@ -369,11 +354,11 @@ async fetchExtraInfo(){
     jsonDataPre["completedAt"] = localISOTime;
 
     this.id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
-    console.log("PRE->>" + this.id_analize_pre_donare);
-   // this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, 0);
+    //console.log("PRE->>" + this.id_analize_pre_donare);
+    // this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, 0);
   }
 
-  async addPostTestResults(){
+  async addPostTestResults() {
     var jsonDataPost = {};
 
 
@@ -381,13 +366,13 @@ async fetchExtraInfo(){
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
     this.touchedRows.forEach((column) => {
       var columnName = column.Parametru;
-        jsonDataPost[columnName] = column.Valoare;
+      jsonDataPost[columnName] = column.Valoare;
     });
 
     jsonDataPost["cod_donator"] = this.donor_code;
     jsonDataPost["completedAt"] = localISOTime;
     let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
-    console.log("PRE->>" + this.id_analize_pre_donare);
+   // console.log("PRE->>" + this.id_analize_pre_donare);
     this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, id_analize_post_donare);
 
   }

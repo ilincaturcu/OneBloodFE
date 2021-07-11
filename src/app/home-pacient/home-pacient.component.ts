@@ -6,6 +6,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home-pacient.component.html',
   styleUrls: ['./home-pacient.component.scss']
 })
-export class HomePacientComponent{
+export class HomePacientComponent {
 
 }

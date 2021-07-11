@@ -20,69 +20,69 @@ export class ExamenMedicalComponent implements OnInit {
   headers = ["Parametru", "Valoare", "UM"];
   rows = [
     {
-      "Parametru" : "Hb",
-      "Valoare" : "0",
-      "UM" : "g/dl"
+      "Parametru": "Hb",
+      "Valoare": "0",
+      "UM": "g/dl"
     },
     {
-      "Parametru" : "Glicemie",
-      "Valoare" : "0",
-      "UM" : "mg/dl"
+      "Parametru": "Glicemie",
+      "Valoare": "0",
+      "UM": "mg/dl"
     },
     {
-      "Parametru" : "Ht",
-      "Valoare" : "0",
-      "UM" : "%"
+      "Parametru": "Ht",
+      "Valoare": "0",
+      "UM": "%"
     },
     {
-      "Parametru" : "Ga",
-      "Valoare" : "0",
-      "UM" : "/mmc"
+      "Parametru": "Ga",
+      "Valoare": "0",
+      "UM": "/mmc"
     },
     {
-      "Parametru" : "Gr",
-      "Valoare" : "0",
-      "UM" : "/mmc"
+      "Parametru": "Gr",
+      "Valoare": "0",
+      "UM": "/mmc"
     },
     {
-      "Parametru" : "Pl",
-      "Valoare" : "0",
-      "UM" : "/mmc"
+      "Parametru": "Pl",
+      "Valoare": "0",
+      "UM": "/mmc"
     },
     {
-      "Parametru" : "Ly",
-      "Valoare" : "0",
-      "UM" : "%"
+      "Parametru": "Ly",
+      "Valoare": "0",
+      "UM": "%"
     },
     {
-      "Parametru" : "Mo",
-      "Valoare" : "0",
-      "UM" : "%"
+      "Parametru": "Mo",
+      "Valoare": "0",
+      "UM": "%"
     },
     {
-      "Parametru" : "Gr",
-      "Valoare" : "0",
-      "UM" : "%"
+      "Parametru": "Gr",
+      "Valoare": "0",
+      "UM": "%"
     },
     {
-      "Parametru" : "TA",
-      "Valoare" : "0",
-      "UM" : "mm/hg"
+      "Parametru": "TA",
+      "Valoare": "0",
+      "UM": "mm/hg"
     },
     {
-      "Parametru" : "P",
-      "Valoare" : "0",
-      "UM" : "b/min"
+      "Parametru": "P",
+      "Valoare": "0",
+      "UM": "b/min"
     },
     {
-      "Parametru" : "G",
-      "Valoare" : "0",
-      "UM" : "kg"
+      "Parametru": "G",
+      "Valoare": "0",
+      "UM": "kg"
     },
     {
-      "Parametru" : "H",
-      "Valoare" : "0",
-      "UM" : "cm"
+      "Parametru": "H",
+      "Valoare": "0",
+      "UM": "cm"
     }
   ]
   constructor(private fb: FormBuilder) { }
@@ -99,18 +99,18 @@ export class ExamenMedicalComponent implements OnInit {
     this.control = this.userTable.get('tableRows') as FormArray;
   }
 
-  initiateForm(data:any): FormGroup {
+  initiateForm(data: any): FormGroup {
     return this.fb.group({
-      Valoare: [[data.Valoare],  Validators.required],
-      Parametru:[data.Parametru],
-      UM:[data.UM],
+      Valoare: [[data.Valoare], Validators.required],
+      Parametru: [data.Parametru],
+      UM: [data.UM],
       isEditable: [true]
     });
   }
 
   addRow() {
-    const control =  this.userTable.get('tableRows') as FormArray;
-      this.rows.map(x=> control.push(this.initiateForm(x)))
+    const control = this.userTable.get('tableRows') as FormArray;
+    this.rows.map(x => control.push(this.initiateForm(x)))
   }
 
   doneRow(group: FormGroup) {

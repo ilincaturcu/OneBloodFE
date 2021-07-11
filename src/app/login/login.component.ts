@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
       "userName": "ilincafturcu@gmail.com",
       "password": "Ilinca-113473"
     }
-donorReq:any =
+  donorReq: any =
     {
       "email": "ilincafturcu@gmail.com",
       "password": "Ilinca-113473"
@@ -28,7 +28,7 @@ donorReq:any =
   invalidLogin = false;
   isLoggedIn = false;
   errorMessage = '';
-  constructor(private service: JwtClientService, private fb: FormBuilder,  private router: Router) { }
+  constructor(private service: JwtClientService, private fb: FormBuilder, private router: Router) { }
 
 
   ngOnInit() {
@@ -66,7 +66,7 @@ donorReq:any =
 
   async getDoctorCode(req) {
     let response = this.service.getDoctorCodeReq(req);
-    await response.subscribe(donorCode =>  this.service.saveDoctorCode(donorCode),
+    await response.subscribe(donorCode => this.service.saveDoctorCode(donorCode),
       error => {
         console.log(error);
         this.errorMessage = error.error.message;
@@ -93,7 +93,7 @@ donorReq:any =
     if (this.loginForm.invalid) {
       return;
     }
-    
+
 
     setTimeout(async () => {
       if (sessionStorage.getItem("Role").valueOf() == 'wrongCredentials') {
@@ -109,14 +109,14 @@ donorReq:any =
         }, 1000)
         this.invalidLogin = false;
       }
-      else if(sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
+      else if (sessionStorage.getItem("Role").valueOf() == 'Doctor_Specialist') {
         this.donorReq.email = this.loginForm.controls['email'].value;
         this.donorReq.password = this.loginForm.controls['password'].value;
         await this.getDoctorCode(this.donorReq);
         setTimeout(() => {
           this.router.navigate(['/doctor-home']);
         }, 1000)
-      
+
         this.invalidLogin = false;
       }
     },
@@ -127,8 +127,7 @@ donorReq:any =
     return this.loginForm.controls[controlName].hasError(errorName);
   }
 
-
-  onRegister(){
+  onRegister() {
     this.router.navigate(['/register']);
   }
 }

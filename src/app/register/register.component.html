@@ -159,16 +159,15 @@
                         </mat-form-field>
                     </p>
                     <br>
-                    
+
                 </mat-card-content>
                 <p class="gdpr">
                     <mat-label class="gdprText">Sunteți de acord cu salvarea datelor personale conform GDPR?</mat-label>
-                        <input #gdpr id="gdpr" type="checkbox" [checked]="gdpr"
-                            (change)="onSaveGDPR($event)" />
-                        
+                    <input #gdpr id="gdpr" type="checkbox" [checked]="gdpr" (change)="onSaveGDPR($event)" />
+
                 </p>
                 <mat-card-actions class="buttons">
-                    <button  mat-raised-button color="primary" type="submit" (click)="saveUserDetails()"
+                    <button mat-raised-button color="primary" type="submit" (click)="saveUserDetails()"
                         id="fisaDonareControl" [disabled]="!gdpr.checked">Salvează</button>
                 </mat-card-actions>
             </form>

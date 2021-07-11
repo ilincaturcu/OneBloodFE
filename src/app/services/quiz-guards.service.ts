@@ -7,7 +7,7 @@ import { PacientService } from './pacient.service';
 
 @Injectable()
 export class QuizGuardsService implements CanActivate {
-    constructor(public auth: JwtClientService, public router: Router, public pacientService : PacientService) {}
+  constructor(public auth: JwtClientService, public router: Router, public pacientService: PacientService) { }
 
   async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
     const expectedResponse = route.data.expectedResponse;
@@ -24,9 +24,9 @@ export class QuizGuardsService implements CanActivate {
   public checkStatusAsPromise(): Promise<any> {
     return new Promise<any>((resolve) => {
       setTimeout(() => {
-        this.auth.canDonorCompleteTheQuiz().subscribe((status) =>{
-          if (status != null ) resolve(status);
-          })
+        this.auth.canDonorCompleteTheQuiz().subscribe((status) => {
+          if (status != null) resolve(status);
+        })
       }, 300)
     });
   }

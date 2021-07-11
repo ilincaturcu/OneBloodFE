@@ -1,119 +1,120 @@
 <app-navbar></app-navbar>
 <div>
-<div class="pickerContainer" [ngClass]="{ stepperUp: stepCounter == 3 || stepCounter == 4 }">
-  <div class="jumbotron" *ngIf="stepCounter !== 3 && stepCounter !== 4" (click)="fetchDoctors()">
-  </div>
-  <div class="stepper">
-    <ul>
-      <li>
-        <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 1 }">1</span>
-        <div class="stepperLabel">
-          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 1 }">Alegeți un doctor</span>
-          <span class="subLabel" *ngIf="stepCounter !== 1">{{ doctor }}</span>
-        </div>
-      </li>
-      <li>
-        <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 2 }">2</span>
-        <div class="stepperLabel">
-          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 2 }">Alegeți o zi</span>
-          <span class="subLabel" *ngIf="stepCounter !== 2 && stepCounter !== 1">{{ day }}</span>
-        </div>
-      </li>
-      <li>
-        <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 3 }">3</span>
-        <div class="stepperLabel">
-          <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 3 }">Alegeți o oră</span>
-          <span class="subLabel" *ngIf="stepCounter !== 2 && stepCounter !== 1">{{ hour }}</span>
-        </div>
-      </li>
-      <li>
-        <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 4 }">4</span><span class="label"
-          [ngClass]="{ currentStepLabel: stepCounter == 4 }">Finalizați programarea</span>
-      </li>
-    </ul>
-  </div>
-  <div class="form" *ngIf="stepCounter == 1">
-    <form [formGroup]="doctorForm" (ngSubmit)="submitdoctor()">
-      <mat-form-field>
-        <mat-label *ngIf="!doctorSubmitted || !f.doctor.errors">doctor</mat-label>
-        <mat-select name="doctor" #doctor formControlName="doctor" (selectionChange)="pickdoctor(doctor.value)">
-          <mat-option *ngFor="let doctor of doctors" [value]="doctor.name">
-           Dr. {{ doctor.name }}
-          </mat-option>
-        </mat-select>
-        <div *ngIf="f.doctor.errors && doctorSubmitted" class="invalid-feedInapoi">
-          <div *ngIf="f.doctor.errors.required">Alegeți un doctor</div>
-        </div>
-      </mat-form-field>
-      <div class="formButtons">
-        <button class="actionBtn" type="submit">Înainte</button>
-      </div>
-    </form>
-  </div>
-  <div class="form" *ngIf="stepCounter == 2">
-    <form [formGroup]="dayForm" (ngSubmit)="submitday()">
-      <mat-form-field>
-        <mat-label *ngIf="!daySubmitted || !g.day.errors">day</mat-label>
-        <mat-select name="day" #day formControlName="day" (selectionChange)="pickday(day.value)">
-          <mat-option *ngFor="let day of days" [value]="day">
-            {{ day }}
-          </mat-option>
-        </mat-select>
-        <div *ngIf="g.day.errors && daySubmitted" class="invalid-feedInapoi">
-          <div *ngIf="g.day.errors.required">Alegeți o zi</div>
-        </div>
-      </mat-form-field>
-      <div class="formButtons">
-        <button class="actionBtn" type="button" (click)="stepCounter = 1">
-          Inapoi
-        </button>
-        <button class="actionBtn" type="submit">Înainte</button>
-      </div>
-    </form>
-  </div>
-  <div class="form" *ngIf="stepCounter == 3">
-    <form [formGroup]="hoursForm" (ngSubmit)="submithour()">
-      <div class="timePicker">
-        <h4 class="timePickerLabel">Orele disponibile:</h4>
+  <div class="pickerContainer" [ngClass]="{ stepperUp: stepCounter == 3 || stepCounter == 4 }">
+    <div class="jumbotron" *ngIf="stepCounter !== 3 && stepCounter !== 4" (click)="fetchDoctors()">
+    </div>
+    <div class="stepper">
+      <ul>
+        <li>
+          <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 1 }">1</span>
+          <div class="stepperLabel">
+            <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 1 }">Alegeți un doctor</span>
+            <span class="subLabel" *ngIf="stepCounter !== 1">{{ doctor }}</span>
+          </div>
+        </li>
+        <li>
+          <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 2 }">2</span>
+          <div class="stepperLabel">
+            <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 2 }">Alegeți o zi</span>
+            <span class="subLabel" *ngIf="stepCounter !== 2 && stepCounter !== 1">{{ day }}</span>
+          </div>
+        </li>
+        <li>
+          <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 3 }">3</span>
+          <div class="stepperLabel">
+            <span class="label" [ngClass]="{ currentStepLabel: stepCounter == 3 }">Alegeți o oră</span>
+            <span class="subLabel" *ngIf="stepCounter !== 2 && stepCounter !== 1">{{ hour }}</span>
+          </div>
+        </li>
+        <li>
+          <span class="numberCircle" [ngClass]="{ currentStep: stepCounter == 4 }">4</span><span class="label"
+            [ngClass]="{ currentStepLabel: stepCounter == 4 }">Finalizați programarea</span>
+        </li>
+      </ul>
+    </div>
+    <div class="form" *ngIf="stepCounter == 1">
+      <form [formGroup]="doctorForm" (ngSubmit)="submitdoctor()">
         <mat-form-field>
-          <mat-label id="hourLabel">Alegeți o oră:</mat-label>
-          <mat-select (selectionChange)="pickHour(hour.value)" #hour formControlName="hour">
-            <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+          <mat-label *ngIf="!doctorSubmitted || !f.doctor.errors">doctor</mat-label>
+          <mat-select name="doctor" #doctor formControlName="doctor" (selectionChange)="pickdoctor(doctor.value)">
+            <mat-option *ngFor="let doctor of doctors" [value]="doctor.name">
+              Dr. {{ doctor.name }}
+            </mat-option>
           </mat-select>
+          <div *ngIf="f.doctor.errors && doctorSubmitted" class="invalid-feedInapoi">
+            <div *ngIf="f.doctor.errors.required">Alegeți un doctor</div>
+          </div>
         </mat-form-field>
-        <div class="formButtons" *ngIf="hourPicked">
-          <button class="actionBtn" (click)="stepCounter = 2">Înapoi</button>
-          <button class="actionBtn" (click)="stepCounter = 4">Înainte</button>
+        <div class="formButtons">
+          <button class="actionBtn" type="submit">Înainte</button>
+        </div>
+      </form>
+    </div>
+    <div class="form" *ngIf="stepCounter == 2">
+      <form [formGroup]="dayForm" (ngSubmit)="submitday()">
+        <mat-form-field>
+          <mat-label *ngIf="!daySubmitted || !g.day.errors">day</mat-label>
+          <mat-select name="day" #day formControlName="day" (selectionChange)="pickday(day.value)">
+            <mat-option *ngFor="let day of days" [value]="day">
+              {{ day }}
+            </mat-option>
+          </mat-select>
+          <div *ngIf="g.day.errors && daySubmitted" class="invalid-feedInapoi">
+            <div *ngIf="g.day.errors.required">Alegeți o zi</div>
+          </div>
+        </mat-form-field>
+        <div class="formButtons">
+          <button class="actionBtn" type="button" (click)="stepCounter = 1">
+            Inapoi
+          </button>
+          <button class="actionBtn" type="submit">Înainte</button>
+        </div>
+      </form>
+    </div>
+    <div class="form" *ngIf="stepCounter == 3">
+      <form [formGroup]="hoursForm" (ngSubmit)="submithour()">
+        <div class="timePicker">
+          <h4 class="timePickerLabel">Orele disponibile:</h4>
+          <mat-form-field>
+            <mat-label id="hourLabel">Alegeți o oră:</mat-label>
+            <mat-select (selectionChange)="pickHour(hour.value)" #hour formControlName="hour">
+              <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="formButtons" *ngIf="hourPicked">
+            <button class="actionBtn" (click)="stepCounter = 2">Înapoi</button>
+            <button class="actionBtn" (click)="stepCounter = 4">Înainte</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="jumbotron" *ngIf="stepCounter === 4">
+      <h1 *ngIf="!requestSent" id="confirmRequest">Finalizați programarea?</h1>
+      <alert></alert>
+    </div>
+    <div *ngIf="stepCounter === 4 && selectedDoctor !== undefined" class="confirm">
+      <div class="card">
+        <div class="cardTitle">
+          <div class="cardBasic">
+          </div>
+          <div class="cardBtn">
+            <h3>Programare la data: {{ selectedDay }} ora: {{ selectedHour }}</h3>
+          </div>
         </div>
       </div>
-    </form>
-  </div>
-</div>
-<div class="wrapper">
-  <div class="jumbotron" *ngIf="stepCounter === 4">
-    <h1 *ngIf="!requestSent" id="confirmRequest">Finalizați programarea?</h1>
-    <alert></alert>
-  </div>
-  <div *ngIf="stepCounter === 4 && selectedDoctor !== undefined" class="confirm">
-    <div class="card">
-      <div class="cardTitle">
-        <div class="cardBasic">
-        </div>
-        <div class="cardBtn">
-          <h3>Programare la data:  {{ selectedDay }} ora:  {{ selectedHour }}</h3>
-        </div>
+      <div class="finalBtn" *ngIf="!requestSent">
+        <mat-card-actions class="buttons">
+          <button mat-raised-button color="primary" type="submit" id="confirmBtn"
+            (click)="sendRequest()">Finalizare</button>
+        </mat-card-actions>
+        <mat-card-actions class="buttons">
+          <button mat-raised-button color="primary" type="submit" id="cancelBtn"
+            (click)="stepCounter = 3">Anulare</button>
+        </mat-card-actions>
       </div>
     </div>
-    <div class="finalBtn" *ngIf="!requestSent">
-      <mat-card-actions class="buttons">
-        <button mat-raised-button color="primary" type="submit" id="confirmBtn" (click)="sendRequest()">Finalizare</button>
-      </mat-card-actions>
-      <mat-card-actions class="buttons">
-        <button mat-raised-button color="primary" type="submit" id="cancelBtn"
-          (click)="stepCounter = 3">Anulare</button>
-      </mat-card-actions>
-    </div>
   </div>
-</div>
 
 </div>

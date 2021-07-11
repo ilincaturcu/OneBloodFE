@@ -55,12 +55,12 @@ export class QuestionsService {
   public getMostRecentResponseID(donor_code): Promise<any> {
     return new Promise<any>((resolve) => {
       setTimeout(() => {
-        this.http.get(`${baseUrlMongo}api/responses/responseId/` + donor_code, this.httpOptions2).subscribe(r=> resolve(r));
+        this.http.get(`${baseUrlMongo}api/responses/responseId/` + donor_code, this.httpOptions2).subscribe(r => resolve(r));
       }, 300)
     });
   }
 
-  async addResponseIdToPacient() : Promise<Observable<any>>{
+  async addResponseIdToPacient(): Promise<Observable<any>> {
     var donor_code = this.JwtService.getDonorCode();
     var httpOptions3 = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}` }) };
     var responseId = await this.getMostRecentResponseID(donor_code);

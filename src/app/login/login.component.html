@@ -7,7 +7,7 @@
             <form [formGroup]="loginForm" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
                 <mat-card-content>
                     <p>
-                        <mat-form-field class="box" >
+                        <mat-form-field class="box">
                             <mat-label>Email</mat-label>
                             <input matInput maxlength="50" type="text" placeholder="" formControlName="email" id="email"
                                 autocomplete="new-password">
@@ -15,7 +15,7 @@
                         </mat-form-field>
                     </p>
                     <p>
-                        <mat-form-field class="box" >
+                        <mat-form-field class="box">
                             <mat-label>Parola</mat-label>
                             <input matInput type="password" placeholder="**********" formControlName="password"
                                 id="password" autocomplete="new-password">
@@ -24,16 +24,14 @@
                         </mat-form-field>
                     </p>
                 </mat-card-content>
-                
                 <mat-card-actions class="buttons">
                     <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Login</button>
                 </mat-card-actions>
-
                 <mat-card-actions class="register">
                     <br>
                     <p>Nu ai cont? <a [routerLink]="['/register']" [queryParams]="{debug: true}" fragment="education">
-                        Cont nou
-                      </a></p>
+                            Cont nou
+                        </a></p>
                 </mat-card-actions>
             </form>
         </div>

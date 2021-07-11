@@ -34,17 +34,17 @@
       <th mat-header-cell *matHeaderCellDef> Status Programare </th>
       <td mat-cell *matCellDef="let appointment">
         <div [ngSwitch]="appointment.appointment.appointment_status">
-            <div *ngSwitchCase="'completed'">
-              Finalizată
-              </div>
-              <div *ngSwitchCase="'pending'">
-                În așteptare
-                </div>
-                <div *ngSwitchCase="'progress'">
-                  În curs de prelucrare
-                  </div>
-              </div>
-        </td>
+          <div *ngSwitchCase="'completed'">
+            Finalizată
+          </div>
+          <div *ngSwitchCase="'pending'">
+            În așteptare
+          </div>
+          <div *ngSwitchCase="'progress'">
+            În curs de prelucrare
+          </div>
+        </div>
+      </td>
     </ng-container>
     <ng-container matColumnDef="tests">
       <th mat-header-cell *matHeaderCellDef> Analize </th>
@@ -53,12 +53,9 @@
           mat-raised-button color="warn">
           Adăugare Analize </button></td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
     <tr mat-row *matRowDef="let appointments; columns: columns"></tr>
   </table>
-
   <mat-paginator #paginator [length]="totalElements" [pageIndex]="0" [pageSize]="10" (page)="pageEvents($event)">
-
   </mat-paginator>
 </div>

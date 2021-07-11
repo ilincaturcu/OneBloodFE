@@ -112,6 +112,6 @@ export class AppointmentService {
     return this.http.get(`${baseUrlSql}api/appointment/doctor/${doctor_code}/number`, this.httpOptions);
   }
 
-  
+
 }
 

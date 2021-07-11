@@ -22,79 +22,78 @@ export class DoctorHomeComponent implements OnInit {
   statusPacient: FormGroup;
   doctor_code;
 
-  public columns = ['name', 'nickname','donor_code', 'hour', 'status','changeStatus', 'tests', 'cancel'];
+  public columns = ['name', 'nickname', 'donor_code', 'hour', 'status', 'changeStatus', 'tests', 'cancel'];
   public button = { "progress": "", "pending": "Cancel", "completed": "Results" };
   public appointment_status = ["progress", "pending", "completed"]
-  statuses=[
-    {value: 'valid', viewValue: 'valid'},
-    {value: 'suspendat', viewValue: 'suspendat'},
-    {value: 'invalid', viewValue: 'invalid'}
+  statuses = [
+    { value: 'valid', viewValue: 'valid' },
+    { value: 'suspendat', viewValue: 'suspendat' },
+    { value: 'invalid', viewValue: 'invalid' }
   ];
 
-  constructor(private appointmentService: AppointmentService, private router: Router,  private questionService : QuestionsService, private fb: FormBuilder){}
+  constructor(private appointmentService: AppointmentService, private router: Router, private questionService: QuestionsService, private fb: FormBuilder) { }
 
   async ngOnInit() {
 
     this.statusPacient = this.fb.group({
       status: ['']
     })
-     if(sessionStorage.getItem("DoctorCode").valueOf()!=null){
-     this.doctor_code = sessionStorage.getItem("DoctorCode").valueOf();
-     }
-    
+    if (sessionStorage.getItem("DoctorCode").valueOf() != null) {
+      this.doctor_code = sessionStorage.getItem("DoctorCode").valueOf();
+    }
+
     await this.appointmentService.getTodayAppointmentsAndPacientsInfo(this.doctor_code)
-    .subscribe((appointments: PacientAppointment[]) => {
-      this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
-     this.loading = false;
-    });
+      .subscribe((appointments: PacientAppointment[]) => {
+        this.appointments = appointments.filter(a => this.isDeleted(a.appointment.appointment_status));
+        this.loading = false;
+      });
   }
 
 
 
   async cancelAppointment(id: string) {
     this.appointmentService.cancelAppointment(id)
-    .pipe(
-      mergeMap(() => this.appointmentService.getTodayAppointmentsAndPacientsInfo(this.doctor_code))
-    )
-    .subscribe((appointments: PacientAppointment[]) => {
-      this.appointments = appointments.filter(a => this.isDeleted( a.appointment.appointment_status));
-     
-    },
-      (error: ErrorEvent) => {
-        this.errorMsg = error.error.message;
-      });
-}
-  
+      .pipe(
+        mergeMap(() => this.appointmentService.getTodayAppointmentsAndPacientsInfo(this.doctor_code))
+      )
+      .subscribe((appointments: PacientAppointment[]) => {
+        this.appointments = appointments.filter(a => this.isDeleted(a.appointment.appointment_status));
+
+      },
+        (error: ErrorEvent) => {
+          this.errorMsg = error.error.message;
+        });
+  }
 
 
-isDeleted (status : string): boolean { 
-    return (status !=  'deleted' && status != 'completed'); 
- } 
-           
 
- 
- async viewResults(donor_code: string, appointmentDate: number, appId: number) {
-  var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
-  var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
-  var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
-  if(id!= null)
-  this.router.navigate(['tests-results-doctor/' + id +"/" + donor_code + "/pre" + "/" + appId]);
+  isDeleted(status: string): boolean {
+    return (status != 'deleted' && status != 'completed');
+  }
 
 
-}
+
+  async viewResults(donor_code: string, appointmentDate: number, appId: number) {
+    var tzoffset = (new Date(appointmentDate)).getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
+    var id = await this.getDonationFormIdPromise(donor_code, localISOTime);
+    if (id != null)
+      this.router.navigate(['tests-results-doctor/' + id + "/" + donor_code + "/pre" + "/" + appId]);
 
 
-public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationForm> {
-  return new Promise<DonationForm>((resolve) => {
-    setTimeout(() => {
-      this.appointmentService.getDonationFormByDonorCodeAndDate(donor_code, appointmentDate).subscribe((r )=> 
-      {
-        if(r!=null) resolve(r.donation_form_id);
-        else  window.alert("Pacientul nu are fișa de donare generată");
-      });
-    }, 100)
-  });
-}
+  }
+
+
+  public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationForm> {
+    return new Promise<DonationForm>((resolve) => {
+      setTimeout(() => {
+        this.appointmentService.getDonationFormByDonorCodeAndDate(donor_code, appointmentDate).subscribe((r) => {
+          if (r != null) resolve(r.donation_form_id);
+          else window.alert("Pacientul nu are fișa de donare generată");
+        });
+      }, 100)
+    });
+  }
 
   actionButton(status: string, id: string) {
     switch (status) {
@@ -111,20 +110,20 @@ public getDonationFormIdPromise(donor_code, appointmentDate): Promise<DonationFo
     }
   }
 
-  changeStatus(event: any, donor_code: string, appointment_date:number, appointment_id: string){
-      
-      this.questionService.addStatus(event.value, donor_code).subscribe();
-     // schimba appointment status in progress
-     this.appointmentService.changeAppointmentStatus(appointment_id, "progress").subscribe() ;
-      if(event.value == "valid"){
-        console.log(event.value)
-       this.generateDonationForm(donor_code, appointment_date);
-      }
+  changeStatus(event: any, donor_code: string, appointment_date: number, appointment_id: string) {
+
+    this.questionService.addStatus(event.value, donor_code).subscribe();
+    // schimba appointment status in progress
+    this.appointmentService.changeAppointmentStatus(appointment_id, "progress").subscribe();
+    if (event.value == "valid") {
+      console.log(event.value)
+      this.generateDonationForm(donor_code, appointment_date);
+    }
   }
 
 
-  generateDonationForm(donor_code:string, appointment_date : number){
-      var donationForm = new DonationForm(donor_code, '0', '0',appointment_date)
-      this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
+  generateDonationForm(donor_code: string, appointment_date: number) {
+    var donationForm = new DonationForm(donor_code, '0', '0', appointment_date)
+    this.appointmentService.generateDonationFormByDonorCode(donationForm).subscribe();
   }
 }

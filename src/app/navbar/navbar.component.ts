@@ -10,7 +10,7 @@ import { JwtClientService } from '../services/jwt-client.service';
 export class NavbarComponent implements OnInit {
   role;
   async ngOnInit() {
-   this.role = await this.auth.getRole();
+    this.role = await this.auth.getRole();
   }
 
   public selected;
@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     this.auth.signOut();
     this.router.navigate(['/login']);
   }
-  redirectToLogin(){
+  redirectToLogin() {
     this.router.navigate(['/login']);
   }
 }

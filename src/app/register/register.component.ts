@@ -31,18 +31,13 @@ export class RegisterComponent implements OnInit {
   invalid3 = false;
   gdpr = false;
 
-
   myDateFilter = (m: Date | null): boolean => {
     const day = m.getDay();
     return day !== 0 && day !== 6;
   }
-  constructor(private fb: FormBuilder, private pacientService: PacientService, private router: Router) {
-
-  }
+  constructor(private fb: FormBuilder, private pacientService: PacientService, private router: Router) {}
 
   ngOnInit(): void {
-
-
     this.fisaDonareControl = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z- ]*$')]],
       surname: ['', [Validators.required, Validators.maxLength(15), Validators.pattern('^[a-zA-Z- ]*$')]],
@@ -104,7 +99,7 @@ export class RegisterComponent implements OnInit {
     Object.keys(this.fisaDonareControl.controls).forEach(key => {
       fisaDonareControlErrors = this.fisaDonareControl.get(key).errors;
       if (fisaDonareControlErrors != null) {
-          this.invalid1 = true;
+        this.invalid1 = true;
       }
     });
     if (fisaDonareControlErrors == null) {
@@ -113,14 +108,14 @@ export class RegisterComponent implements OnInit {
     Object.keys(this.pacientControl.controls).forEach(key => {
       pacientControlErrors = this.pacientControl.get(key).errors;
       if (pacientControlErrors != null) {
-          this.invalid2 = true;
+        this.invalid2 = true;
       }
     });
 
     Object.keys(this.loginForm.controls).forEach(key => {
       loginFormErrors = this.loginForm.get(key).errors;
       if (loginFormErrors != null) {
-          this.invalid3 = true;
+        this.invalid3 = true;
       }
     });
     if (pacientControlErrors == null) {
@@ -132,9 +127,6 @@ export class RegisterComponent implements OnInit {
   async saveUserDetails() {
     await this.getFormValidationErrors();
     if (this.invalid1 != true && this.invalid2 != true && this.invalid3 != true) {
-      console.log(this.invalid1);
-      console.log(this.invalid2);
-      console.log(this.invalid3);
 
       //validate email does not exist in the system
       var account = await this.emailAlredyExists(this.loginForm.controls['email'].value);
@@ -177,17 +169,17 @@ export class RegisterComponent implements OnInit {
       }
       kmsStr = kmsStr + increasedNum.toString();
 
-
     });
     return kmsStr;
   }
-  public onSaveGDPR(value:any){
-    this.gdpr = value.currentTarget.checked;
-    console.log(this.gdpr);
-}
 
-getGdpr(){
-  return this.gdpr;
-}
+
+  public onSaveGDPR(value: any) {
+    this.gdpr = value.currentTarget.checked;
+  }
+
+  getGdpr() {
+    return this.gdpr;
+  }
 
 }

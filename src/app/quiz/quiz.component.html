@@ -1,30 +1,31 @@
 <app-navbar></app-navbar>
-<span  class="all">
-<h1 class="titlu">Chestionar de autoexcludere</h1>
-<div class="quiz" *ngIf="question">
-  <div class="label">{{question.question}}</div>
-  <form [formGroup]="form">
-    <div *ngIf="question.question_type ==='YESNO'" class="message">
-    <mat-radio-group aria-label="form-group" formControlName="choice">
-      <label *ngFor="let choice of question.choices">
-        <mat-radio-button [value]="choice" class="choices">
-          {{choice.value}}
-        </mat-radio-button>
-      </label>
-    </mat-radio-group>
-  </div>
-        <div *ngIf="question.question_type ==='DATE'" class="message">
-          <mat-form-field>
-            <input name="questionDate" matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="choice">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+<span class="all">
+  <h1 class="titlu">Chestionar de autoexcludere</h1>
+  <div class="quiz" *ngIf="question">
+    <div class="label">{{question.question}}</div>
+    <form [formGroup]="form">
+      <div *ngIf="question.question_type ==='YESNO'" class="message">
+        <mat-radio-group aria-label="form-group" formControlName="choice">
+          <label *ngFor="let choice of question.choices">
+            <mat-radio-button [value]="choice" class="choices">
+              {{choice.value}}
+            </mat-radio-button>
+          </label>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="question.question_type ==='DATE'" class="message">
+        <mat-form-field>
+          <input name="questionDate" matInput [matDatepicker]="picker" placeholder="Choose a date"
+            formControlName="choice">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
       </div>
       <div *ngIf="question.question_type === 'TEXTBOX'" class="message">
-          <mat-form-field>
-            <input name="name" matInput placeholder=" " formControlName="choice">
-          </mat-form-field>
+        <mat-form-field>
+          <input name="name" matInput placeholder=" " formControlName="choice">
+        </mat-form-field>
       </div>
-  </form>
-</div>
+    </form>
+  </div>
 </span>
