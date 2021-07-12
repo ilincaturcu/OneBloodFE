@@ -54,3 +54,11 @@ mat-card-title {
     width: 85%;
   }
 }
+
+::ng-deep body{
+  background-color: white;
+ background-repeat: no-repeat;
+ background-size: auto;
+ background-position: bottom bottom;
+
+ }

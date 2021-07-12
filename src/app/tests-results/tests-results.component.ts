@@ -190,7 +190,7 @@ export class TestsResultsComponent implements OnInit {
   appointment_id;
   list = ["HIV", "Syphilis"];
   extraInfo = [];
-  id_analize_pre_donare;
+  id_analize_pre_donare=0;
 
 
 
@@ -293,7 +293,7 @@ export class TestsResultsComponent implements OnInit {
         this.rows = this.rowsDefaultPre;
         await this.addPreTestResults();
         //appointment status pending
-        this.appointmentService.changeAppointmentStatus(this.appointment_id, "pending").subscribe();
+        this.appointmentService.changeAppointmentStatus(this.appointment_id, "progress").subscribe();
       }
       else if (this.type == "post") {
         this.rows = this.rowsDefaultPost;
@@ -310,33 +310,33 @@ export class TestsResultsComponent implements OnInit {
   }
 
 
-  async addTestsResults() {
-    var jsonDataPost = {};
-    var jsonDataPre = {};
+  // async addTestsResults() {
+  //   var jsonDataPost = {};
+  //   var jsonDataPre = {};
 
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
-    this.touchedRows.forEach((column) => {
-      var columnName = column.Parametru;
-      //daca parametrul nu e in lista predefinita pentru postdonare, il punem in predonare
-      if (!this.list.includes(column.Parametru)) {
-        jsonDataPre[columnName] = column.Valoare;
-      }
-      else
-        jsonDataPost[columnName] = column.Valoare;
-    });
+  //   var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+  //   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
+  //   this.touchedRows.forEach((column) => {
+  //     var columnName = column.Parametru;
+  //     //daca parametrul nu e in lista predefinita pentru postdonare, il punem in predonare
+  //     if (!this.list.includes(column.Parametru)) {
+  //       jsonDataPre[columnName] = column.Valoare;
+  //     }
+  //     else
+  //       jsonDataPost[columnName] = column.Valoare;
+  //   });
 
-    jsonDataPost["cod_donator"] = this.donor_code;
-    jsonDataPre["cod_donator"] = this.donor_code;
+  //   jsonDataPost["cod_donator"] = this.donor_code;
+  //   jsonDataPre["cod_donator"] = this.donor_code;
 
-    jsonDataPost["completedAt"] = localISOTime;
-    jsonDataPre["completedAt"] = localISOTime;
-    let id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
-    let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
+  //   jsonDataPost["completedAt"] = localISOTime;
+  //   jsonDataPre["completedAt"] = localISOTime;
+  //   let id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
+  //   let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
 
-    this.addTestsMongoIds(this.donationFormId, id_analize_pre_donare, id_analize_post_donare);
+  //   this.addTestsMongoIds(this.donationFormId, id_analize_pre_donare, id_analize_post_donare);
 
-  }
+  // }
 
 
 
@@ -354,8 +354,8 @@ export class TestsResultsComponent implements OnInit {
     jsonDataPre["completedAt"] = localISOTime;
 
     this.id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
-    //console.log("PRE->>" + this.id_analize_pre_donare);
-    // this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, 0);
+    console.log("PRE->>" + this.id_analize_pre_donare);
+     this.addTestsMongoIdsPre(this.donationFormId, this.id_analize_pre_donare);
   }
 
   async addPostTestResults() {
@@ -372,8 +372,7 @@ export class TestsResultsComponent implements OnInit {
     jsonDataPost["cod_donator"] = this.donor_code;
     jsonDataPost["completedAt"] = localISOTime;
     let id_analize_post_donare = await this.postPostdonareData(jsonDataPost).catch();
-   // console.log("PRE->>" + this.id_analize_pre_donare);
-    this.addTestsMongoIds(this.donationFormId, this.id_analize_pre_donare, id_analize_post_donare);
+   await this.addTestsMongoIdsPost(this.donationFormId, id_analize_post_donare);
 
   }
 
@@ -395,10 +394,13 @@ export class TestsResultsComponent implements OnInit {
     });
   }
 
-  addTestsMongoIds(donationFormId, id_analize_pre_donare, id_analize_post_donare) {
-    this.appointmentService.addAnalizeIDs(donationFormId, id_analize_pre_donare, id_analize_post_donare).subscribe();
+  addTestsMongoIdsPre(donationFormId, id_analize_pre_donare) {
+    this.appointmentService.addAnalizeIDsPre(donationFormId, id_analize_pre_donare).subscribe();
   }
 
+  addTestsMongoIdsPost(donationFormId, id_analize_post_donare) {
+    this.appointmentService.addAnalizeIDsPre(donationFormId, id_analize_post_donare).subscribe();
+  }
 
 
 

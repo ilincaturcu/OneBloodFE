@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { JwtClientService } from '../services/jwt-client.service';
@@ -16,7 +16,8 @@ export class NavbarComponent implements OnInit {
   public selected;
   public S;
   name = '';
-  constructor(public dialog: MatDialog, private auth: JwtClientService, private router: Router) {
+  constructor(public dialog: MatDialog, private auth: JwtClientService, private router: Router, private renderer: Renderer2) {
+    this.renderer.setStyle(document.body, 'background-color', 'white');
   }
 
   logout() {

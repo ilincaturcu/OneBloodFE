@@ -104,8 +104,12 @@ export class AppointmentService {
     return this.http.post(`${baseUrlMongo}api/postdonare`, postdonareData, { responseType: 'text' })
   }
 
-  addAnalizeIDs(donationFormId: number, id_analize_pre_donare: string, id_analize_post_donare: string): Observable<any> {
-    return this.http.put(`${baseUrlSql}api/donationForm/${donationFormId}/${id_analize_pre_donare}/${id_analize_post_donare}`, '', this.httpOptions)
+  addAnalizeIDsPre(donationFormId: number, id_analize_pre_donare: string): Observable<any> {
+    return this.http.put(`${baseUrlSql}api/donationForm/${donationFormId}/pre/${id_analize_pre_donare}`, '', this.httpOptions)
+  }
+
+  addAnalizeIDsPost(donationFormId: number,id_analize_post_donare: string): Observable<any> {
+    return this.http.put(`${baseUrlSql}api/donationForm/${donationFormId}/post/${id_analize_post_donare}`, '', this.httpOptions)
   }
 
   getNumberOfAppointmentsOfADoctor(doctor_code: string): Observable<any> {

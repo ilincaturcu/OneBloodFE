@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtClientService } from '../services/jwt-client.service';
@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
   invalidLogin = false;
   isLoggedIn = false;
   errorMessage = '';
-  constructor(private service: JwtClientService, private fb: FormBuilder, private router: Router) { }
-
+  constructor(private service: JwtClientService, private fb: FormBuilder, private router: Router, private renderer: Renderer2) { 
+    this.renderer.setStyle(document.body, 'background-color', 'white');
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
