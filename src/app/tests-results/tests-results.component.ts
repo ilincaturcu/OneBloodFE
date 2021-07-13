@@ -190,7 +190,6 @@ export class TestsResultsComponent implements OnInit {
   appointment_id;
   list = ["HIV", "Syphilis"];
   extraInfo = [];
-  id_analize_pre_donare=0;
 
 
 
@@ -353,9 +352,8 @@ export class TestsResultsComponent implements OnInit {
     jsonDataPre["cod_donator"] = this.donor_code;
     jsonDataPre["completedAt"] = localISOTime;
 
-    this.id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
-    console.log("PRE->>" + this.id_analize_pre_donare);
-     this.addTestsMongoIdsPre(this.donationFormId, this.id_analize_pre_donare);
+    let id_analize_pre_donare = await this.postPredonareData(jsonDataPre).catch();
+     this.addTestsMongoIdsPre(this.donationFormId, id_analize_pre_donare);
   }
 
   async addPostTestResults() {
@@ -399,7 +397,7 @@ export class TestsResultsComponent implements OnInit {
   }
 
   addTestsMongoIdsPost(donationFormId, id_analize_post_donare) {
-    this.appointmentService.addAnalizeIDsPre(donationFormId, id_analize_post_donare).subscribe();
+    this.appointmentService.addAnalizeIDsPost(donationFormId, id_analize_post_donare).subscribe();
   }
 
 

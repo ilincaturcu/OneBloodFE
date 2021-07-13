@@ -58,7 +58,7 @@ export class AppointmentService {
   }
 
   getAllTests(donationFormId: string): Observable<any> {
-    return this.http.get(`${baseUrlSql}api/donationForm/tests/${donationFormId}`, this.httpOptions);
+    return this.http.get(`${baseUrlSql}api/donationForm/tests/allResults/${donationFormId}`, this.httpOptions);
   }
 
   getAllPreDonationTests(donationFormId: string): Observable<any> {
